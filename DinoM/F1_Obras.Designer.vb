@@ -157,12 +157,6 @@ Partial Class F1_Obras
         'btnSalir
         '
         '
-        'btnEliminar
-        '
-        '
-        'btnModificar
-        '
-        '
         'PanelToolBar2
         '
         Me.PanelToolBar2.Location = New System.Drawing.Point(1242, 0)
@@ -640,7 +634,7 @@ Partial Class F1_Obras
         Me.ButtonX4.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.ButtonX4.Image = Global.DinoM.My.Resources.Resources.iconacercar
         Me.ButtonX4.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.ButtonX4.Location = New System.Drawing.Point(45, 247)
+        Me.ButtonX4.Location = New System.Drawing.Point(47, 215)
         Me.ButtonX4.Name = "ButtonX4"
         Me.ButtonX4.Size = New System.Drawing.Size(30, 30)
         Me.ButtonX4.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -653,7 +647,7 @@ Partial Class F1_Obras
         Me.MHighlighterFocus.SetHighlightOnFocus(Me.ButtonX3, True)
         Me.ButtonX3.Image = Global.DinoM.My.Resources.Resources.iconalejar
         Me.ButtonX3.ImageFixedSize = New System.Drawing.Size(25, 25)
-        Me.ButtonX3.Location = New System.Drawing.Point(7, 247)
+        Me.ButtonX3.Location = New System.Drawing.Point(7, 215)
         Me.ButtonX3.Name = "ButtonX3"
         Me.ButtonX3.Size = New System.Drawing.Size(30, 30)
         Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled

@@ -990,7 +990,59 @@ Public Class AccesoLogica
 
         Return _resultado
     End Function
+    Public Shared Function L_fnModificarObras(ByRef _oanumi As String, _oanomb As String, _oatipo As String, _oadir As String, _oacontacto As String,
+                                           _oatelf As String, _oaobs As String, _oalat As Double, _oalongi As Double, _oaest As String) As Boolean
+        Dim _resultado As Boolean
 
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@oanumi", _oanumi))
+        _listParam.Add(New Datos.DParametro("@oanomb", _oanomb))
+        _listParam.Add(New Datos.DParametro("@oatipo", _oatipo))
+        _listParam.Add(New Datos.DParametro("@oadir", _oadir))
+        _listParam.Add(New Datos.DParametro("@oacontacto", _oacontacto))
+        _listParam.Add(New Datos.DParametro("@oatelf", _oatelf))
+        _listParam.Add(New Datos.DParametro("@oaobs", _oaobs))
+        _listParam.Add(New Datos.DParametro("@oalat", _oalat))
+        _listParam.Add(New Datos.DParametro("@oalongi", _oalongi))
+        _listParam.Add(New Datos.DParametro("@oaest", _oaest))
+        _listParam.Add(New Datos.DParametro("@oauact", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TO001", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _oanumi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+    Public Shared Function L_fnEliminarObras(numi As String, ByRef mensaje As String) As Boolean
+        Dim _resultado As Boolean
+        If L_fnbValidarEliminacion(numi, "TO001", "oanumi", mensaje) = True Then
+            Dim _Tabla As DataTable
+            Dim _listParam As New List(Of Datos.DParametro)
+
+            _listParam.Add(New Datos.DParametro("@tipo", -1))
+            _listParam.Add(New Datos.DParametro("@oanumi", numi))
+            _listParam.Add(New Datos.DParametro("@oauact", L_Usuario))
+
+            _Tabla = D_ProcedimientoConParam("sp_Mam_TO001", _listParam)
+
+            If _Tabla.Rows.Count > 0 Then
+                _resultado = True
+            Else
+                _resultado = False
+            End If
+        Else
+            _resultado = False
+        End If
+        Return _resultado
+    End Function
     Public Shared Function L_fnGeneralObras() As DataTable
         Dim _Tabla As DataTable
 

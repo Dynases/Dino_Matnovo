@@ -46,6 +46,7 @@ Public Class F1_Clientes
         _prCargarComboLibreriaFecuenciaVisita(cbVisita)
         _prCargarComboLibreriaCategoriaPrecios(cbCatPrec)
         _prCargarComboLibreria(cbTipoDoc, 2, 1)
+        _prCargarComboLibreria(cbTipoCliente, 8, 1)
         _prAsignarPermisos()
         _PMIniciarTodo()
         SuperTabItem1.Visible = False
@@ -415,6 +416,12 @@ Public Class F1_Clientes
                 cbVisita.SelectedIndex = 0
             End If
         End If
+        If (cbTipoCliente.SelectedIndex < 0) Then
+            If (CType(cbTipoCliente.DataSource, DataTable).Rows.Count > 0) Then
+                cbTipoCliente.SelectedIndex = 0
+            End If
+        End If
+
         NumiVendedor = 0
         tbVendedor.Clear()
 
@@ -973,7 +980,5 @@ Public Class F1_Clientes
 
     End Sub
 
-    Private Sub tbRazonSocial_TextChanged(sender As Object, e As EventArgs) Handles tbRazonSocial.TextChanged
-        tbNombre.Text = tbRazonSocial.Text
-    End Sub
+
 End Class
