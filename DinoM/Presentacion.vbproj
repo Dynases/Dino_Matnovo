@@ -66,7 +66,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AxInterop.AcroPDFLib">
-      <HintPath>C:\librerias\PDF\AxInterop.AcroPDFLib.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Librerias\librerias\PDF\AxInterop.AcroPDFLib.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
@@ -119,41 +119,45 @@
     </Reference>
     <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="Gma.QrCodeNet.Encoding">
-      <HintPath>C:\librerias\QrCode\Gma.QrCodeNet.Encoding.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Librerias\QrCode\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
     <Reference Include="GMap.NET.Core">
-      <HintPath>C:\librerias\Gmap\GMap.NET.Core.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Librerias\Gmap\GMap.NET.Core.dll</HintPath>
     </Reference>
     <Reference Include="GMap.NET.WindowsForms">
-      <HintPath>C:\librerias\Gmap\GMap.NET.WindowsForms.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Librerias\Gmap\GMap.NET.WindowsForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.AcroPDFLib">
+      <HintPath>..\..\..\..\DINASES\Librerias\librerias\PDF\Interop.AcroPDFLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Interop.AcroPDFLib.1.0">
-      <HintPath>C:\librerias\Interop.AcroPDFLib.1.0.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Librerias\librerias\Interop.AcroPDFLib.1.0.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="itextsharp">
-      <HintPath>C:\librerias\itextsharp.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Librerias\Gmap\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Data.v3">
-      <HintPath>C:\librerias\Janus\Janus.Data.v3.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Librerias\Janus\Janus.Data.v3.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Windows.CalendarCombo.v3">
-      <HintPath>C:\librerias\Janus\Janus.Windows.CalendarCombo.v3.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Librerias\Janus\Janus.Windows.CalendarCombo.v3.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Windows.Common.v3">
-      <HintPath>C:\librerias\Janus\Janus.Windows.Common.v3.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Librerias\Janus\Janus.Windows.Common.v3.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Windows.GridEX.v3">
-      <HintPath>C:\librerias\Janus\Janus.Windows.GridEX.v3.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Librerias\Janus\Janus.Windows.GridEX.v3.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Windows.Ribbon.v3">
-      <HintPath>C:\librerias\Janus\Janus.Windows.Ribbon.v3.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Librerias\Janus\Janus.Windows.Ribbon.v3.dll</HintPath>
     </Reference>
     <Reference Include="Janus.Windows.UI.v3">
-      <HintPath>C:\librerias\Janus\Janus.Windows.UI.v3.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Librerias\Janus\Janus.Windows.UI.v3.dll</HintPath>
     </Reference>
     <Reference Include="OnBarcode.Barcode.WinForms">
-      <HintPath>C:\librerias\QrCode\OnBarcode.Barcode.WinForms.dll</HintPath>
+      <HintPath>..\..\..\..\DINASES\Librerias\QrCode\OnBarcode.Barcode.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -337,6 +341,12 @@
       <DependentUpon>F1_MapaCLientes.vb</DependentUpon>
     </Compile>
     <Compile Include="F1_MapaCLientes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F1_Servicio.Designer.vb">
+      <DependentUpon>F1_Servicio.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F1_Servicio.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="F1_Vendedor.Designer.vb">
@@ -833,6 +843,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F1_MapaCLientes.resx">
       <DependentUpon>F1_MapaCLientes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F1_Servicio.resx">
+      <DependentUpon>F1_Servicio.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F1_Vendedor.resx">
       <DependentUpon>F1_Vendedor.vb</DependentUpon>
@@ -1366,6 +1379,7 @@
     <None Include="Resources\trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Services.png" />
     <None Include="Resources\pie-chart1.png" />
     <None Include="Resources\pie-chart.png" />
     <None Include="Resources\mensaje.png" />

@@ -5150,5 +5150,86 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 #End Region
+#Region "SERVICIOS TY008"
+#Region "Transacciones"
+    Public Shared Function L_fnGrabarServicio(ByRef _yiId As String, _yiDesc As String, _yiEst As String) As Boolean
 
+        Dim _resultado As Boolean
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@yiId", _yiId))
+        _listParam.Add(New Datos.DParametro("@yiDesc", _yiDesc))
+        _listParam.Add(New Datos.DParametro("@yiEst", _yiEst))
+        _listParam.Add(New Datos.DParametro("@yiUsuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TY008", _listParam)
+        If _Tabla.Rows.Count > 0 Then
+            _yiId = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+    'Modificar 
+    Public Shared Function L_fnModificarServicio(ByRef _yiId As String, _yiDesc As String, _yiEst As String) As Boolean
+
+        Dim _resultado As Boolean
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@yiId", _yiId))
+        _listParam.Add(New Datos.DParametro("@yiDesc", _yiDesc))
+
+        _listParam.Add(New Datos.DParametro("@yiEst", _yiEst))
+        _listParam.Add(New Datos.DParametro("@yiUsuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TY008", _listParam)
+        If _Tabla.Rows.Count > 0 Then
+            _yiId = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+        Return _resultado
+    End Function
+    'Eliminar 
+    Public Shared Function L_fnEliminarServicio(ByRef _yiId As String, ByRef mensaje As String) As Boolean
+        Dim _resultado As Boolean
+        If L_fnbValidarEliminacion(_yiId, "CON.SER002", "yiId", mensaje) = True Then
+            Dim _Tabla As DataTable
+            Dim _listParam As New List(Of Datos.DParametro)
+
+            _listParam.Add(New Datos.DParametro("@tipo", 3))
+            _listParam.Add(New Datos.DParametro("@yiId", _yiId))
+            _listParam.Add(New Datos.DParametro("@yiUsuario", L_Usuario))
+            _Tabla = D_ProcedimientoConParam("sp_Mam_TY008", _listParam)
+            If _Tabla.Rows.Count > 0 Then
+                _yiId = _Tabla.Rows(0).Item(0)
+                _resultado = True
+            Else
+                _resultado = False
+            End If
+        Else
+            _resultado = False
+        End If
+        Return _resultado
+    End Function
+#End Region
+#Region "Consultas"
+    'Mostrar 
+    Public Shared Function L_fnMostrarServicio() As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@yiUsuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TY008", _listParam)
+        Return _Tabla
+    End Function
+#End Region
+#Region "Verificaciones"
+#End Region
+#End Region
 End Class
