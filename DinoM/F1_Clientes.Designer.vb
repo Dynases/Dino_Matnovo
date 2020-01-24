@@ -23,11 +23,11 @@ Partial Class F1_Clientes
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(F1_Clientes))
+        Dim cbTipoCliente_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbVisita_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbCatPrec_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbZona_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbTipoDoc_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
-        Dim cbTipoCliente_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.tbCodigoOriginal = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
@@ -41,6 +41,9 @@ Partial Class F1_Clientes
         Me.LabelX6 = New DevComponents.DotNetBar.LabelX()
         Me.tbObs = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.LabelX22 = New DevComponents.DotNetBar.LabelX()
+        Me.btTipoCliente = New DevComponents.DotNetBar.ButtonX()
+        Me.cbTipoCliente = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX19 = New DevComponents.DotNetBar.LabelX()
         Me.tbRazonSocial = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.btnSearch = New DevComponents.DotNetBar.ButtonX()
@@ -95,9 +98,6 @@ Partial Class F1_Clientes
         Me.btTipoDoc = New DevComponents.DotNetBar.ButtonX()
         Me.cbZona = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.cbTipoDoc = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
-        Me.LabelX22 = New DevComponents.DotNetBar.LabelX()
-        Me.btTipoCliente = New DevComponents.DotNetBar.ButtonX()
-        Me.cbTipoCliente = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         CType(Me.SuperTabPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabPrincipal.SuspendLayout()
         Me.SuperTabControlPanelRegistro.SuspendLayout()
@@ -115,6 +115,7 @@ Partial Class F1_Clientes
         Me.MPanelUserAct.SuspendLayout()
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        CType(Me.cbTipoCliente, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.GroupPanel1.SuspendLayout()
         Me.GroupPanel3.SuspendLayout()
@@ -131,7 +132,6 @@ Partial Class F1_Clientes
         CType(Me.cbCatPrec, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbZona, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbTipoDoc, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cbTipoCliente, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SuperTabPrincipal
@@ -230,6 +230,9 @@ Partial Class F1_Clientes
         Me.btnGrabar.TabIndex = 0
         '
         'btnEliminar
+        '
+        '
+        'btnNuevo
         '
         '
         'PanelToolBar2
@@ -547,6 +550,52 @@ Partial Class F1_Clientes
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(428, 311)
         Me.Panel1.TabIndex = 234
+        '
+        'LabelX22
+        '
+        Me.LabelX22.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX22.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX22.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX22.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX22.Location = New System.Drawing.Point(13, 63)
+        Me.LabelX22.Name = "LabelX22"
+        Me.LabelX22.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX22.Size = New System.Drawing.Size(116, 23)
+        Me.LabelX22.TabIndex = 240
+        Me.LabelX22.Text = "Tipo Cliente:"
+        '
+        'btTipoCliente
+        '
+        Me.btTipoCliente.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btTipoCliente.BackColor = System.Drawing.Color.Transparent
+        Me.btTipoCliente.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btTipoCliente.Image = Global.DinoM.My.Resources.Resources.add
+        Me.btTipoCliente.ImageFixedSize = New System.Drawing.Size(25, 23)
+        Me.btTipoCliente.Location = New System.Drawing.Point(304, 63)
+        Me.btTipoCliente.Name = "btTipoCliente"
+        Me.btTipoCliente.Size = New System.Drawing.Size(28, 23)
+        Me.btTipoCliente.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btTipoCliente.TabIndex = 241
+        Me.btTipoCliente.Visible = False
+        '
+        'cbTipoCliente
+        '
+        cbTipoCliente_DesignTimeLayout.LayoutString = resources.GetString("cbTipoCliente_DesignTimeLayout.LayoutString")
+        Me.cbTipoCliente.DesignTimeLayout = cbTipoCliente_DesignTimeLayout
+        Me.cbTipoCliente.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbTipoCliente.Location = New System.Drawing.Point(154, 64)
+        Me.cbTipoCliente.Name = "cbTipoCliente"
+        Me.cbTipoCliente.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbTipoCliente.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.cbTipoCliente.SelectedIndex = -1
+        Me.cbTipoCliente.SelectedItem = Nothing
+        Me.cbTipoCliente.Size = New System.Drawing.Size(144, 22)
+        Me.cbTipoCliente.TabIndex = 239
+        Me.cbTipoCliente.TabStop = False
+        Me.cbTipoCliente.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'LabelX19
         '
@@ -1462,52 +1511,6 @@ Partial Class F1_Clientes
         Me.cbTipoDoc.TabStop = False
         Me.cbTipoDoc.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
-        'LabelX22
-        '
-        Me.LabelX22.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX22.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX22.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX22.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX22.Location = New System.Drawing.Point(13, 63)
-        Me.LabelX22.Name = "LabelX22"
-        Me.LabelX22.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX22.Size = New System.Drawing.Size(116, 23)
-        Me.LabelX22.TabIndex = 240
-        Me.LabelX22.Text = "Tipo Cliente:"
-        '
-        'btTipoCliente
-        '
-        Me.btTipoCliente.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btTipoCliente.BackColor = System.Drawing.Color.Transparent
-        Me.btTipoCliente.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btTipoCliente.Image = Global.DinoM.My.Resources.Resources.add
-        Me.btTipoCliente.ImageFixedSize = New System.Drawing.Size(25, 23)
-        Me.btTipoCliente.Location = New System.Drawing.Point(304, 63)
-        Me.btTipoCliente.Name = "btTipoCliente"
-        Me.btTipoCliente.Size = New System.Drawing.Size(28, 23)
-        Me.btTipoCliente.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btTipoCliente.TabIndex = 241
-        Me.btTipoCliente.Visible = False
-        '
-        'cbTipoCliente
-        '
-        cbTipoCliente_DesignTimeLayout.LayoutString = resources.GetString("cbTipoCliente_DesignTimeLayout.LayoutString")
-        Me.cbTipoCliente.DesignTimeLayout = cbTipoCliente_DesignTimeLayout
-        Me.cbTipoCliente.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbTipoCliente.Location = New System.Drawing.Point(154, 64)
-        Me.cbTipoCliente.Name = "cbTipoCliente"
-        Me.cbTipoCliente.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.cbTipoCliente.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.cbTipoCliente.SelectedIndex = -1
-        Me.cbTipoCliente.SelectedItem = Nothing
-        Me.cbTipoCliente.Size = New System.Drawing.Size(144, 22)
-        Me.cbTipoCliente.TabIndex = 239
-        Me.cbTipoCliente.TabStop = False
-        Me.cbTipoCliente.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
         'F1_Clientes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1537,6 +1540,7 @@ Partial Class F1_Clientes
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        CType(Me.cbTipoCliente, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.GroupPanel1.ResumeLayout(False)
         Me.GroupPanel3.ResumeLayout(False)
@@ -1555,7 +1559,6 @@ Partial Class F1_Clientes
         CType(Me.cbCatPrec, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbZona, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbTipoDoc, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cbTipoCliente, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

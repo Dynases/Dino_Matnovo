@@ -679,7 +679,7 @@ Public Class AccesoLogica
                                              _ydnumiVendedor As Integer, _ydzona As Integer, _yddct As Integer,
                                              _yddctnum As String, _yddirec As String, _ydtelf1 As String,
                                              _ydtelf2 As String, _ydcat As Integer, _ydest As Integer,
-                                             _ydlat As Double, _ydlongi As Double, _ydobs As String,
+                                             _ydlat As Double, _ydlongi As Double, _ydtipocli As Integer, _ydobs As String,
                                              _ydfnac As String, _ydnomfac As String, _ydtip As Integer,
                                              _ydnit As String, _yddias As String, _ydlcred As String,
                                              _ydfecing As String, _ydultvent As String, _ydimg As String, _ydrut As String) As Boolean
@@ -706,7 +706,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@ydest", _ydest))
         _listParam.Add(New Datos.DParametro("@ydlat", _ydlat))
         _listParam.Add(New Datos.DParametro("@ydlongi", _ydlongi))
-        _listParam.Add(New Datos.DParametro("@ydprconsu", 0))
+        _listParam.Add(New Datos.DParametro("@ydprconsu", _ydtipocli)) 'tipo de cliente
         _listParam.Add(New Datos.DParametro("@ydobs", _ydobs))
         _listParam.Add(New Datos.DParametro("@ydfnac", _ydfnac))
         _listParam.Add(New Datos.DParametro("@ydnomfac", _ydnomfac))
@@ -778,10 +778,9 @@ Public Class AccesoLogica
     End Function
     Public Shared Function L_fnModificarClientesConDetalleZonas(ByRef _ydnumi As String, _ydcod As String,
                                             _yddesc As String, _ydnumiVendedor As Integer, _ydzona As Integer,
-                                            _yddct As Integer, _yddctnum As String,
-                                            _yddirec As String, _ydtelf1 As String,
-                                            _ydtelf2 As String, _ydcat As Integer, _ydest As Integer, _ydlat As Double, _ydlongi As Double, _ydobs As String,
-                                            _ydfnac As String, _ydnomfac As String,
+                                            _yddct As Integer, _yddctnum As String, _yddirec As String, _ydtelf1 As String,
+                                            _ydtelf2 As String, _ydcat As Integer, _ydest As Integer, _ydlat As Double, _ydlongi As Double,
+                                            _ydobs As String, _ydfnac As String, _ydnomfac As String,
                                             _ydtip As Integer, _ydnit As String, _ydfecing As String, _ydultvent As String, _ydimg As String,
                                             _detalle As DataTable) As Boolean
         Dim _resultado As Boolean
@@ -828,9 +827,9 @@ Public Class AccesoLogica
     End Function
     Public Shared Function L_fnModificarClientes(ByRef _ydnumi As String, _ydcod As String,
                                             _ydrazonSocial As String, _yddesc As String, _ydnumiVendedor As Integer, _ydzona As Integer,
-                                             _yddct As Integer, _yddctnum As String,
-                                             _yddirec As String, _ydtelf1 As String,
-                                             _ydtelf2 As String, _ydcat As Integer, _ydest As Integer, _ydlat As Double, _ydlongi As Double, _ydobs As String,
+                                             _yddct As Integer, _yddctnum As String, _yddirec As String, _ydtelf1 As String,
+                                             _ydtelf2 As String, _ydcat As Integer, _ydest As Integer, _ydlat As Double, _ydlongi As Double,
+                                             _ydtipocli As Integer, _ydobs As String,
                                              _ydfnac As String, _ydnomfac As String,
                                              _ydtip As Integer, _ydnit As String, _yddias As String, _ydlcred As String, _ydfecing As String, _ydultvent As String, _ydimg As String, _ydrut As String) As Boolean
         Dim _resultado As Boolean
@@ -854,7 +853,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@ydest", _ydest))
         _listParam.Add(New Datos.DParametro("@ydlat", _ydlat))
         _listParam.Add(New Datos.DParametro("@ydlongi", _ydlongi))
-        _listParam.Add(New Datos.DParametro("@ydprconsu", 0))
+        _listParam.Add(New Datos.DParametro("@ydprconsu", _ydtipocli)) 'tipo de cliente
         _listParam.Add(New Datos.DParametro("@ydobs", _ydobs))
         _listParam.Add(New Datos.DParametro("@ydfnac", _ydfnac))
         _listParam.Add(New Datos.DParametro("@ydnomfac", _ydnomfac))
