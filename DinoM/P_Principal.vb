@@ -301,7 +301,7 @@ Public Class P_Principal
 
     End Sub
 
-    Private Sub btConfFabrica_Click(sender As Object, e As EventArgs) Handles btConfCliente.Click
+    Public Sub btConfFabrica_Click(sender As Object, e As EventArgs) Handles btConfCliente.Click
         SideNav1.IsMenuExpanded = False
         Ventana.Select()
         Dim frm As New F1_Clientes
@@ -977,7 +977,7 @@ Public Class P_Principal
         tab3.Icon = frm.Icon
     End Sub
 
-    Private Sub btObras_Click(sender As Object, e As EventArgs) Handles btObras.Click
+    Public Sub btObras_Click(sender As Object, e As EventArgs) Handles btObras.Click
         SideNav1.IsMenuExpanded = False
         Ventana.Select()
         Dim frm As New F1_Obras

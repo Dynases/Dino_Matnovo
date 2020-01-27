@@ -229,12 +229,6 @@ Partial Class F1_Clientes
         '
         Me.btnGrabar.TabIndex = 0
         '
-        'btnEliminar
-        '
-        '
-        'btnNuevo
-        '
-        '
         'PanelToolBar2
         '
         Me.PanelToolBar2.Location = New System.Drawing.Point(1242, 0)
@@ -405,7 +399,7 @@ Partial Class F1_Clientes
         Me.tbNombre.Name = "tbNombre"
         Me.tbNombre.PreventEnterBeep = True
         Me.tbNombre.Size = New System.Drawing.Size(242, 22)
-        Me.tbNombre.TabIndex = 3
+        Me.tbNombre.TabIndex = 2
         '
         'LabelX3
         '
@@ -454,7 +448,7 @@ Partial Class F1_Clientes
         Me.tbDireccion.Name = "tbDireccion"
         Me.tbDireccion.PreventEnterBeep = True
         Me.tbDireccion.Size = New System.Drawing.Size(248, 24)
-        Me.tbDireccion.TabIndex = 5
+        Me.tbDireccion.TabIndex = 6
         '
         'LabelX4
         '
@@ -627,7 +621,7 @@ Partial Class F1_Clientes
         Me.tbRazonSocial.Name = "tbRazonSocial"
         Me.tbRazonSocial.PreventEnterBeep = True
         Me.tbRazonSocial.Size = New System.Drawing.Size(242, 22)
-        Me.tbRazonSocial.TabIndex = 2
+        Me.tbRazonSocial.TabIndex = 3
         '
         'btnSearch
         '
@@ -706,7 +700,7 @@ Partial Class F1_Clientes
         Me.tbTelf1.Name = "tbTelf1"
         Me.tbTelf1.PreventEnterBeep = True
         Me.tbTelf1.Size = New System.Drawing.Size(215, 22)
-        Me.tbTelf1.TabIndex = 6
+        Me.tbTelf1.TabIndex = 5
         '
         'TableLayoutPanel1
         '

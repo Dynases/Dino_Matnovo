@@ -21,6 +21,7 @@ Imports Facturacion
 Public Class F0_Proforma
 #Region "Variables Globales"
     Dim _CodCliente As Integer = 0
+    Dim _CodObra As Integer = 0
     Dim _CodEmpleado As Integer = 0
     Public _nameButton As String
     Public _tab As SuperTabItem
@@ -225,15 +226,12 @@ Public Class F0_Proforma
         grdetalle.DataSource = dt
         grdetalle.RetrieveStructure()
         grdetalle.AlternatingColors = True
-        '    a.pbnumi ,a.pbtp1numi ,a.pbty5prod ,b.yfcdprod1 as producto,a.pbest ,a.pbcmin ,a.pbumin ,Umin .ycdes3 as unidad,
-        'a.pbpbas ,a.pbptot,a.pbporc,a.pbdesc ,a.pbtotdesc, a.pbfact ,a.pbhact ,a.pbuact, estado, img,
-        ' stock
+
 
         With grdetalle.RootTable.Columns("pbnumi")
             .Width = 100
             .Caption = "CODIGO"
             .Visible = False
-
         End With
 
         With grdetalle.RootTable.Columns("pbtp1numi")
@@ -241,16 +239,15 @@ Public Class F0_Proforma
             .Visible = False
         End With
         With grdetalle.RootTable.Columns("pbty5prod")
+            .Caption = "COD."
             .Width = 90
-            .Visible = False
+            .Visible = True
         End With
 
         With grdetalle.RootTable.Columns("producto")
             .Caption = "PRODUCTOS"
             .Width = 250
             .Visible = True
-
-
         End With
 
         With grdetalle.RootTable.Columns("pbest")
@@ -278,7 +275,6 @@ Public Class F0_Proforma
             .Caption = "Unidad".ToUpper
         End With
 
-
         With grdetalle.RootTable.Columns("pbpbas")
             .Width = 120
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -296,14 +292,14 @@ Public Class F0_Proforma
         With grdetalle.RootTable.Columns("pbporc")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "P.Desc(%)".ToUpper
         End With
         With grdetalle.RootTable.Columns("pbdesc")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "M.Desc".ToUpper
         End With
@@ -369,9 +365,7 @@ Public Class F0_Proforma
             .Width = 100
             .Caption = "CODIGO"
             .Visible = True
-
         End With
-
         With grVentas.RootTable.Columns("paalm")
             .Width = 90
             .Visible = False
@@ -511,10 +505,6 @@ Public Class F0_Proforma
         grProductos.RetrieveStructure()
         grProductos.AlternatingColors = True
 
-        '      a.yfnumi ,a.yfcprod ,a.yfcdprod1,a.yfcdprod2 ,a.yfgr1,gr1.ycdes3 as grupo1,a.yfgr2
-        ',gr2.ycdes3 as grupo2 ,a.yfgr3,gr3.ycdes3 as grupo3,a.yfgr4 ,gr4 .ycdes3 as grupo4,a.yfumin ,Umin .ycdes3 as UnidMin
-        ' ,b.yhprecio 
-
         With grProductos.RootTable.Columns("yfnumi")
             .Width = 100
             .Caption = "CODIGO"
@@ -529,16 +519,15 @@ Public Class F0_Proforma
         End With
 
         With grProductos.RootTable.Columns("yfcdprod1")
-            .Width = 200
+            .Width = 270
             .Visible = True
             .Caption = "Descripcion"
         End With
         With grProductos.RootTable.Columns("yfcdprod2")
             .Width = 150
-            .Visible = True
+            .Visible = False
             .Caption = "Descripcion Corta"
         End With
-
 
         With grProductos.RootTable.Columns("yfgr1")
             .Width = 160
@@ -550,51 +539,51 @@ Public Class F0_Proforma
                 .Width = 120
                 .Caption = dtname.Rows(0).Item("Grupo 1").ToString
                 .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-                .Visible = True
+                .Visible = False
             End With
             With grProductos.RootTable.Columns("grupo2")
                 .Width = 120
                 .Caption = dtname.Rows(0).Item("Grupo 2").ToString
                 .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-                .Visible = True
+                .Visible = False
             End With
 
             With grProductos.RootTable.Columns("grupo3")
                 .Width = 120
                 .Caption = dtname.Rows(0).Item("Grupo 3").ToString
                 .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-                .Visible = True
+                .Visible = False
             End With
             With grProductos.RootTable.Columns("grupo4")
                 .Width = 120
                 .Caption = dtname.Rows(0).Item("Grupo 4").ToString
                 .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-                .Visible = True
+                .Visible = False
             End With
         Else
             With grProductos.RootTable.Columns("grupo1")
                 .Width = 120
                 .Caption = "Grupo 1"
                 .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-                .Visible = True
+                .Visible = False
             End With
             With grProductos.RootTable.Columns("grupo2")
                 .Width = 120
                 .Caption = "Grupo 2"
                 .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-                .Visible = True
+                .Visible = False
             End With
             With grProductos.RootTable.Columns("grupo3")
                 .Width = 120
                 .Caption = "Grupo 3"
                 .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-                .Visible = True
+                .Visible = False
             End With
             With grProductos.RootTable.Columns("grupo4")
                 .Width = 120
                 .Caption = "Grupo 4"
                 .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-                .Visible = True
+                .Visible = False
             End With
         End If
 
@@ -691,6 +680,7 @@ Public Class F0_Proforma
         Return tbFechaVenta.IsInputReadOnly = False
     End Function
     Private Sub _HabilitarProductos()
+        GPanelProductos.Height = 550
         GPanelProductos.Visible = True
         PanelTotal.Visible = False
         PanelInferior.Visible = False
@@ -1002,11 +992,13 @@ Public Class F0_Proforma
                         tbVendedor.Text = Row.Cells("vendedor").Value
                         _CodEmpleado = Row.Cells("ydnumivend").Value
 
-                        grdetalle.Select()
+                        'grdetalle.Select()
+                        tbObra.Focus()
                     Else
                         tbVendedor.Clear()
                         _CodEmpleado = 0
-                        tbVendedor.Focus()
+                        tbObra.Focus()
+                        'tbVendedor.Focus()
 
                     End If
                 End If
@@ -1650,6 +1642,62 @@ salirIf:
     Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
         If (Not _fnAccesible()) Then
             P_GenerarReporte()
+
+        End If
+    End Sub
+
+    Private Sub btCliente_Click(sender As Object, e As EventArgs) Handles btCliente.Click
+        P_Principal.btConfFabrica_Click(sender, e)
+    End Sub
+
+    Private Sub btObra_Click(sender As Object, e As EventArgs) Handles btObra.Click
+        P_Principal.btObras_Click(sender, e)
+    End Sub
+
+
+
+    Private Sub tbObra_KeyDown(sender As Object, e As KeyEventArgs) Handles tbObra.KeyDown
+
+        If (_fnAccesible()) Then
+            If e.KeyData = Keys.Control + Keys.Enter Then
+                Dim dtObra As DataTable
+                dtObra = L_fnListarObras()
+
+                Dim listEstCeldas As New List(Of Modelo.Celda)
+                listEstCeldas.Add(New Modelo.Celda("oanumi,", True, "Id", 70))
+                listEstCeldas.Add(New Modelo.Celda("oanomb", True, "Obra", 250))
+                listEstCeldas.Add(New Modelo.Celda("oatipo", False, "Tipo", 180))
+                listEstCeldas.Add(New Modelo.Celda("oadir", False, "Dirección", 280))
+                listEstCeldas.Add(New Modelo.Celda("oacontacto", True, "Contacto", 150))
+                listEstCeldas.Add(New Modelo.Celda("oatelf", False, "Teléfono", 220))
+                listEstCeldas.Add(New Modelo.Celda("oaobs", False, "Obs", 220))
+                listEstCeldas.Add(New Modelo.Celda("oalat", False, "Latitud", 200))
+                listEstCeldas.Add(New Modelo.Celda("oalongi", False, "Longitud", 150, "MM/dd,YYYY"))
+                listEstCeldas.Add(New Modelo.Celda("oaest,", False, "Estado", 50))
+
+                Dim ef = New Efecto
+                ef.tipo = 3
+                ef.dt = dtObra
+                ef.SeleclCol = 2
+                ef.listEstCeldas = listEstCeldas
+                ef.alto = 120
+                ef.ancho = 280
+                ef.Context = "Seleccione Obra".ToUpper
+                ef.ShowDialog()
+                Dim bandera As Boolean = False
+                bandera = ef.band
+                If (bandera = True) Then
+                    Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+
+                    _CodObra = Row.Cells("oanumi").Value
+                    tbObra.Text = Row.Cells("oanomb").Value
+
+                    grdetalle.Select()
+                    grdetalle.Col = 3
+                    grdetalle.Row = 0
+                End If
+
+            End If
 
         End If
     End Sub

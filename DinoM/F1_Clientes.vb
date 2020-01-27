@@ -2,10 +2,8 @@
 Imports Logica.AccesoLogica
 Imports DevComponents.DotNetBar
 Imports Janus.Windows.GridEX
-
 Imports System.IO
 Imports DevComponents.DotNetBar.SuperGrid
-
 Imports GMap.NET.MapProviders
 Imports GMap.NET
 Imports GMap.NET.WindowsForms.Markers
@@ -334,7 +332,8 @@ Public Class F1_Clientes
         _prCrearCarpetaTemporal()
         BtAdicionar.Visible = True
         tbCodCliente.ReadOnly = False
-        tbRazonSocial.Focus()
+        'tbRazonSocial.Focus()
+        tbNombre.Focus()
         ''  SuperTabItem1.Visible =True 
     End Sub
 
@@ -715,8 +714,6 @@ Public Class F1_Clientes
             _Overlay.Markers.Clear()
             P_AgregarPunto(plg, _nombre, _ci)
         Else
-
-
             _Overlay.Markers.Clear()
             Gmc_Cliente.Position = New PointLatLng(-17.3931784, -66.1738852)
         End If
@@ -761,22 +758,18 @@ Public Class F1_Clientes
         '    .SetHighlightOnFocus(cbUnidMaxima, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
         '    .SetHighlightOnFocus(tbConversion, DevComponents.DotNetBar.Validator.eHighlightColor.Blue)
 
-
         'End With
     End Sub
 
 #End Region
 
 
-
     Private Sub F1_Clientes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         _prIniciarTodo()
-
     End Sub
 
     Private Sub Gmc_Cliente_DoubleClick(sender As Object, e As EventArgs) Handles Gmc_Cliente.DoubleClick
         If (btnGrabar.Enabled = True) Then
-
 
             _Overlay.Markers.Clear()
 
@@ -827,15 +820,10 @@ Public Class F1_Clientes
         End If
     End Sub
 
-    Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
-
-    End Sub
-
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         If btnGrabar.Enabled = True Then
             _PMInhabilitar()
             _PMPrimerRegistro()
-
         Else
             '  Public _modulo As SideNavItem
             _modulo.Select()
@@ -859,7 +847,6 @@ Public Class F1_Clientes
     End Sub
     Function _fnAccesible() As Boolean
         Return tbNombre.ReadOnly = False
-
     End Function
     Private Sub tbVendedor_KeyDown(sender As Object, e As KeyEventArgs) Handles tbVendedor.KeyDown
         If (_fnAccesible()) Then
@@ -910,13 +897,9 @@ Public Class F1_Clientes
 
     Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
         If (_fnAccesible()) Then
-
-
             Dim dt As DataTable
 
             dt = L_fnListarEmpleado()
-            '              a.ydnumi, a.ydcod, a.yddesc, a.yddctnum, a.yddirec
-            ',a.ydtelf1 ,a.ydfnac 
 
             Dim listEstCeldas As New List(Of Modelo.Celda)
             listEstCeldas.Add(New Modelo.Celda("ydnumi,", True, "ID", 50))
@@ -947,14 +930,10 @@ Public Class F1_Clientes
                 NumiVendedor = Row.Cells("ydnumi").Value
                 tbVendedor.Text = Row.Cells("yddesc").Value
                 tbDireccion.Focus()
-
             End If
-
-
 
         End If
     End Sub
-
 
 
     Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
@@ -978,9 +957,22 @@ Public Class F1_Clientes
         'P_Global.Visualizador.Show() 'Comentar
         'P_Global.Visualizador.BringToFront() 'Comentar
 
-
-
     End Sub
 
-    
+    Private Sub cbTipoCliente_ValueChanged(sender As Object, e As EventArgs) Handles cbTipoCliente.ValueChanged
+        If cbTipoCliente.SelectedIndex < 0 And cbTipoCliente.Text <> String.Empty Then
+            btTipoCliente.Visible = True
+        Else
+            btTipoCliente.Visible = False
+        End If
+    End Sub
+
+    Private Sub btTipoCliente_Click(sender As Object, e As EventArgs) Handles btTipoCliente.Click
+        Dim numi As String = ""
+        If L_prLibreriaGrabar(numi, "8", "1", cbTipoCliente.Text, "") Then
+            _prCargarComboLibreria(cbTipoCliente, "8", "1")
+            cbTipoCliente.SelectedIndex = CType(cbTipoCliente.DataSource, DataTable).Rows.Count - 1
+        End If
+    End Sub
+
 End Class
