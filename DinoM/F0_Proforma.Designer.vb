@@ -34,6 +34,9 @@ Partial Class F0_Proforma
         Me.PanelContentSup = New System.Windows.Forms.Panel()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.btObra = New DevComponents.DotNetBar.ButtonX()
+        Me.tbObra = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.btCliente = New DevComponents.DotNetBar.ButtonX()
         Me.LabelX17 = New DevComponents.DotNetBar.LabelX()
         Me.cbSucursal = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
@@ -68,9 +71,8 @@ Partial Class F0_Proforma
         Me.LabelX11 = New DevComponents.DotNetBar.LabelX()
         Me.tbPdesc = New DevComponents.Editors.DoubleInput()
         Me.LabelX9 = New DevComponents.DotNetBar.LabelX()
-        Me.btObra = New DevComponents.DotNetBar.ButtonX()
-        Me.tbObra = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
+        Me.tbTransporte = New DevComponents.Editors.DoubleInput()
+        Me.LabelX6 = New DevComponents.DotNetBar.LabelX()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -112,6 +114,7 @@ Partial Class F0_Proforma
         CType(Me.tbMdesc, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbtotal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbPdesc, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbTransporte, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PanelSuperior
@@ -241,8 +244,8 @@ Partial Class F0_Proforma
         'PanelContent
         '
         Me.PanelContent.Controls.Add(Me.GPanelProductos)
-        Me.PanelContent.Controls.Add(Me.PanelTotal)
         Me.PanelContent.Controls.Add(Me.PanelDetalle)
+        Me.PanelContent.Controls.Add(Me.PanelTotal)
         Me.PanelContent.Controls.Add(Me.PanelContentSup)
         Me.PanelContent.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelContent.Size = New System.Drawing.Size(983, 485)
@@ -485,6 +488,51 @@ Partial Class F0_Proforma
         Me.Panel2.Size = New System.Drawing.Size(977, 167)
         Me.Panel2.TabIndex = 234
         '
+        'btObra
+        '
+        Me.btObra.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btObra.BackColor = System.Drawing.Color.Transparent
+        Me.btObra.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btObra.Image = Global.DinoM.My.Resources.Resources.add
+        Me.btObra.ImageFixedSize = New System.Drawing.Size(23, 23)
+        Me.btObra.Location = New System.Drawing.Point(475, 73)
+        Me.btObra.Name = "btObra"
+        Me.btObra.Size = New System.Drawing.Size(28, 23)
+        Me.btObra.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btObra.TabIndex = 245
+        '
+        'tbObra
+        '
+        Me.tbObra.BackColor = System.Drawing.Color.White
+        '
+        '
+        '
+        Me.tbObra.Border.Class = "TextBoxBorder"
+        Me.tbObra.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbObra.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbObra.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbObra.Location = New System.Drawing.Point(172, 74)
+        Me.tbObra.Name = "tbObra"
+        Me.tbObra.PreventEnterBeep = True
+        Me.tbObra.Size = New System.Drawing.Size(294, 22)
+        Me.tbObra.TabIndex = 2
+        '
+        'LabelX5
+        '
+        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX5.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX5.Location = New System.Drawing.Point(13, 73)
+        Me.LabelX5.Name = "LabelX5"
+        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX5.Size = New System.Drawing.Size(113, 23)
+        Me.LabelX5.TabIndex = 244
+        Me.LabelX5.Text = "Proyecto/Obra:"
+        '
         'btCliente
         '
         Me.btCliente.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
@@ -492,7 +540,7 @@ Partial Class F0_Proforma
         Me.btCliente.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
         Me.btCliente.Image = Global.DinoM.My.Resources.Resources.add
         Me.btCliente.ImageFixedSize = New System.Drawing.Size(23, 23)
-        Me.btCliente.Location = New System.Drawing.Point(475, 42)
+        Me.btCliente.Location = New System.Drawing.Point(475, 41)
         Me.btCliente.Name = "btCliente"
         Me.btCliente.Size = New System.Drawing.Size(28, 23)
         Me.btCliente.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -763,7 +811,7 @@ Partial Class F0_Proforma
         Me.PanelDetalle.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelDetalle.Location = New System.Drawing.Point(0, 190)
         Me.PanelDetalle.Name = "PanelDetalle"
-        Me.PanelDetalle.Size = New System.Drawing.Size(983, 295)
+        Me.PanelDetalle.Size = New System.Drawing.Size(983, 155)
         Me.PanelDetalle.TabIndex = 1
         '
         'GroupPanel4
@@ -776,7 +824,7 @@ Partial Class F0_Proforma
         Me.GroupPanel4.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupPanel4.Location = New System.Drawing.Point(0, 0)
         Me.GroupPanel4.Name = "GroupPanel4"
-        Me.GroupPanel4.Size = New System.Drawing.Size(983, 295)
+        Me.GroupPanel4.Size = New System.Drawing.Size(983, 155)
         '
         '
         '
@@ -816,7 +864,7 @@ Partial Class F0_Proforma
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel5.Location = New System.Drawing.Point(0, 0)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(977, 272)
+        Me.Panel5.Size = New System.Drawing.Size(977, 132)
         Me.Panel5.TabIndex = 0
         '
         'grdetalle
@@ -829,7 +877,7 @@ Partial Class F0_Proforma
         Me.grdetalle.Name = "grdetalle"
         Me.grdetalle.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grdetalle.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.grdetalle.Size = New System.Drawing.Size(977, 272)
+        Me.grdetalle.Size = New System.Drawing.Size(977, 132)
         Me.grdetalle.TabIndex = 0
         Me.grdetalle.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -907,6 +955,10 @@ Partial Class F0_Proforma
         Me.PanelTotal.BackColor = System.Drawing.Color.SlateGray
         Me.PanelTotal.BackgroundImage = Global.DinoM.My.Resources.Resources.fondo1
         Me.PanelTotal.Controls.Add(Me.Panel4)
+        Me.PanelTotal.Controls.Add(Me.tbPdesc)
+        Me.PanelTotal.Controls.Add(Me.tbIce)
+        Me.PanelTotal.Controls.Add(Me.lbIce)
+        Me.PanelTotal.Controls.Add(Me.LabelX8)
         Me.PanelTotal.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.PanelTotal.Location = New System.Drawing.Point(0, 345)
         Me.PanelTotal.Name = "PanelTotal"
@@ -916,15 +968,13 @@ Partial Class F0_Proforma
         'Panel4
         '
         Me.Panel4.BackColor = System.Drawing.Color.Transparent
+        Me.Panel4.Controls.Add(Me.tbTransporte)
+        Me.Panel4.Controls.Add(Me.LabelX6)
         Me.Panel4.Controls.Add(Me.LabelX13)
         Me.Panel4.Controls.Add(Me.tbSubTotal)
-        Me.Panel4.Controls.Add(Me.tbIce)
-        Me.Panel4.Controls.Add(Me.lbIce)
         Me.Panel4.Controls.Add(Me.tbMdesc)
         Me.Panel4.Controls.Add(Me.tbtotal)
-        Me.Panel4.Controls.Add(Me.LabelX8)
         Me.Panel4.Controls.Add(Me.LabelX11)
-        Me.Panel4.Controls.Add(Me.tbPdesc)
         Me.Panel4.Controls.Add(Me.LabelX9)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Right
         Me.Panel4.Location = New System.Drawing.Point(602, 0)
@@ -976,11 +1026,12 @@ Partial Class F0_Proforma
         Me.tbIce.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
         Me.tbIce.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbIce.Increment = 1.0R
-        Me.tbIce.Location = New System.Drawing.Point(147, 82)
+        Me.tbIce.Location = New System.Drawing.Point(507, 33)
         Me.tbIce.MinValue = 0R
         Me.tbIce.Name = "tbIce"
         Me.tbIce.Size = New System.Drawing.Size(89, 21)
         Me.tbIce.TabIndex = 3
+        Me.tbIce.Visible = False
         Me.tbIce.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
         '
         'lbIce
@@ -992,12 +1043,13 @@ Partial Class F0_Proforma
         Me.lbIce.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.lbIce.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbIce.ForeColor = System.Drawing.Color.White
-        Me.lbIce.Location = New System.Drawing.Point(40, 85)
+        Me.lbIce.Location = New System.Drawing.Point(400, 36)
         Me.lbIce.Name = "lbIce"
         Me.lbIce.SingleLineColor = System.Drawing.SystemColors.Control
         Me.lbIce.Size = New System.Drawing.Size(44, 18)
         Me.lbIce.TabIndex = 40
         Me.lbIce.Text = "ICE:"
+        Me.lbIce.Visible = False
         '
         'tbMdesc
         '
@@ -1009,7 +1061,7 @@ Partial Class F0_Proforma
         Me.tbMdesc.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
         Me.tbMdesc.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbMdesc.Increment = 1.0R
-        Me.tbMdesc.Location = New System.Drawing.Point(147, 55)
+        Me.tbMdesc.Location = New System.Drawing.Point(147, 30)
         Me.tbMdesc.MinValue = 0R
         Me.tbMdesc.Name = "tbMdesc"
         Me.tbMdesc.Size = New System.Drawing.Size(89, 21)
@@ -1026,7 +1078,7 @@ Partial Class F0_Proforma
         Me.tbtotal.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
         Me.tbtotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbtotal.Increment = 1.0R
-        Me.tbtotal.Location = New System.Drawing.Point(147, 109)
+        Me.tbtotal.Location = New System.Drawing.Point(147, 85)
         Me.tbtotal.MinValue = 0R
         Me.tbtotal.Name = "tbtotal"
         Me.tbtotal.Size = New System.Drawing.Size(89, 21)
@@ -1042,12 +1094,13 @@ Partial Class F0_Proforma
         Me.LabelX8.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX8.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX8.ForeColor = System.Drawing.Color.White
-        Me.LabelX8.Location = New System.Drawing.Point(40, 33)
+        Me.LabelX8.Location = New System.Drawing.Point(400, 9)
         Me.LabelX8.Name = "LabelX8"
         Me.LabelX8.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX8.Size = New System.Drawing.Size(86, 18)
         Me.LabelX8.TabIndex = 34
         Me.LabelX8.Text = "P. Descuento:"
+        Me.LabelX8.Visible = False
         '
         'LabelX11
         '
@@ -1058,7 +1111,7 @@ Partial Class F0_Proforma
         Me.LabelX11.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX11.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX11.ForeColor = System.Drawing.Color.White
-        Me.LabelX11.Location = New System.Drawing.Point(40, 112)
+        Me.LabelX11.Location = New System.Drawing.Point(40, 88)
         Me.LabelX11.Name = "LabelX11"
         Me.LabelX11.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX11.Size = New System.Drawing.Size(75, 18)
@@ -1075,12 +1128,13 @@ Partial Class F0_Proforma
         Me.tbPdesc.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
         Me.tbPdesc.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbPdesc.Increment = 1.0R
-        Me.tbPdesc.Location = New System.Drawing.Point(147, 30)
+        Me.tbPdesc.Location = New System.Drawing.Point(507, 6)
         Me.tbPdesc.LockUpdateChecked = False
         Me.tbPdesc.MinValue = 0R
         Me.tbPdesc.Name = "tbPdesc"
         Me.tbPdesc.Size = New System.Drawing.Size(89, 21)
         Me.tbPdesc.TabIndex = 1
+        Me.tbPdesc.Visible = False
         Me.tbPdesc.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
         '
         'LabelX9
@@ -1092,57 +1146,45 @@ Partial Class F0_Proforma
         Me.LabelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX9.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX9.ForeColor = System.Drawing.Color.White
-        Me.LabelX9.Location = New System.Drawing.Point(40, 58)
+        Me.LabelX9.Location = New System.Drawing.Point(40, 33)
         Me.LabelX9.Name = "LabelX9"
         Me.LabelX9.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX9.Size = New System.Drawing.Size(101, 18)
         Me.LabelX9.TabIndex = 36
         Me.LabelX9.Text = "M. Descuento:"
         '
-        'btObra
-        '
-        Me.btObra.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btObra.BackColor = System.Drawing.Color.Transparent
-        Me.btObra.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btObra.Image = Global.DinoM.My.Resources.Resources.add
-        Me.btObra.ImageFixedSize = New System.Drawing.Size(23, 23)
-        Me.btObra.Location = New System.Drawing.Point(475, 74)
-        Me.btObra.Name = "btObra"
-        Me.btObra.Size = New System.Drawing.Size(28, 23)
-        Me.btObra.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btObra.TabIndex = 245
-        '
-        'tbObra
-        '
-        Me.tbObra.BackColor = System.Drawing.Color.White
+        'tbTransporte
         '
         '
         '
-        Me.tbObra.Border.Class = "TextBoxBorder"
-        Me.tbObra.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbObra.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbObra.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbObra.Location = New System.Drawing.Point(172, 74)
-        Me.tbObra.Name = "tbObra"
-        Me.tbObra.PreventEnterBeep = True
-        Me.tbObra.Size = New System.Drawing.Size(294, 22)
-        Me.tbObra.TabIndex = 2
         '
-        'LabelX5
+        Me.tbTransporte.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbTransporte.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbTransporte.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbTransporte.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbTransporte.Increment = 1.0R
+        Me.tbTransporte.Location = New System.Drawing.Point(147, 57)
+        Me.tbTransporte.MinValue = 0R
+        Me.tbTransporte.Name = "tbTransporte"
+        Me.tbTransporte.Size = New System.Drawing.Size(89, 21)
+        Me.tbTransporte.TabIndex = 43
+        Me.tbTransporte.WatermarkAlignment = DevComponents.Editors.eTextAlignment.Right
         '
-        Me.LabelX5.BackColor = System.Drawing.Color.Transparent
+        'LabelX6
+        '
+        Me.LabelX6.BackColor = System.Drawing.Color.Transparent
         '
         '
         '
-        Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX5.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX5.Location = New System.Drawing.Point(13, 73)
-        Me.LabelX5.Name = "LabelX5"
-        Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX5.Size = New System.Drawing.Size(113, 23)
-        Me.LabelX5.TabIndex = 244
-        Me.LabelX5.Text = "Proyecto/Obra:"
+        Me.LabelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX6.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX6.ForeColor = System.Drawing.Color.White
+        Me.LabelX6.Location = New System.Drawing.Point(40, 59)
+        Me.LabelX6.Name = "LabelX6"
+        Me.LabelX6.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX6.Size = New System.Drawing.Size(101, 18)
+        Me.LabelX6.TabIndex = 44
+        Me.LabelX6.Text = "Transporte:"
         '
         'F0_Proforma
         '
@@ -1197,6 +1239,7 @@ Partial Class F0_Proforma
         CType(Me.tbMdesc, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbtotal, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbPdesc, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbTransporte, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1247,4 +1290,6 @@ Partial Class F0_Proforma
     Friend WithEvents btObra As DevComponents.DotNetBar.ButtonX
     Friend WithEvents tbObra As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents LabelX5 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbTransporte As DevComponents.Editors.DoubleInput
+    Friend WithEvents LabelX6 As DevComponents.DotNetBar.LabelX
 End Class

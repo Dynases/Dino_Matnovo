@@ -28,6 +28,7 @@ Public Class F0_Proforma
     Public _modulo As SideNavItem
     Dim FilaSelectLote As DataRow = Nothing
     Dim Lote As Boolean = False '1=igual a mostrar las columnas de lote y fecha de Vencimiento
+    Public conv As String
 #End Region
 
 #Region "Metodos Privados"
@@ -100,11 +101,11 @@ Public Class F0_Proforma
     Private Sub _prInhabiliitar()
         tbCodigo.ReadOnly = True
         tbCliente.ReadOnly = True
+        tbObra.ReadOnly = True
         tbVendedor.ReadOnly = True
         tbObservacion.ReadOnly = True
         tbFechaVenta.IsInputReadOnly = True
         swMoneda.IsReadOnly = True
-
 
 
         btnModificar.Enabled = True
@@ -115,6 +116,10 @@ Public Class F0_Proforma
         tbSubTotal.IsInputReadOnly = True
         tbIce.IsInputReadOnly = True
         tbtotal.IsInputReadOnly = True
+
+        tbMdesc.IsInputReadOnly = True
+        tbTransporte.IsInputReadOnly = True
+
 
         grVentas.Enabled = True
         PanelNavegacion.Enabled = True
@@ -135,6 +140,8 @@ Public Class F0_Proforma
         swMoneda.IsReadOnly = False
         btnGrabar.Enabled = True
 
+        tbMdesc.IsInputReadOnly = False
+        tbTransporte.IsInputReadOnly = False
 
         If (tbCodigo.Text.Length > 0) Then
             cbSucursal.ReadOnly = True
@@ -158,6 +165,7 @@ Public Class F0_Proforma
     Private Sub _Limpiar()
         tbCodigo.Clear()
         tbCliente.Clear()
+        tbObra.Clear()
         tbVendedor.Clear()
         tbObservacion.Clear()
         swMoneda.Value = True
@@ -171,6 +179,7 @@ Public Class F0_Proforma
         tbMdesc.Value = 0
         tbIce.Value = 0
         tbtotal.Value = 0
+        tbTransporte.Value = 0
         With grdetalle.RootTable.Columns("img")
             .Width = 80
             .Caption = "Eliminar"
@@ -189,6 +198,9 @@ Public Class F0_Proforma
             cbSucursal.SelectedIndex = 0
         End If
         FilaSelectLote = Nothing
+
+        btCliente.Visible = True
+        btObra.Visible = True
     End Sub
     Public Sub _prMostrarRegistro(_N As Integer)
         '' grVentas.Row = _N
@@ -204,6 +216,8 @@ Public Class F0_Proforma
             tbVendedor.Text = .GetValue("vendedor")
             _CodCliente = .GetValue("paclpr")
             tbCliente.Text = .GetValue("cliente")
+            _CodObra = .GetValue("paobra")
+            tbObra.Text = .GetValue("oanomb")
             swMoneda.Value = .GetValue("pamon")
             tbObservacion.Text = .GetValue("paobs")
 
@@ -215,8 +229,12 @@ Public Class F0_Proforma
 
         _prCargarDetalleVenta(tbCodigo.Text)
         tbMdesc.Value = grVentas.GetValue("padesc")
+        tbTransporte.Value = grVentas.GetValue("patransp")
         _prCalcularPrecioTotal()
         LblPaginacion.Text = Str(grVentas.Row + 1) + "/" + grVentas.RowCount.ToString
+
+        btCliente.Visible = False
+        btObra.Visible = False
 
     End Sub
 
@@ -227,23 +245,25 @@ Public Class F0_Proforma
         grdetalle.RetrieveStructure()
         grdetalle.AlternatingColors = True
 
-
         With grdetalle.RootTable.Columns("pbnumi")
             .Width = 100
             .Caption = "CODIGO"
             .Visible = False
         End With
-
         With grdetalle.RootTable.Columns("pbtp1numi")
             .Width = 90
             .Visible = False
         End With
         With grdetalle.RootTable.Columns("pbty5prod")
+            .Caption = "COD. ORIG."
+            .Width = 80
+            .Visible = False
+        End With
+        With grdetalle.RootTable.Columns("yfcprod")
             .Caption = "COD."
-            .Width = 90
+            .Width = 80
             .Visible = True
         End With
-
         With grdetalle.RootTable.Columns("producto")
             .Caption = "PRODUCTOS"
             .Width = 250
@@ -257,12 +277,37 @@ Public Class F0_Proforma
         End With
 
         With grdetalle.RootTable.Columns("pbcmin")
-            .Width = 160
+            .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Cant. Minima".ToUpper
+            .Caption = "Cant. Un.".ToUpper
         End With
+
+        With grdetalle.RootTable.Columns("pbccaja")
+            .Width = 100
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Cant.".ToUpper
+        End With
+
+        With grdetalle.RootTable.Columns("pbcantc")
+            .Width = 120
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Cant. Real".ToUpper
+        End With
+
+        With grdetalle.RootTable.Columns("pbcantu")
+            .Width = 120
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .FormatString = "0.00"
+            .Caption = "Cant. Un. Real".ToUpper
+        End With
+
         With grdetalle.RootTable.Columns("pbumin")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -285,7 +330,7 @@ Public Class F0_Proforma
         With grdetalle.RootTable.Columns("pbptot")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "Sub Total".ToUpper
         End With
@@ -303,9 +348,7 @@ Public Class F0_Proforma
             .FormatString = "0.00"
             .Caption = "M.Desc".ToUpper
         End With
-        '    a.pbnumi ,a.pbtp1numi ,a.pbty5prod ,b.yfcdprod1 as producto,a.pbest ,a.pbcmin ,a.pbumin ,Umin .ycdes3 as unidad,
-        'a.pbpbas ,a.pbptot,a.pbporc,a.pbdesc ,a.pbtotdesc, a.pbfact ,a.pbhact ,a.pbuact, estado, img,
-        ' stock
+
         With grdetalle.RootTable.Columns("pbtotdesc")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -391,13 +434,22 @@ Public Class F0_Proforma
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = False
         End With
+        With grVentas.RootTable.Columns("paobra")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("oanomb")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
         With grVentas.RootTable.Columns("cliente")
             .Width = 250
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = True
             .Caption = "CLIENTE"
         End With
-
         With grVentas.RootTable.Columns("pamon")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -421,6 +473,11 @@ Public Class F0_Proforma
             .Caption = "OBSERVACION"
         End With
         With grVentas.RootTable.Columns("padesc")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("patransp")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = False
@@ -507,26 +564,23 @@ Public Class F0_Proforma
 
         With grProductos.RootTable.Columns("yfnumi")
             .Width = 100
-            .Caption = "CODIGO"
+            .Caption = "Código"
             .Visible = False
-
         End With
         With grProductos.RootTable.Columns("yfcprod")
             .Width = 100
-            .Caption = "CODIGO"
-            .Visible = False
-
+            .Caption = "Código"
+            .Visible = True
         End With
-
         With grProductos.RootTable.Columns("yfcdprod1")
             .Width = 270
             .Visible = True
-            .Caption = "Descripcion"
+            .Caption = "Descripción"
         End With
         With grProductos.RootTable.Columns("yfcdprod2")
             .Width = 150
             .Visible = False
-            .Caption = "Descripcion Corta"
+            .Caption = "Descripción Corta"
         End With
 
         With grProductos.RootTable.Columns("yfgr1")
@@ -587,7 +641,6 @@ Public Class F0_Proforma
             End With
         End If
 
-
         With grProductos.RootTable.Columns("yfgr2")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -605,7 +658,6 @@ Public Class F0_Proforma
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = False
         End With
-
 
         With grProductos.RootTable.Columns("yfumin")
             .Width = 50
@@ -638,6 +690,12 @@ Public Class F0_Proforma
             .Visible = True
             .Caption = "Stock"
         End With
+        With grProductos.RootTable.Columns("yfvsup")
+            .Width = 120
+            .FormatString = "0.00"
+            .Visible = False
+            .Caption = "Conv."
+        End With
 
         With grProductos
             .DefaultFilterRowComparison = FilterConditionOperator.Contains
@@ -665,7 +723,7 @@ Public Class F0_Proforma
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.delete, 28, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grdetalle.DataSource, DataTable).Rows.Add(_fnSiguienteNumi() + 1, 0, 0, "", 0, 0, 0, "", 0, 0, 0, 0, 0, Now.Date, "", "", 0, Bin.GetBuffer, 0)
+        CType(grdetalle.DataSource, DataTable).Rows.Add(_fnSiguienteNumi() + 1, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, Now.Date, "", "", 0, Bin.GetBuffer, 0)
     End Sub
 
     Public Function _fnSiguienteNumi()
@@ -680,14 +738,15 @@ Public Class F0_Proforma
         Return tbFechaVenta.IsInputReadOnly = False
     End Function
     Private Sub _HabilitarProductos()
-        GPanelProductos.Height = 550
+        GPanelProductos.Height = 530
         GPanelProductos.Visible = True
-        PanelTotal.Visible = False
-        PanelInferior.Visible = False
+        'PanelTotal.Visible = False
+        'PanelInferior.Visible = False
         _prCargarProductos(Str(_CodCliente))
         grProductos.Focus()
         grProductos.MoveTo(grProductos.FilterRow)
         grProductos.Col = 2
+
     End Sub
     Private Sub _DesHabilitarProductos()
         GPanelProductos.Visible = False
@@ -730,7 +789,8 @@ Public Class F0_Proforma
             Dim lin As Integer = grdetalle.GetValue("pbnumi")
             Dim pos As Integer = -1
             _fnObtenerFilaDetalle(pos, lin)
-            Dim cant As Double = grdetalle.GetValue("pbcmin")
+            'Dim cant As Double = grdetalle.GetValue("pbcmin")
+            Dim cant As Double = grdetalle.GetValue("pbcantu")
             Dim uni As Double = grdetalle.GetValue("pbpbas")
             Dim MontoDesc As Double = grdetalle.GetValue("pbdesc")
             Dim dt As DataTable = CType(grdetalle.DataSource, DataTable)
@@ -761,12 +821,8 @@ Public Class F0_Proforma
         Dim pordesc As Double = ((montodesc * 100) / grdetalle.GetTotal(grdetalle.RootTable.Columns("pbtotdesc"), AggregateFunction.Sum))
         tbPdesc.Value = pordesc
         tbSubTotal.Value = grdetalle.GetTotal(grdetalle.RootTable.Columns("pbtotdesc"), AggregateFunction.Sum)
-        
-        tbtotal.Value = grdetalle.GetTotal(grdetalle.RootTable.Columns("pbtotdesc"), AggregateFunction.Sum) - montodesc
 
-
-
-
+        tbtotal.Value = grdetalle.GetTotal(grdetalle.RootTable.Columns("pbtotdesc"), AggregateFunction.Sum) - montodesc + tbTransporte.Value
 
     End Sub
     Public Sub _prEliminarFila()
@@ -834,7 +890,7 @@ Public Class F0_Proforma
         '                                   _pamon As Integer, _paobs As String,
         '                                   _padesc As Double,
         '                                   _patotal As Double, detalle As DataTable, _almacen As Integer
-        Dim res As Boolean = L_fnGrabarProforma(numi, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, _CodCliente, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value)
+        Dim res As Boolean = L_fnGrabarProforma(numi, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, _CodCliente, _CodObra, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbTransporte.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value)
 
 
         If res Then
@@ -862,7 +918,7 @@ Public Class F0_Proforma
 
     End Sub
     Private Sub _prGuardarModificado()
-        Dim res As Boolean = L_fnModificarProforma(tbCodigo.Text, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, _CodCliente, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value)
+        Dim res As Boolean = L_fnModificarProforma(tbCodigo.Text, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, _CodCliente, _CodObra, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbTransporte.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value)
         If res Then
 
             Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
@@ -1153,6 +1209,7 @@ salirIf:
         Dim existe As Boolean = _fnExisteProducto(grProductos.GetValue("yfnumi"))
         If ((pos >= 0) And (Not existe)) Then
             CType(grdetalle.DataSource, DataTable).Rows(pos).Item("pbty5prod") = grProductos.GetValue("yfnumi")
+            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("yfcprod") = grProductos.GetValue("yfcprod")
             CType(grdetalle.DataSource, DataTable).Rows(pos).Item("producto") = grProductos.GetValue("yfcdprod1")
             CType(grdetalle.DataSource, DataTable).Rows(pos).Item("pbumin") = grProductos.GetValue("yfumin")
             CType(grdetalle.DataSource, DataTable).Rows(pos).Item("unidad") = grProductos.GetValue("UnidMin")
@@ -1161,6 +1218,7 @@ salirIf:
             CType(grdetalle.DataSource, DataTable).Rows(pos).Item("pbtotdesc") = grProductos.GetValue("yhprecio")
             CType(grdetalle.DataSource, DataTable).Rows(pos).Item("pbcmin") = 1
             CType(grdetalle.DataSource, DataTable).Rows(pos).Item("stock") = grProductos.GetValue("stock")
+            'conv = grProductos.GetValue("yfvsup")
             _prCalcularPrecioTotal()
             _DesHabilitarProductos()
         Else
@@ -1180,8 +1238,7 @@ salirIf:
             c = grProductos.Col
             f = grProductos.Row
             If (f >= 0) Then
-
-                        InsertarProductosSinLote()
+                InsertarProductosSinLote()
             End If
         End If
         If e.KeyData = Keys.Escape Then
@@ -1190,11 +1247,10 @@ salirIf:
         End If
     End Sub
     Private Sub grdetalle_CellValueChanged(sender As Object, e As ColumnActionEventArgs) Handles grdetalle.CellValueChanged
+        Dim codprod As Integer
         If (e.Column.Index = grdetalle.RootTable.Columns("pbcmin").Index) Then
             If (Not IsNumeric(grdetalle.GetValue("pbcmin")) Or grdetalle.GetValue("pbcmin").ToString = String.Empty) Then
 
-                'grDetalle.GetRow(rowIndex).Cells("cant").Value = 1
-                '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
                 Dim lin As Integer = grdetalle.GetValue("pbnumi")
                 Dim pos As Integer = -1
                 _fnObtenerFilaDetalle(pos, lin)
@@ -1216,6 +1272,18 @@ salirIf:
                     _fnObtenerFilaDetalle(pos, lin)
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("pbdesc") = montodesc
                     grdetalle.SetValue("pbdesc", montodesc)
+
+                    'Saca la conversión de cada producto
+                    codprod = grdetalle.GetValue("pbty5prod")
+                    Dim dtconv As New DataTable
+                    dtconv = L_fnConversionProd(codprod)
+                    conv = dtconv.Rows(0).Item("yfvsup")
+
+                    grdetalle.SetValue("pbccaja", grdetalle.GetValue("pbcmin") / conv)
+                    Dim CjReal As Integer = Math.Round(grdetalle.GetValue("pbccaja"), 0)
+                    grdetalle.SetValue("pbcantc", CjReal)
+                    grdetalle.SetValue("pbcantu", CjReal * conv)
+
                     P_PonerTotal(rowIndex)
 
                 Else
@@ -1368,7 +1436,7 @@ salirIf:
                     Dim pordesc As Double = ((montodesc * 100) / grdetalle.GetTotal(grdetalle.RootTable.Columns("pbptot"), AggregateFunction.Sum))
                     tbPdesc.Value = pordesc
 
-                    tbtotal.Value = grdetalle.GetTotal(grdetalle.RootTable.Columns("tbptot"), AggregateFunction.Sum) - montodesc
+                    tbtotal.Value = grdetalle.GetTotal(grdetalle.RootTable.Columns("pbptot"), AggregateFunction.Sum) - montodesc + tbTransporte.Value
 
                 End If
 
@@ -1489,8 +1557,6 @@ salirIf:
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
         If (grVentas.RowCount > 0) Then
-           
-
             _prhabilitar()
             btnNuevo.Enabled = False
             btnModificar.Enabled = False
@@ -1539,11 +1605,8 @@ salirIf:
 
     Private Sub grVentas_SelectionChanged(sender As Object, e As EventArgs) Handles grVentas.SelectionChanged
         If (grVentas.RowCount >= 0 And grVentas.Row >= 0) Then
-
             _prMostrarRegistro(grVentas.Row)
         End If
-
-
     End Sub
 
     Private Sub btnSiguiente_Click(sender As Object, e As EventArgs) Handles btnSiguiente.Click
@@ -1693,12 +1756,33 @@ salirIf:
                     tbObra.Text = Row.Cells("oanomb").Value
 
                     grdetalle.Select()
-                    grdetalle.Col = 3
+                    grdetalle.Col = 4
                     grdetalle.Row = 0
                 End If
 
             End If
 
+        End If
+    End Sub
+
+    Private Sub tbTransporte_ValueChanged(sender As Object, e As EventArgs) Handles tbTransporte.ValueChanged
+        If (tbTransporte.Focused) Then
+            Dim total As Double = tbtotal.Value
+            If (Not tbTransporte.Text = String.Empty) Then
+                If (tbTransporte.Value = 0) Then
+                    tbTransporte.Value = 0
+                    _prCalcularPrecioTotal()
+                Else
+                    Dim transporte As Double = tbTransporte.Value
+                    tbtotal.Value = grdetalle.GetTotal(grdetalle.RootTable.Columns("pbptot"), AggregateFunction.Sum) - tbMdesc.Value + transporte
+
+                End If
+
+            End If
+
+            If (tbTransporte.Text = String.Empty) Then
+                tbTransporte.Value = 0
+            End If
         End If
     End Sub
 End Class
