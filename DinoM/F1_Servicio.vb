@@ -14,6 +14,7 @@ Public Class F1_Servicio
     Public _modulo As SideNavItem
     Public _Tipo As Integer
     Dim NumiVendedor As Integer
+    Public Limpiar As Boolean = False
 #End Region
 #Region "Metodos Privados"
 
@@ -21,6 +22,7 @@ Public Class F1_Servicio
         Me.Text = "REGISTRO SERVICIOS"
         _prAsignarPermisos()
         _PMIniciarTodo()
+        _prCargarComboLibreria(cb_Unidad, 9, 1)
         Dim blah As New Bitmap(New Bitmap(My.Resources.Services), 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         Me.Icon = ico
@@ -53,6 +55,21 @@ Public Class F1_Servicio
             btnEliminar.Visible = False
         End If
     End Sub
+    Private Sub _prCargarComboLibreria(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo, cod1 As String, cod2 As String)
+        Dim dt As New DataTable
+        dt = L_prLibreriaClienteLGeneral(cod1, cod2)
+        With mCombo
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("yccod3").Width = 70
+            .DropDownList.Columns("yccod3").Caption = "COD"
+            .DropDownList.Columns.Add("ycdes3").Width = 200
+            .DropDownList.Columns("ycdes3").Caption = "DESCRIPCION"
+            .ValueMember = "yccod3"
+            .DisplayMember = "ycdes3"
+            .DataSource = dt
+            .Refresh()
+        End With
+    End Sub
 #End Region
 #Region "METODOS SOBRECARGADOS"
 
@@ -60,25 +77,27 @@ Public Class F1_Servicio
         txtDescripcion.ReadOnly = False
         txtIdServicio.ReadOnly = False
         swEstadoS.Enabled = True
-
+        swEstadoS.Value = 1
+        cb_Unidad.Enabled = True
+        Limpiar = False
     End Sub
 
     Public Overrides Sub _PMOInhabilitar()
-
         txtDescripcion.ReadOnly = True
         txtIdServicio.ReadOnly = True
         swEstadoS.Enabled = False
-
+        cb_Unidad.Enabled = False
         _prStyleJanus()
         JGrM_Buscador.Focus()
-
-        ' SuperTabItem1.Visible = False
     End Sub
 
     Public Overrides Sub _PMOLimpiar()
         txtDescripcion.Clear()
         txtIdServicio.Clear()
-        swEstadoS.Value = 0
+        If (Limpiar = False) Then
+            _prSeleccionarCombo(cb_Unidad)
+            swEstadoS.Value = 0
+        End If
     End Sub
 
     Public Overrides Sub _PMOLimpiarErrores()
@@ -88,7 +107,7 @@ Public Class F1_Servicio
 
     Public Overrides Function _PMOGrabarRegistro() As Boolean
 
-        Dim res As Boolean = L_fnGrabarServicio(txtIdServicio.Text, txtDescripcion.Text, IIf(swEstadoS.Value, 1, 2))
+        Dim res As Boolean = L_fnGrabarServicio(txtIdServicio.Text, txtDescripcion.Text, IIf(swEstadoS.Value, 1, 2), cb_Unidad.Value)
 
 
         If res Then
@@ -100,7 +119,7 @@ Public Class F1_Servicio
                                       eToastPosition.TopCenter
                                       )
             txtDescripcion.Focus()
-
+            Limpiar = True
         Else
             Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
             ToastNotification.Show(Me, "El servicio no pudo ser insertada".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
@@ -112,7 +131,7 @@ Public Class F1_Servicio
 
     Public Overrides Function _PMOModificarRegistro() As Boolean
         Dim res As Boolean
-        res = L_fnModificarServicio(txtIdServicio.Text, txtDescripcion.Text, IIf(swEstadoS.Value, 1, 2))
+        res = L_fnModificarServicio(txtIdServicio.Text, txtDescripcion.Text, IIf(swEstadoS.Value, 1, 2), cb_Unidad.Value)
         If res Then
 
             Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
@@ -177,14 +196,15 @@ Public Class F1_Servicio
             txtDescripcion.BackColor = Color.White
             MEP.SetError(txtDescripcion, "")
         End If
-        'If (cbTipoDoc.SelectedIndex < 0) Then
 
-        '    If (CType(cbTipoDoc.DataSource, DataTable).Rows.Count > 0) Then
-        '        cbTipoDoc.SelectedIndex = 0
-        '    End If
-        'End If
-
-
+        If cb_Unidad.SelectedIndex < 0 Then
+            cb_Unidad.BackColor = Color.Red
+            MEP.SetError(cb_Unidad, "Seleccione una Unidad de servicio!".ToUpper)
+            _ok = False
+        Else
+            cb_Unidad.BackColor = Color.White
+            MEP.SetError(cb_Unidad, "")
+        End If
         MHighlighterFocus.UpdateHighlights()
         Return _ok
     End Function
@@ -197,9 +217,11 @@ Public Class F1_Servicio
     Public Overrides Function _PMOGetListEstructuraBuscador() As List(Of Modelo.Celda)
         Dim listEstCeldas As New List(Of Modelo.Celda)
         listEstCeldas.Add(New Modelo.Celda("yiId", True, "Código".ToUpper, 120))
-        listEstCeldas.Add(New Modelo.Celda("yiDesc", True, "Descripción".ToUpper, 500))
+        listEstCeldas.Add(New Modelo.Celda("yiDesc", True, "Descripción".ToUpper, 400))
         listEstCeldas.Add(New Modelo.Celda("yiEst", False))
-        listEstCeldas.Add(New Modelo.Celda("Estado", True, "Estado".ToUpper, 400))
+        listEstCeldas.Add(New Modelo.Celda("yiUnidad", False))
+        listEstCeldas.Add(New Modelo.Celda("Unidad", True, "Unidad".ToUpper, 200))
+        listEstCeldas.Add(New Modelo.Celda("Estado", True, "Estado".ToUpper, 300))
         listEstCeldas.Add(New Modelo.Celda("yiFecha", False))
         listEstCeldas.Add(New Modelo.Celda("yiHora", False))
         listEstCeldas.Add(New Modelo.Celda("yiUsuario", False))
@@ -220,7 +242,7 @@ Public Class F1_Servicio
             txtIdServicio.Text = .GetValue("yiId").ToString
             txtDescripcion.Text = .GetValue("yiDesc").ToString
             swEstadoS.Value = IIf(.GetValue("yiEst") = 1, True, False)
-
+            cb_Unidad.Value = .GetValue("yiUnidad")
             lbFecha.Text = CType(.GetValue("yiFecha"), Date).ToString("dd/MM/yyyy")
             lbHora.Text = .GetValue("yiHora").ToString
             lbUsuario.Text = .GetValue("yiUsuario").ToString
@@ -231,6 +253,7 @@ Public Class F1_Servicio
     End Sub
 
 #End Region
+#Region "Eventos"
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         If btnGrabar.Enabled = True Then
             _PMInhabilitar()
@@ -261,11 +284,32 @@ Public Class F1_Servicio
         Return txtDescripcion.ReadOnly = False
     End Function
 
-    Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
-
-    End Sub
-
     Private Sub F1_Servicio_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         _prIniciarTodo()
     End Sub
+
+    Private Sub cb_Unidad_ValueChanged(sender As Object, e As EventArgs) Handles cb_Unidad.ValueChanged
+        If cb_Unidad.SelectedIndex < 0 And cb_Unidad.Text <> String.Empty Then
+            btn_Unidad.Visible = True
+        Else
+            btn_Unidad.Visible = False
+        End If
+    End Sub
+
+    Private Sub btn_Unidad_Click(sender As Object, e As EventArgs) Handles btn_Unidad.Click
+        Dim numi As String = ""
+
+        If L_prLibreriaGrabar(numi, "9", "1", cb_Unidad.Text, "") Then
+            _prCargarComboLibreria(cb_Unidad, "9", "1")
+            cb_Unidad.SelectedIndex = CType(cb_Unidad.DataSource, DataTable).Rows.Count - 1
+        End If
+    End Sub
+    Public Sub _prSeleccionarCombo(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        If (CType(mCombo.DataSource, DataTable).Rows.Count > 0) Then
+            mCombo.SelectedIndex = 0
+        Else
+            mCombo.SelectedIndex = -1
+        End If
+    End Sub
+#End Region
 End Class

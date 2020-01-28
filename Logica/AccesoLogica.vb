@@ -5162,7 +5162,7 @@ Public Class AccesoLogica
 #End Region
 #Region "SERVICIOS TY008"
 #Region "Transacciones"
-    Public Shared Function L_fnGrabarServicio(ByRef _yiId As String, _yiDesc As String, _yiEst As String) As Boolean
+    Public Shared Function L_fnGrabarServicio(ByRef _yiId As String, _yiDesc As String, _yiEst As String, _yiUnidad As String) As Boolean
 
         Dim _resultado As Boolean
         Dim _Tabla As DataTable
@@ -5172,6 +5172,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@yiId", _yiId))
         _listParam.Add(New Datos.DParametro("@yiDesc", _yiDesc))
         _listParam.Add(New Datos.DParametro("@yiEst", _yiEst))
+        _listParam.Add(New Datos.DParametro("@yiUnidad", _yiUnidad))
         _listParam.Add(New Datos.DParametro("@yiUsuario", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TY008", _listParam)
         If _Tabla.Rows.Count > 0 Then
@@ -5184,7 +5185,7 @@ Public Class AccesoLogica
         Return _resultado
     End Function
     'Modificar 
-    Public Shared Function L_fnModificarServicio(ByRef _yiId As String, _yiDesc As String, _yiEst As String) As Boolean
+    Public Shared Function L_fnModificarServicio(ByRef _yiId As String, _yiDesc As String, _yiEst As String, _yiUnidad As String) As Boolean
 
         Dim _resultado As Boolean
         Dim _Tabla As DataTable
@@ -5193,7 +5194,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 2))
         _listParam.Add(New Datos.DParametro("@yiId", _yiId))
         _listParam.Add(New Datos.DParametro("@yiDesc", _yiDesc))
-
+        _listParam.Add(New Datos.DParametro("@yiUnidad", _yiUnidad))
         _listParam.Add(New Datos.DParametro("@yiEst", _yiEst))
         _listParam.Add(New Datos.DParametro("@yiUsuario", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TY008", _listParam)
