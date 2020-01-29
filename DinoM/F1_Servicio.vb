@@ -21,8 +21,9 @@ Public Class F1_Servicio
     Private Sub _prIniciarTodo()
         Me.Text = "REGISTRO SERVICIOS"
         _prAsignarPermisos()
-        _PMIniciarTodo()
         _prCargarComboLibreria(cb_Unidad, 9, 1)
+        _PMIniciarTodo()
+
         Dim blah As New Bitmap(New Bitmap(My.Resources.Services), 20, 20)
         Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
         Me.Icon = ico

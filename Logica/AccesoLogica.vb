@@ -5255,4 +5255,107 @@ Public Class AccesoLogica
 #Region "Verificaciones"
 #End Region
 #End Region
+#Region "PROFORMA SERVICIOS"
+    ''pcNumi, pcEst, pcAlmacen, pcClie, pcVen, pcObra, pcFDoc, pcMone, pcObs, pcTotal, pcfact, pchact, pcuact
+    Public Shared Function L_fnGrabar_ProformaServicios(ByRef _pcNumi As String, _pcClie As Integer, _pcVen As Integer,
+                                           _pcObra As Integer, _pcFDoc As String, _pcMone As Integer, _pcObs As String, _pcDesc As Double,
+                                           _pcTotal As Double, detalle As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@pcNumi", _pcNumi))
+        _listParam.Add(New Datos.DParametro("@pcEst", 1))
+        _listParam.Add(New Datos.DParametro("@pcClie", _pcClie))
+        _listParam.Add(New Datos.DParametro("@pcVen", _pcVen))
+        _listParam.Add(New Datos.DParametro("@pcObra", _pcObra))
+        _listParam.Add(New Datos.DParametro("@pcFDoc", _pcFDoc))
+        _listParam.Add(New Datos.DParametro("@pcMone", _pcMone))
+        _listParam.Add(New Datos.DParametro("@pcObs", _pcObs))
+        _listParam.Add(New Datos.DParametro("@pcDesc", _pcDesc))
+        _listParam.Add(New Datos.DParametro("@pcTotal", _pcTotal))
+        _listParam.Add(New Datos.DParametro("@pcuact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@TP0021", "", detalle))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TP002", _listParam)
+        If _Tabla.Rows.Count > 0 Then
+            _pcNumi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+    Public Shared Function L_fnModificar_ProformaServicio(ByRef _pcNumi As String, _pcClie As Integer, _pcVen As Integer,
+                                           _pcObra As Integer, _pcFDoc As String, _pcMone As Integer, _pcObs As String, _pcDesc As Double,
+                                           _pcTotal As Double, detalle As DataTable) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@pcNumi", _pcNumi))
+        _listParam.Add(New Datos.DParametro("@pcEst", 1))
+
+        _listParam.Add(New Datos.DParametro("@pcClie", _pcClie))
+        _listParam.Add(New Datos.DParametro("@pcVen", _pcVen))
+        _listParam.Add(New Datos.DParametro("@pcObra", _pcObra))
+        _listParam.Add(New Datos.DParametro("@pcFDoc", _pcFDoc))
+        _listParam.Add(New Datos.DParametro("@pcMone", _pcMone))
+        _listParam.Add(New Datos.DParametro("@pcObs", _pcObs))
+        _listParam.Add(New Datos.DParametro("@pcDesc", _pcDesc))
+        _listParam.Add(New Datos.DParametro("@pcTotal", _pcTotal))
+        _listParam.Add(New Datos.DParametro("@pcuact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@TP0021", "", detalle))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TP002", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _pcNumi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_fnEliminar_ProformaServicio(numi As String, ByRef mensaje As String) As Boolean
+        Dim _resultado As Boolean
+        If L_fnbValidarEliminacion(numi, "TP002", "pcNumi", mensaje) = True Then
+            Dim _Tabla As DataTable
+            Dim _listParam As New List(Of Datos.DParametro)
+
+            _listParam.Add(New Datos.DParametro("@tipo", 3))
+            _listParam.Add(New Datos.DParametro("@pcNumi", numi))
+            _listParam.Add(New Datos.DParametro("@pcuact", L_Usuario))
+            _Tabla = D_ProcedimientoConParam("sp_Mam_TP002", _listParam)
+            If _Tabla.Rows.Count > 0 Then
+                _resultado = True
+            Else
+                _resultado = False
+            End If
+        Else
+            _resultado = False
+        End If
+        Return _resultado
+    End Function
+    Public Shared Function L_fnEncabezado_ProformaServicio() As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@pcuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TP002", _listParam)
+        Return _Tabla
+    End Function
+    Public Shared Function L_fnDetalle_ProformaServicio(_numi As String) As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@pcnumi", _numi))
+        _listParam.Add(New Datos.DParametro("@pcuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TP002", _listParam)
+        Return _Tabla
+    End Function
+#End Region
 End Class
