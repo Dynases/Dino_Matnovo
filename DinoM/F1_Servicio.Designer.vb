@@ -24,6 +24,7 @@ Partial Class F1_Servicio
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(F1_Servicio))
+        Dim cb_Unidad_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.gpDatosGral = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.swEstadoS = New DevComponents.DotNetBar.Controls.SwitchButton()
@@ -32,6 +33,9 @@ Partial Class F1_Servicio
         Me.lbDescripcion = New DevComponents.DotNetBar.LabelX()
         Me.lbIdServicio = New DevComponents.DotNetBar.LabelX()
         Me.txtIdServicio = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.cb_Unidad = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.Unidad = New DevComponents.DotNetBar.LabelX()
+        Me.btn_Unidad = New DevComponents.DotNetBar.ButtonX()
         CType(Me.SuperTabPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabPrincipal.SuspendLayout()
         Me.SuperTabControlPanelRegistro.SuspendLayout()
@@ -50,6 +54,7 @@ Partial Class F1_Servicio
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gpDatosGral.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        CType(Me.cb_Unidad, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SuperTabPrincipal
@@ -242,6 +247,9 @@ Partial Class F1_Servicio
         'Panel2
         '
         Me.Panel2.AutoScroll = True
+        Me.Panel2.Controls.Add(Me.cb_Unidad)
+        Me.Panel2.Controls.Add(Me.Unidad)
+        Me.Panel2.Controls.Add(Me.btn_Unidad)
         Me.Panel2.Controls.Add(Me.swEstadoS)
         Me.Panel2.Controls.Add(Me.lbEstado)
         Me.Panel2.Controls.Add(Me.txtDescripcion)
@@ -262,7 +270,7 @@ Partial Class F1_Servicio
         '
         Me.swEstadoS.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.swEstadoS.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.swEstadoS.Location = New System.Drawing.Point(138, 75)
+        Me.swEstadoS.Location = New System.Drawing.Point(138, 108)
         Me.swEstadoS.Name = "swEstadoS"
         Me.swEstadoS.OffBackColor = System.Drawing.Color.Gray
         Me.swEstadoS.OffText = "INACTIVO"
@@ -287,7 +295,7 @@ Partial Class F1_Servicio
         Me.lbEstado.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.lbEstado.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbEstado.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.lbEstado.Location = New System.Drawing.Point(18, 74)
+        Me.lbEstado.Location = New System.Drawing.Point(18, 107)
         Me.lbEstado.Name = "lbEstado"
         Me.lbEstado.SingleLineColor = System.Drawing.SystemColors.Control
         Me.lbEstado.Size = New System.Drawing.Size(79, 23)
@@ -364,6 +372,51 @@ Partial Class F1_Servicio
         Me.txtIdServicio.Size = New System.Drawing.Size(70, 22)
         Me.txtIdServicio.TabIndex = 100
         '
+        'cb_Unidad
+        '
+        cb_Unidad_DesignTimeLayout.LayoutString = resources.GetString("cb_Unidad_DesignTimeLayout.LayoutString")
+        Me.cb_Unidad.DesignTimeLayout = cb_Unidad_DesignTimeLayout
+        Me.cb_Unidad.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cb_Unidad.Location = New System.Drawing.Point(138, 75)
+        Me.cb_Unidad.Name = "cb_Unidad"
+        Me.cb_Unidad.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cb_Unidad.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.cb_Unidad.SelectedIndex = -1
+        Me.cb_Unidad.SelectedItem = Nothing
+        Me.cb_Unidad.Size = New System.Drawing.Size(136, 22)
+        Me.cb_Unidad.TabIndex = 332
+        Me.cb_Unidad.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'Unidad
+        '
+        Me.Unidad.AutoSize = True
+        Me.Unidad.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.Unidad.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.Unidad.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Unidad.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.Unidad.Location = New System.Drawing.Point(19, 79)
+        Me.Unidad.Name = "Unidad"
+        Me.Unidad.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.Unidad.Size = New System.Drawing.Size(52, 16)
+        Me.Unidad.TabIndex = 333
+        Me.Unidad.Text = "Unidad:"
+        '
+        'btn_Unidad
+        '
+        Me.btn_Unidad.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btn_Unidad.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btn_Unidad.Image = Global.DinoM.My.Resources.Resources.add
+        Me.btn_Unidad.ImageFixedSize = New System.Drawing.Size(28, 28)
+        Me.btn_Unidad.Location = New System.Drawing.Point(286, 71)
+        Me.btn_Unidad.Name = "btn_Unidad"
+        Me.btn_Unidad.Size = New System.Drawing.Size(34, 29)
+        Me.btn_Unidad.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btn_Unidad.TabIndex = 334
+        Me.btn_Unidad.Visible = False
+        '
         'F1_Servicio
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -393,6 +446,7 @@ Partial Class F1_Servicio
         Me.gpDatosGral.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        CType(Me.cb_Unidad, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -405,4 +459,7 @@ Partial Class F1_Servicio
     Friend WithEvents lbDescripcion As DevComponents.DotNetBar.LabelX
     Friend WithEvents lbIdServicio As DevComponents.DotNetBar.LabelX
     Friend WithEvents txtIdServicio As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents cb_Unidad As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents Unidad As DevComponents.DotNetBar.LabelX
+    Friend WithEvents btn_Unidad As DevComponents.DotNetBar.ButtonX
 End Class
