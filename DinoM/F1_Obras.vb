@@ -28,6 +28,8 @@ Public Class F1_Obras
     Public _modulo As SideNavItem
     Public _Tipo As Integer
     Dim NumiVendedor As Integer
+
+    Public banderaobra As Boolean = False
 #End Region
 #Region "Metodos Privados"
 
@@ -219,8 +221,15 @@ Public Class F1_Obras
             ToastNotification.Show(Me, "La obra no pudo ser insertada".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
         End If
+        If proforma = True Then
+            codobra = tbCodigoOriginal.Text
+            nomobra = tbNombre.Text
+            banderaobra = True
+            proforma = False
+            Me.Close()
+            Return res = False
+        End If
         Return res
-
     End Function
 
     Public Overrides Function _PMOModificarRegistro() As Boolean

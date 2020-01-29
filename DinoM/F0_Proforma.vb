@@ -1522,8 +1522,6 @@ salirIf:
 
     Sub _prImprimirReporte()
         Dim ef = New Efecto
-
-
         ef.tipo = 2
         ef.Context = "mensaje principal".ToUpper
         ef.Header = "¿DESEA IMPRIMIR REPORTE DE LA PROFORMA INSERTADA?".ToUpper
@@ -1532,9 +1530,6 @@ salirIf:
         bandera = ef.band
         If (bandera = True) Then
             P_GenerarReporte()
-
-
-
         End If
     End Sub
     Private Sub btnGrabar_Click(sender As Object, e As EventArgs) Handles btnGrabar.Click
@@ -1710,17 +1705,42 @@ salirIf:
     End Sub
 
     Private Sub btCliente_Click(sender As Object, e As EventArgs) Handles btCliente.Click
-        P_Principal.btConfFabrica_Click(sender, e)
+        proforma = True
+        'P_Principal.btConfFabrica_Click(sender, e)
+        Dim ef = New F1_Clientes
+        ef._nameButton = "btConfCliente"
+        ef._Tipo = 1
+        ef.ShowDialog()
+
+        If (ef.bandera = True) Then
+            _CodCliente = codcli
+            tbCliente.Text = nomcli
+            _CodEmpleado = codvend
+            tbVendedor.Text = nomvend
+            tbObra.Focus()
+        End If
     End Sub
 
     Private Sub btObra_Click(sender As Object, e As EventArgs) Handles btObra.Click
-        P_Principal.btObras_Click(sender, e)
+        'P_Principal.btObras_Click(sender, e)
+        proforma = True
+        Dim ef = New F1_Obras
+        ef._nameButton = "btObras"
+        ef.ShowDialog()
+
+        If (ef.banderaobra = True) Then
+            _CodObra = codobra
+            tbObra.Text = nomobra
+
+            grdetalle.Select()
+            grdetalle.Col = 4
+            grdetalle.Row = 0
+
+        End If
     End Sub
 
 
-
     Private Sub tbObra_KeyDown(sender As Object, e As KeyEventArgs) Handles tbObra.KeyDown
-
         If (_fnAccesible()) Then
             If e.KeyData = Keys.Control + Keys.Enter Then
                 Dim dtObra As DataTable
@@ -1761,7 +1781,6 @@ salirIf:
                 End If
 
             End If
-
         End If
     End Sub
 

@@ -9,6 +9,17 @@ Module P_Global
     Public gs_SeparadorDecimal As Char = Application.CurrentCulture.NumberFormat.NumberDecimalSeparator
     Public Visualizador As Visualizador
 
+
+#End Region
+
+#Region "Proforma"
+    Public proforma As Boolean = False
+    Public codcli As Integer
+    Public nomcli As String
+    Public codvend As Integer
+    Public nomvend As String
+    Public codobra As Integer
+    Public nomobra As String
 #End Region
 
 #Region "Carpetas del sistema"

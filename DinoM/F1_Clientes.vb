@@ -31,6 +31,8 @@ Public Class F1_Clientes
     Public _modulo As SideNavItem
     Public _Tipo As Integer
     Dim NumiVendedor As Integer
+
+    Public bandera As Boolean = False
 #End Region
 #Region "Metodos Privados"
 
@@ -435,7 +437,6 @@ Public Class F1_Clientes
     End Sub
 
     Public Overrides Function _PMOGrabarRegistro() As Boolean
-
         'ByRef _ydnumi As String, _ydcod As String,
         '                                       _yddesc As String, _ydzona As Integer,
         '                                       _yddct As Integer, _yddctnum As String,
@@ -464,6 +465,16 @@ Public Class F1_Clientes
             Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
             ToastNotification.Show(Me, "El producto no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
+        End If
+        If proforma = True Then
+            codcli = tbCodigoOriginal.Text
+            nomcli = tbRazonSocial.Text
+            codvend = NumiVendedor
+            nomvend = tbVendedor.Text
+            bandera = True
+            proforma = False
+            Me.Close()
+            Return res = False
         End If
         Return res
 
@@ -561,11 +572,19 @@ Public Class F1_Clientes
 
         If tbNombre.Text = String.Empty Then
             tbNombre.BackColor = Color.Red
-            MEP.SetError(tbNombre, "ingrese el nombre del Usuario!".ToUpper)
+            MEP.SetError(tbNombre, "ingrese el nombre del cliente!".ToUpper)
             _ok = False
         Else
             tbNombre.BackColor = Color.White
             MEP.SetError(tbNombre, "")
+        End If
+        If tbRazonSocial.Text = String.Empty Then
+            tbRazonSocial.BackColor = Color.Red
+            MEP.SetError(tbRazonSocial, "ingrese nombre de la empresa!".ToUpper)
+            _ok = False
+        Else
+            tbRazonSocial.BackColor = Color.White
+            MEP.SetError(tbRazonSocial, "")
         End If
         If (cbCatPrec.SelectedIndex < 0) Then
 
@@ -587,7 +606,6 @@ Public Class F1_Clientes
         End If
 
         If (cbVisita.SelectedIndex < 0) Then
-
             If (CType(cbVisita.DataSource, DataTable).Rows.Count > 0) Then
                 cbVisita.SelectedIndex = 0
             End If

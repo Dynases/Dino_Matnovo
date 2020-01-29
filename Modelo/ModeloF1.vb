@@ -227,7 +227,6 @@ Public Class ModeloF1
             If _PMOGrabarRegistro() = True Then
                 'actualizar el grid de buscador
                 _PMCargarBuscador()
-
                 _PMOLimpiar()
 
             Else

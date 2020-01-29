@@ -736,7 +736,6 @@ Partial Class ModeloF1
     Protected WithEvents btnGrabar As DevComponents.DotNetBar.ButtonX
     Protected WithEvents btnEliminar As DevComponents.DotNetBar.ButtonX
     Protected WithEvents btnModificar As DevComponents.DotNetBar.ButtonX
-    Protected WithEvents btnNuevo As DevComponents.DotNetBar.ButtonX
     Protected WithEvents PanelToolBar2 As System.Windows.Forms.Panel
     Protected WithEvents MPanelSup As System.Windows.Forms.Panel
     Protected WithEvents PanelPrincipal As System.Windows.Forms.Panel
@@ -763,4 +762,5 @@ Partial Class ModeloF1
     Friend WithEvents MRlAccion As DevComponents.DotNetBar.Controls.ReflectionLabel
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents BubbleButton1 As DevComponents.DotNetBar.BubbleButton
+    Public WithEvents btnNuevo As DevComponents.DotNetBar.ButtonX
 End Class
