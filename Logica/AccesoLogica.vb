@@ -1460,11 +1460,9 @@ Public Class AccesoLogica
 
     Public Shared Function L_fnListarClientes() As DataTable
         Dim _Tabla As DataTable
-
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 6))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
-
         Return _Tabla
     End Function
     Public Shared Function L_fnListarProforma() As DataTable
@@ -5296,7 +5294,7 @@ Public Class AccesoLogica
         Dim _resultado As Boolean
         Dim _listParam As New List(Of Datos.DParametro)
 
-        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
         _listParam.Add(New Datos.DParametro("@pcNumi", _pcNumi))
         _listParam.Add(New Datos.DParametro("@pcEst", 1))
 
@@ -5357,6 +5355,152 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@pcnumi", _numi))
         _listParam.Add(New Datos.DParametro("@pcuact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TP002", _listParam)
+        Return _Tabla
+    End Function
+#End Region
+#Region "VENTA SERVICIOS"
+    'tgnumi, tgProforma, tgfdoc, tgVen, tgTipoVen, tgFvcr, tgCliente, tgMone, tgest, tgobs, tgDesc, tgTotal, tgFact, tgHact, tgUact, tgEmision
+    Public Shared Function L_fnGrabarVentaServicio(ByRef _tgnumi As String, tgProforma As Integer, tgObra As Integer, tgfdoc As String, tgVen As Integer, tgTipoVen As Integer, tgFvcr As String, tgCliente As Integer,
+                                           tgMone As Integer, tgobs As String,
+                                           tgDesc As Double,
+                                           tgTotal As Double, detalle As DataTable, tgEmision As Integer) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@tgnumi", _tgnumi))
+        _listParam.Add(New Datos.DParametro("@tgProforma", tgProforma))
+        _listParam.Add(New Datos.DParametro("@tgObra", tgObra))
+        _listParam.Add(New Datos.DParametro("@tgfdoc", tgfdoc))
+        _listParam.Add(New Datos.DParametro("@tgVen", tgVen))
+        _listParam.Add(New Datos.DParametro("@tgTipoVen", tgTipoVen))
+        _listParam.Add(New Datos.DParametro("@tgFvcr", tgFvcr))
+        _listParam.Add(New Datos.DParametro("@tgCliente", tgCliente))
+        _listParam.Add(New Datos.DParametro("@tgMone", tgMone))
+        _listParam.Add(New Datos.DParametro("@tgest", 1))
+        _listParam.Add(New Datos.DParametro("@tgobs", tgobs))
+        _listParam.Add(New Datos.DParametro("@tgDesc", tgDesc))
+        _listParam.Add(New Datos.DParametro("@tgTotal", tgTotal))
+        _listParam.Add(New Datos.DParametro("@tgUact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@tgEmision", tgEmision))
+        _listParam.Add(New Datos.DParametro("@TV0041", "", detalle))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV004", _listParam)
+        If _Tabla.Rows.Count > 0 Then
+            _tgnumi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+        Return _resultado
+    End Function
+
+    Public Shared Function L_fnModificarVentaServicio(ByRef _tgnumi As String, tgProforma As Integer, tgObra As Integer, tgfdoc As String, tgVen As Integer, tgTipoVen As Integer, tgFvcr As String, tgCliente As Integer,
+                                           tgMone As Integer, tgobs As String,
+                                           tgDesc As Double,
+                                           tgTotal As Double, detalle As DataTable, tgEmision As Integer) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@tgnumi", _tgnumi))
+        _listParam.Add(New Datos.DParametro("@tgProforma", tgProforma))
+        _listParam.Add(New Datos.DParametro("@tgObra", tgObra))
+        _listParam.Add(New Datos.DParametro("@tgfdoc", tgfdoc))
+        _listParam.Add(New Datos.DParametro("@tgVen", tgVen))
+        _listParam.Add(New Datos.DParametro("@tgTipoVen", tgTipoVen))
+        _listParam.Add(New Datos.DParametro("@tgFvcr", tgFvcr))
+        _listParam.Add(New Datos.DParametro("@tgCliente", tgCliente))
+        _listParam.Add(New Datos.DParametro("@tgMone", tgMone))
+        _listParam.Add(New Datos.DParametro("@tgest", 1))
+        _listParam.Add(New Datos.DParametro("@tgobs", tgobs))
+        _listParam.Add(New Datos.DParametro("@tgDesc", tgDesc))
+        _listParam.Add(New Datos.DParametro("@tgTotal", tgTotal))
+        _listParam.Add(New Datos.DParametro("@tgUact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@tgEmision", tgEmision))
+        _listParam.Add(New Datos.DParametro("@TV0041", "", detalle))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV004", _listParam)
+        If _Tabla.Rows.Count > 0 Then
+            _tgnumi = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+        Return _resultado
+    End Function
+
+    Public Shared Function L_fnEliminarVentaServicio(numi As String, ByRef mensaje As String) As Boolean
+        Dim _resultado As Boolean
+        If L_fnbValidarEliminacion(numi, "TV004", "tgnumi", mensaje) = True Then
+            Dim _Tabla As DataTable
+            Dim _listParam As New List(Of Datos.DParametro)
+
+            _listParam.Add(New Datos.DParametro("@tipo", -1))
+            _listParam.Add(New Datos.DParametro("@tgnumi", numi))
+            _listParam.Add(New Datos.DParametro("@tgUact", L_Usuario))
+            _Tabla = D_ProcedimientoConParam("sp_Mam_TV004", _listParam)
+            If _Tabla.Rows.Count > 0 Then
+                _resultado = True
+            Else
+                _resultado = False
+            End If
+        Else
+            _resultado = False
+        End If
+        Return _resultado
+    End Function
+    Public Shared Function L_fnGeneralVentaServicio() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@tguact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV004", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_fnDetalleVentaServicio(_numi As String) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@tgnumi", _numi))
+        _listParam.Add(New Datos.DParametro("@tgUact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV004", _listParam)
+
+        Return _Tabla
+    End Function
+    Public Shared Function L_fnVerificarSiSeContabilizoVentaServicio(_tanumi As String) As Boolean
+        Dim _Tabla As DataTable
+        Dim _resultado As Boolean
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 14))
+        _listParam.Add(New Datos.DParametro("@tanumi", _tanumi))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV004", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+    Public Shared Function L_fnListarProformaServicio() As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV004", _listParam)
+        Return _Tabla
+    End Function
+    Public Shared Function L_fnListarProformaServicioDetalle(numi As String) As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 6))
+        _listParam.Add(New Datos.DParametro("@tgnumi", numi))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV004", _listParam)
         Return _Tabla
     End Function
 #End Region

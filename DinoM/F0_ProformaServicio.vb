@@ -774,8 +774,8 @@ Public Class F0_ProformaServicio
                         tbVendedor.Focus()
                         Return
                     End If
-                    _CodEmpleado = Row.Cells("pcVen").Value
-                    tbVendedor.Text = Row.Cells("Vendedor").Value
+                    _CodEmpleado = Row.Cells("ydnumi").Value
+                    tbVendedor.Text = Row.Cells("yddesc").Value
                     tbObservacion.Focus()
 
                 End If
@@ -958,6 +958,51 @@ salirIf:
                     _fnObtenerFilaDetalle(pos, lin)
                     CType(Gr_Detalle.DataSource, DataTable).Rows(pos).Item("pdCantidad") = 1
                     CType(Gr_Detalle.DataSource, DataTable).Rows(pos).Item("pdSubTotal") = CType(Gr_Detalle.DataSource, DataTable).Rows(pos).Item("pdPrecio")
+                    _prCalcularPrecioTotal()
+                    'Gr_Detalle.SetValue("pdCantidad", 1)
+                    'Gr_Detalle.SetValue("pdSubTotal", Gr_Detalle.GetValue("pdPrecio"))
+
+                End If
+            End If
+        End If
+        ''CANTIDAD
+        If (e.Column.Index = Gr_Detalle.RootTable.Columns("pdPrecio").Index) Then
+            If (Not IsNumeric(Gr_Detalle.GetValue("pdPrecio")) Or Gr_Detalle.GetValue("pdPrecio").ToString = String.Empty) Then
+
+                Dim lin As Integer = Gr_Detalle.GetValue("pdnumi")
+                Dim pos As Integer = -1
+                _fnObtenerFilaDetalle(pos, lin)
+                CType(Gr_Detalle.DataSource, DataTable).Rows(pos).Item("pdPrecio") = 0
+                CType(Gr_Detalle.DataSource, DataTable).Rows(pos).Item("pdSubTotal") = CType(Gr_Detalle.DataSource, DataTable).Rows(pos).Item("pdPrecio")
+
+                CType(Gr_Detalle.DataSource, DataTable).Rows(pos).Item("pdPorc") = 0
+                CType(Gr_Detalle.DataSource, DataTable).Rows(pos).Item("pdDesc") = 0
+                CType(Gr_Detalle.DataSource, DataTable).Rows(pos).Item("pdTotal") = CType(Gr_Detalle.DataSource, DataTable).Rows(pos).Item("pdPrecio")
+                'Gr_Detalle.SetValue("pdCantidad", 1)
+                'Gr_Detalle.SetValue("pdSubTotal", Gr_Detalle.GetValue("pdPrecio"))
+            Else
+                If (Gr_Detalle.GetValue("pdPrecio") > 0) Then
+                    Dim rowIndex As Integer = Gr_Detalle.Row
+                    Dim porcdesc As Double = Gr_Detalle.GetValue("pdPorc")
+                    Dim montodesc As Double = ((Gr_Detalle.GetValue("pdPrecio") * Gr_Detalle.GetValue("pdCantidad")) * (porcdesc / 100))
+                    Dim lin As Integer = Gr_Detalle.GetValue("pdnumi")
+                    Dim pos As Integer = -1
+                    _fnObtenerFilaDetalle(pos, lin)
+                    CType(Gr_Detalle.DataSource, DataTable).Rows(pos).Item("pdDesc") = montodesc
+                    Gr_Detalle.SetValue("pdDesc", montodesc)
+
+                    'Saca la conversión de cada Servicio
+                    codprod = Gr_Detalle.GetValue("pdNumiServ")
+                    Dim dtconv As New DataTable
+                    dtconv = L_fnConversionProd(codprod)
+                    P_PonerTotal(rowIndex)
+
+                Else
+                    Dim lin As Integer = Gr_Detalle.GetValue("pdnumi")
+                    Dim pos As Integer = -1
+                    _fnObtenerFilaDetalle(pos, lin)
+                    CType(Gr_Detalle.DataSource, DataTable).Rows(pos).Item("pdPrecio") = 0
+                    CType(Gr_Detalle.DataSource, DataTable).Rows(pos).Item("pdSubTotal") = 0
                     _prCalcularPrecioTotal()
                     'Gr_Detalle.SetValue("pdCantidad", 1)
                     'Gr_Detalle.SetValue("pdSubTotal", Gr_Detalle.GetValue("pdPrecio"))

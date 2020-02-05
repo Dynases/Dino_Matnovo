@@ -315,6 +315,12 @@
     <Compile Include="F0_Ventas.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="F0_VentasServicio.Designer.vb">
+      <DependentUpon>F0_VentasServicio.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F0_VentasServicio.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="F1_Almacen.Designer.vb">
       <DependentUpon>F1_Almacen.vb</DependentUpon>
     </Compile>
@@ -833,6 +839,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F0_Ventas.resx">
       <DependentUpon>F0_Ventas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F0_VentasServicio.resx">
+      <DependentUpon>F0_VentasServicio.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F1_Almacen.resx">
       <DependentUpon>F1_Almacen.vb</DependentUpon>
