@@ -1460,11 +1460,9 @@ Public Class AccesoLogica
 
     Public Shared Function L_fnListarClientes() As DataTable
         Dim _Tabla As DataTable
-
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 6))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
-
         Return _Tabla
     End Function
     Public Shared Function L_fnListarProforma() As DataTable
@@ -5360,7 +5358,7 @@ Public Class AccesoLogica
 #End Region
 #Region "VENTA SERVICIOS"
     'tgnumi, tgProforma, tgfdoc, tgVen, tgTipoVen, tgFvcr, tgCliente, tgMone, tgest, tgobs, tgDesc, tgTotal, tgFact, tgHact, tgUact, tgEmision
-    Public Shared Function L_fnGrabarVentaServicio(ByRef _tgnumi As String, tgProforma As Integer, tgfdoc As String, tgVen As Integer, tgTipoVen As Integer, tgFvcr As String, tgCliente As Integer,
+    Public Shared Function L_fnGrabarVentaServicio(ByRef _tgnumi As String, tgProforma As Integer, tgObra As Integer, tgfdoc As String, tgVen As Integer, tgTipoVen As Integer, tgFvcr As String, tgCliente As Integer,
                                            tgMone As Integer, tgobs As String,
                                            tgDesc As Double,
                                            tgTotal As Double, detalle As DataTable, tgEmision As Integer) As Boolean
@@ -5370,6 +5368,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 1))
         _listParam.Add(New Datos.DParametro("@tgnumi", _tgnumi))
         _listParam.Add(New Datos.DParametro("@tgProforma", tgProforma))
+        _listParam.Add(New Datos.DParametro("@tgObra", tgObra))
         _listParam.Add(New Datos.DParametro("@tgfdoc", tgfdoc))
         _listParam.Add(New Datos.DParametro("@tgVen", tgVen))
         _listParam.Add(New Datos.DParametro("@tgTipoVen", tgTipoVen))
@@ -5393,7 +5392,7 @@ Public Class AccesoLogica
         Return _resultado
     End Function
 
-    Public Shared Function L_fnModificarVentaServicio(ByRef _tgnumi As String, tgProforma As Integer, tgfdoc As String, tgVen As Integer, tgTipoVen As Integer, tgFvcr As String, tgCliente As Integer,
+    Public Shared Function L_fnModificarVentaServicio(ByRef _tgnumi As String, tgProforma As Integer, tgObra As Integer, tgfdoc As String, tgVen As Integer, tgTipoVen As Integer, tgFvcr As String, tgCliente As Integer,
                                            tgMone As Integer, tgobs As String,
                                            tgDesc As Double,
                                            tgTotal As Double, detalle As DataTable, tgEmision As Integer) As Boolean
@@ -5403,6 +5402,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 2))
         _listParam.Add(New Datos.DParametro("@tgnumi", _tgnumi))
         _listParam.Add(New Datos.DParametro("@tgProforma", tgProforma))
+        _listParam.Add(New Datos.DParametro("@tgObra", tgObra))
         _listParam.Add(New Datos.DParametro("@tgfdoc", tgfdoc))
         _listParam.Add(New Datos.DParametro("@tgVen", tgVen))
         _listParam.Add(New Datos.DParametro("@tgTipoVen", tgTipoVen))
@@ -5486,23 +5486,20 @@ Public Class AccesoLogica
 
         Return _resultado
     End Function
-    Public Shared Function L_fnVerificarPagosVentasServicio(numi As String) As Boolean
-        Dim _resultado As Boolean
+    Public Shared Function L_fnListarProformaServicio() As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
-
-        _listParam.Add(New Datos.DParametro("@tipo", 15))
-        _listParam.Add(New Datos.DParametro("@tanumi", numi))
-        _listParam.Add(New Datos.DParametro("@tauact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV004", _listParam)
-
-        If _Tabla.Rows.Count > 0 Then
-            _resultado = True
-        Else
-            _resultado = False
-        End If
-        Return _resultado
+        Return _Tabla
     End Function
-
+    Public Shared Function L_fnListarProformaServicioDetalle(numi As String) As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 6))
+        _listParam.Add(New Datos.DParametro("@tgnumi", numi))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV004", _listParam)
+        Return _Tabla
+    End Function
 #End Region
 End Class

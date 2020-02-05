@@ -21,6 +21,7 @@ Public Class F0_VentasServicio
 #Region "Variables Globales"
     Dim _CodCliente As Integer = 0
     Dim _CodEmpleado As Integer = 0
+    Dim _CodObra As Integer = 0
     Dim OcultarFact As Integer = 0
     Dim _codeBar As Integer = 1
     Dim _dias As Integer = 0
@@ -121,7 +122,7 @@ Public Class F0_VentasServicio
         tbFechaVenc.IsInputReadOnly = True
         swMoneda.IsReadOnly = True
         swTipoVenta.IsReadOnly = True
-
+        tbObra.ReadOnly = True
         'Datos facturacion
         tbNroAutoriz.ReadOnly = True
         tbNroFactura.ReadOnly = True
@@ -158,6 +159,7 @@ Public Class F0_VentasServicio
         ''  tbCliente.ReadOnly = False  por que solo podra seleccionar Cliente
         ''  tbVendedor.ReadOnly = False
         tbObservacion.ReadOnly = False
+        tbObra.ReadOnly = False
         tbFechaVenta.IsInputReadOnly = False
         tbFechaVenc.IsInputReadOnly = False
         swMoneda.IsReadOnly = False
@@ -192,10 +194,12 @@ Public Class F0_VentasServicio
         tbCliente.Clear()
         tbVendedor.Clear()
         tbObservacion.Clear()
+        tbObra.Clear()
         swMoneda.Value = True
         swTipoVenta.Value = True
         _CodCliente = 0
         _CodEmpleado = 0
+        _CodObra = 0
         tbFechaVenta.Value = Now.Date
         tbFechaVenc.Visible = False
         lbCredito.Visible = False
@@ -239,18 +243,20 @@ Public Class F0_VentasServicio
 
         With grVentas
 
-            tbCodigo.Text = .GetValue("tanumi")
-            tbFechaVenta.Value = .GetValue("tafdoc")
-            _CodEmpleado = .GetValue("taven")
+            tbCodigo.Text = .GetValue("tgnumi")
+            tbFechaVenta.Value = .GetValue("tgFdoc")
+            _CodEmpleado = .GetValue("tgVen")
+            _CodObra = .GetValue("tgObra")
+            tbObra.Text = .GetValue("Obra")
             tbVendedor.Text = .GetValue("vendedor")
-            swTipoVenta.Value = .GetValue("tatven")
-            _CodCliente = .GetValue("taclpr")
+            swTipoVenta.Value = .GetValue("tgTipoVen")
+            _CodCliente = .GetValue("tgCliente")
             tbCliente.Text = .GetValue("cliente")
-            swMoneda.Value = .GetValue("tamon")
-            tbObservacion.Text = .GetValue("taobs")
-            swEmision.Value = .GetValue("taemision")
+            swMoneda.Value = .GetValue("tgMone")
+            tbObservacion.Text = .GetValue("tgobs")
+            swEmision.Value = .GetValue("tgemision")
 
-            Dim proforma As Integer = IIf(IsDBNull(.GetValue("taproforma")), 0, .GetValue("taproforma"))
+            Dim proforma As Integer = IIf(IsDBNull(.GetValue("tgProforma")), 0, .GetValue("tgProforma"))
             If (proforma = 0) Then
                 SwProforma.Value = False
                 tbProforma.Clear()
@@ -259,7 +265,7 @@ Public Class F0_VentasServicio
                 tbProforma.Text = proforma
                 SwProforma.Value = True
             End If
-            tbFechaVenc.Value = .GetValue("tafvcr")
+            tbFechaVenc.Value = .GetValue("tgFvcr")
 
 
             'If (gb_FacturaEmite) Then
@@ -285,15 +291,14 @@ Public Class F0_VentasServicio
             End If
             'End If
 
-            lbFecha.Text = CType(.GetValue("tafact"), Date).ToString("dd/MM/yyyy")
-            lbHora.Text = .GetValue("tahact").ToString
-            lbUsuario.Text = .GetValue("tauact").ToString
+            lbFecha.Text = CType(.GetValue("tgFact"), Date).ToString("dd/MM/yyyy")
+            lbHora.Text = .GetValue("tgHact").ToString
+            lbUsuario.Text = .GetValue("tgUact").ToString
 
         End With
 
         _prCargarDetalleVenta(tbCodigo.Text)
-        tbMdesc.Value = grVentas.GetValue("tadesc")
-        tbIce.Value = grVentas.GetValue("taice")
+        tbMdesc.Value = grVentas.GetValue("tgDesc")
         _prCalcularPrecioTotal()
         LblPaginacion.Text = Str(grVentas.Row + 1) + "/" + grVentas.RowCount.ToString
 
@@ -449,6 +454,10 @@ Public Class F0_VentasServicio
 
         End With
         With grVentas.RootTable.Columns("tgProforma")
+            .Width = 90
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("tgObra")
             .Width = 90
             .Visible = False
         End With
@@ -784,20 +793,26 @@ Public Class F0_VentasServicio
             tbVendedor.Focus()
             Return False
         End If
+        If (_CodObra <= 0) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Por Favor Seleccione una Obra con Ctrl+Enter".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            tbObra.Focus()
+            Return False
+        End If
         'Validar datos de factura
-        'If (TbNit.Text = String.Empty) Then
-        '    Dim img As Bitmap = New Bitmap(My.Resources.Mensaje, 50, 50)
-        '    ToastNotification.Show(Me, "Por Favor ponga el nit del cliente.".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-        '    tbVendedor.Focus()
-        '    Return False
-        'End If
+        If (TbNit.Text = String.Empty) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Por Favor ponga el nit del cliente.".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            tbVendedor.Focus()
+            Return False
+        End If
 
-        'If (TbNombre1.Text = String.Empty) Then
-        '    Dim img As Bitmap = New Bitmap(My.Resources.Mensaje, 50, 50)
-        '    ToastNotification.Show(Me, "Por Favor ponga la razon social del cliente.".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-        '    tbVendedor.Focus()
-        '    Return False
-        'End If
+        If (TbNombre1.Text = String.Empty) Then
+            Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+            ToastNotification.Show(Me, "Por Favor ponga la razon social del cliente.".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+            tbVendedor.Focus()
+            Return False
+        End If
 
         If (grdetalle.RowCount = 1) Then
             grdetalle.Row = grdetalle.RowCount - 1
@@ -814,7 +829,7 @@ Public Class F0_VentasServicio
     Public Sub _GuardarNuevo()
         Dim numi As String = ""
 
-        Dim res As Boolean = L_fnGrabarVentaServicio(numi, IIf(SwProforma.Value = True, tbProforma.Text, 0), tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, IIf(swTipoVenta.Value = True, 1, 0),
+        Dim res As Boolean = L_fnGrabarVentaServicio(numi, IIf(SwProforma.Value = True, tbProforma.Text, 0), _CodObra, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, IIf(swTipoVenta.Value = True, 1, 0),
                                                      IIf(swTipoVenta.Value = True, Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")), _CodCliente, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), IIf(swEmision.Value = True, 1, 0))
         If res Then
             If (gb_FacturaEmite) Then
@@ -837,7 +852,7 @@ Public Class F0_VentasServicio
         End If
     End Sub
     Private Sub _prGuardarModificado()
-        Dim res As Boolean = L_fnModificarVentaServicio(tbCodigo.Text, IIf(SwProforma.Value = True, tbProforma.Text, 0), tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, IIf(swTipoVenta.Value = True, 1, 0),
+        Dim res As Boolean = L_fnModificarVentaServicio(tbCodigo.Text, IIf(SwProforma.Value = True, tbProforma.Text, 0), _CodObra, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, IIf(swTipoVenta.Value = True, 1, 0),
                                                      IIf(swTipoVenta.Value = True, Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")), _CodCliente, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), IIf(swEmision.Value = True, 1, 0))
         If res Then
 
@@ -1333,47 +1348,25 @@ Public Class F0_VentasServicio
     End Sub
 
     Sub _prCargarProductoDeLaProforma(numiProforma As Integer)
-        Dim dt As DataTable = L_fnListarProductoProforma(numiProforma)
+        Dim dt As DataTable = L_fnListarProformaServicioDetalle(numiProforma)
         If (dt.Rows.Count > 0) Then
             CType(grdetalle.DataSource, DataTable).Rows.Clear()
             For i As Integer = 0 To dt.Rows.Count - 1
-                Dim numiproducto As Integer = dt.Rows(i).Item("pbty5prod")
-                Dim nameproducto As String = dt.Rows(i).Item("producto")
-                Dim lote As String = ""
-                Dim FechaVenc As Date = Now.Date
-                Dim cant As Double = dt.Rows(i).Item("pbcmin")
-                Dim iccven As Double = 0
+                Dim numiServicio As Integer = dt.Rows(i).Item("pdNumiServ")
+                Dim nameServicio As String = dt.Rows(i).Item("Servicio")
+                Dim cant As Double = dt.Rows(i).Item("pdCantidad")
                 _prAddDetalleVenta()
                 grdetalle.Row = grdetalle.RowCount - 1
-                If (lote <> String.Empty) Then
-                    If (cant <= iccven) Then
-                        grdetalle.SetValue("thSubTotal", dt.Rows(i).Item("pbptot"))
-                        grdetalle.SetValue("thTotal", dt.Rows(i).Item("pbtotdesc"))
-                        grdetalle.SetValue("thDesc", dt.Rows(i).Item("pbdesc"))
-                        grdetalle.SetValue("thCant", cant)
-                        grdetalle.SetValue("thPtot2", dt.Rows(i).Item("pcosto") * cant)
-                    Else
-                        Dim tot As Double = dt.Rows(i).Item("pbpbas") * iccven
-                        grdetalle.SetValue("thSubTotal", tot)
-                        grdetalle.SetValue("thTotal", tot)
-                        grdetalle.SetValue("thDesc", 0)
-                        grdetalle.SetValue("thCant", iccven)
-                        grdetalle.SetValue("thPtot2", dt.Rows(i).Item("pcosto") * iccven)
-                    End If
-                    grdetalle.SetValue("thty8prod", numiproducto)
-                    grdetalle.SetValue("producto", nameproducto)
-                    grdetalle.SetValue("thUni", dt.Rows(i).Item("pbumin"))
-                    grdetalle.SetValue("unidad", dt.Rows(i).Item("unidad"))
-                    grdetalle.SetValue("thPrec", dt.Rows(i).Item("pbpbas"))
-                    If (gb_FacturaIncluirICE) Then
-                        grdetalle.SetValue("thCosto", dt.Rows(i).Item("pcosto"))
-                    Else
-                        grdetalle.SetValue("thCosto", 0)
-                    End If
-                    grdetalle.SetValue("tblote", lote)
-                    grdetalle.SetValue("tbfechaVenc", FechaVenc)
-                    grdetalle.SetValue("stock", iccven)
-                End If
+                grdetalle.SetValue("thty8prod", numiServicio)
+                grdetalle.SetValue("Producto", nameServicio)
+                grdetalle.SetValue("thCant", dt.Rows(i).Item("pdCantidad"))
+                grdetalle.SetValue("thUni", dt.Rows(i).Item("pdNumiUnidad"))
+                grdetalle.SetValue("unidad", dt.Rows(i).Item("unidad"))
+                grdetalle.SetValue("thPrec", dt.Rows(i).Item("pdPrecio"))
+                grdetalle.SetValue("thSubTotal", dt.Rows(i).Item("pdSubTotal"))
+                grdetalle.SetValue("thTotal", dt.Rows(i).Item("pdTotal"))
+                grdetalle.SetValue("thDesc", dt.Rows(i).Item("pdDesc"))
+                grdetalle.SetValue("thCosto", 0)
             Next
             grdetalle.Select()
             _prCalcularPrecioTotal()
@@ -1580,7 +1573,7 @@ Public Class F0_VentasServicio
                     ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
             End If
-            If (grdetalle.Col = grdetalle.RootTable.Columns("thPrecio").Index) Then
+            If (grdetalle.Col = grdetalle.RootTable.Columns("thPrec").Index) Then
                 If (grdetalle.GetValue("producto") <> String.Empty) Then
                     _prAddDetalleVenta()
                     _HabilitarProductos()
@@ -1929,16 +1922,16 @@ salirIf:
                 End If
             End If
         End If
-        If (e.Column.Index = grdetalle.RootTable.Columns("thPrecio").Index) Then
-            If (Not IsNumeric(grdetalle.GetValue("thPrecio")) Or grdetalle.GetValue("thPrecio").ToString = String.Empty) Then
-                grdetalle.SetValue("thPrecio", 1)
+        If (e.Column.Index = grdetalle.RootTable.Columns("thPrec").Index) Then
+            If (Not IsNumeric(grdetalle.GetValue("thPrec")) Or grdetalle.GetValue("thPrec").ToString = String.Empty) Then
+                grdetalle.SetValue("thPrec", 1)
                 grdetalle.SetValue("thSubTotal", grdetalle.GetValue("thPrec"))
                 grdetalle.SetValue("thPorc", 0)
                 grdetalle.SetValue("thDesc", 0)
                 grdetalle.SetValue("thTotal", grdetalle.GetValue("thPrec"))
             Else
-                If (grdetalle.GetValue("thPrecio") < 0) Then
-                    grdetalle.SetValue("thPrecio", 1)
+                If (grdetalle.GetValue("thPrec") < 0) Then
+                    grdetalle.SetValue("thPrec", 1)
                     grdetalle.SetValue("thSubTotal", grdetalle.GetValue("thPrec"))
                     grdetalle.SetValue("thPorc", 0)
                     grdetalle.SetValue("thDesc", 0)
@@ -2064,7 +2057,9 @@ salirIf:
     End Sub
 
     Private Sub grVentas_SelectionChanged(sender As Object, e As EventArgs) Handles grVentas.SelectionChanged
-
+        If (grVentas.RowCount >= 0 And grVentas.Row >= 0) Then
+            _prMostrarRegistro(grVentas.Row)
+        End If
     End Sub
 
     Private Sub btnSiguiente_Click(sender As Object, e As EventArgs) Handles btnSiguiente.Click
@@ -2139,16 +2134,18 @@ salirIf:
         If (_fnAccesible()) Then
             If e.KeyData = Keys.Control + Keys.Enter Then
                 Dim dt As DataTable
-                dt = L_fnListarProforma()
+                dt = L_fnListarProformaServicio()
                 Dim listEstCeldas As New List(Of Modelo.Celda)
-                listEstCeldas.Add(New Modelo.Celda("panumi,", True, "NRO PROFORMA", 120))
-                listEstCeldas.Add(New Modelo.Celda("pafdoc", True, "FECHA", 120, "dd/MM/yyyy"))
-                listEstCeldas.Add(New Modelo.Celda("paven", False, "", 50))
+                listEstCeldas.Add(New Modelo.Celda("pcNumi,", True, "NRO PROFORMA", 120))
+                listEstCeldas.Add(New Modelo.Celda("pcFDoc", True, "FECHA", 80, "dd/MM/yyyy"))
+                listEstCeldas.Add(New Modelo.Celda("pcVen", False, "", 50))
                 listEstCeldas.Add(New Modelo.Celda("vendedor", True, "VENDEDOR".ToUpper, 150))
-                listEstCeldas.Add(New Modelo.Celda("paclpr", False, "", 50))
-                listEstCeldas.Add(New Modelo.Celda("cliente", True, "CLIENTE", 220))
+                listEstCeldas.Add(New Modelo.Celda("pcClie", False, "", 50))
+                listEstCeldas.Add(New Modelo.Celda("cliente", True, "CLIENTE", 150))
                 listEstCeldas.Add(New Modelo.Celda("total", True, "TOTAL".ToUpper, 120, "0.00"))
-                listEstCeldas.Add(New Modelo.Celda("paalm", False, "", 50))
+                listEstCeldas.Add(New Modelo.Celda("pcObra,", False, "IdObra", 120))
+                listEstCeldas.Add(New Modelo.Celda("oanomb,", True, "Obra", 120))
+                listEstCeldas.Add(New Modelo.Celda("pcDesc,", True, "Descuento", 120))
                 Dim ef = New Efecto
                 ef.tipo = 3
                 ef.dt = dt
@@ -2156,18 +2153,22 @@ salirIf:
                 ef.listEstCeldas = listEstCeldas
                 ef.alto = 50
                 ef.ancho = 350
-                ef.Context = "Seleccione PROFORMA".ToUpper
+                ef.Context = "SELECCIONE PROFORMA".ToUpper
                 ef.ShowDialog()
                 Dim bandera As Boolean = False
                 bandera = ef.band
                 If (bandera = True) Then
                     Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
-                    _CodEmpleado = Row.Cells("paven").Value
-                    _CodCliente = Row.Cells("paclpr").Value
+                    _CodEmpleado = Row.Cells("pcVen").Value
+                    _CodCliente = Row.Cells("pcClie").Value
                     tbCliente.Text = Row.Cells("cliente").Value
                     tbVendedor.Text = Row.Cells("vendedor").Value
-                    tbProforma.Text = Row.Cells("panumi").Value
-                    _prCargarProductoDeLaProforma(Row.Cells("panumi").Value)
+                    tbProforma.Text = Row.Cells("pcNumi").Value
+                    _CodObra = Row.Cells("pcObra").Value
+                    tbObra.Text = Row.Cells("oanomb").Value
+                    tbProforma.Text = Row.Cells("pcNumi").Value
+                    tbMdesc.Text = Row.Cells("pcDesc").Value
+                    _prCargarProductoDeLaProforma(Row.Cells("pcNumi").Value)
                 End If
             End If
         End If
@@ -2198,8 +2199,45 @@ salirIf:
         Table_Producto = Nothing
     End Sub
 
-
-
-
+    Private Sub tbObra_KeyDown(sender As Object, e As KeyEventArgs) Handles tbObra.KeyDown
+        If (_fnAccesible()) Then
+            If e.KeyData = Keys.Control + Keys.Enter Then
+                Dim dtObra As DataTable
+                dtObra = L_fnListarObras()
+                Dim listEstCeldas As New List(Of Modelo.Celda)
+                listEstCeldas.Add(New Modelo.Celda("oanumi,", True, "Id", 70))
+                listEstCeldas.Add(New Modelo.Celda("oanomb", True, "Obra", 250))
+                listEstCeldas.Add(New Modelo.Celda("oatipo", False, "Tipo", 180))
+                listEstCeldas.Add(New Modelo.Celda("oadir", False, "Dirección", 280))
+                listEstCeldas.Add(New Modelo.Celda("oacontacto", True, "Contacto", 150))
+                listEstCeldas.Add(New Modelo.Celda("oatelf", False, "Teléfono", 220))
+                listEstCeldas.Add(New Modelo.Celda("oaobs", False, "Obs", 220))
+                listEstCeldas.Add(New Modelo.Celda("oalat", False, "Latitud", 200))
+                listEstCeldas.Add(New Modelo.Celda("oalongi", False, "Longitud", 150, "MM/dd,YYYY"))
+                listEstCeldas.Add(New Modelo.Celda("oaest,", False, "Estado", 50))
+                Dim ef = New Efecto
+                ef.tipo = 3
+                ef.dt = dtObra
+                ef.SeleclCol = 2
+                ef.listEstCeldas = listEstCeldas
+                ef.alto = 120
+                ef.ancho = 280
+                ef.Context = "Seleccione Obra".ToUpper
+                ef.ShowDialog()
+                Dim bandera As Boolean = False
+                bandera = ef.band
+                If (bandera = True) Then
+                    Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+                    tbObra.Text = Row.Cells("oanomb").Value
+                    grdetalle.Select()
+                    grdetalle.Col = 4
+                    grdetalle.Row = 0
+                End If
+            End If
+        End If
+    End Sub
+    Private Sub btObra_Click(sender As Object, e As EventArgs) Handles btObra.Click
+        P_Principal.btObras_Click(sender, e)
+    End Sub
 #End Region
 End Class
