@@ -13,7 +13,8 @@ Module P_Global
 #End Region
 
 #Region "Proforma"
-    Public proforma As Boolean = False
+    Public prof_venta As Boolean = False
+
     Public codcli As Integer
     Public nomcli As String
     Public codvend As Integer

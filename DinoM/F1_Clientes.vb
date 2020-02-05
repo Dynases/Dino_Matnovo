@@ -466,13 +466,13 @@ Public Class F1_Clientes
             ToastNotification.Show(Me, "El producto no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
         End If
-        If proforma = True Then
+        If prof_venta = True Then
             codcli = tbCodigoOriginal.Text
             nomcli = tbRazonSocial.Text
             codvend = NumiVendedor
             nomvend = tbVendedor.Text
             bandera = True
-            proforma = False
+            prof_venta = False
             Me.Close()
             Return res = False
         End If
@@ -843,9 +843,14 @@ Public Class F1_Clientes
             _PMInhabilitar()
             _PMPrimerRegistro()
         Else
+            If prof_venta = True Then
+                Close()
+            Else
+                _modulo.Select()
+                _tab.Close()
+            End If
             '  Public _modulo As SideNavItem
-            _modulo.Select()
-            _tab.Close()
+
         End If
     End Sub
 

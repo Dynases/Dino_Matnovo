@@ -495,7 +495,7 @@ Partial Class F0_Proforma
         Me.btObra.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
         Me.btObra.Image = Global.DinoM.My.Resources.Resources.add
         Me.btObra.ImageFixedSize = New System.Drawing.Size(23, 23)
-        Me.btObra.Location = New System.Drawing.Point(475, 73)
+        Me.btObra.Location = New System.Drawing.Point(475, 107)
         Me.btObra.Name = "btObra"
         Me.btObra.Size = New System.Drawing.Size(28, 23)
         Me.btObra.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -511,7 +511,7 @@ Partial Class F0_Proforma
         Me.tbObra.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbObra.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbObra.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbObra.Location = New System.Drawing.Point(172, 74)
+        Me.tbObra.Location = New System.Drawing.Point(172, 108)
         Me.tbObra.Name = "tbObra"
         Me.tbObra.PreventEnterBeep = True
         Me.tbObra.Size = New System.Drawing.Size(294, 22)
@@ -526,7 +526,7 @@ Partial Class F0_Proforma
         Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX5.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX5.Location = New System.Drawing.Point(13, 73)
+        Me.LabelX5.Location = New System.Drawing.Point(13, 107)
         Me.LabelX5.Name = "LabelX5"
         Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX5.Size = New System.Drawing.Size(113, 23)
@@ -717,7 +717,7 @@ Partial Class F0_Proforma
         Me.LabelX10.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX10.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX10.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX10.Location = New System.Drawing.Point(13, 107)
+        Me.LabelX10.Location = New System.Drawing.Point(13, 75)
         Me.LabelX10.Name = "LabelX10"
         Me.LabelX10.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX10.Size = New System.Drawing.Size(113, 23)
@@ -750,7 +750,7 @@ Partial Class F0_Proforma
         Me.tbVendedor.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbVendedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbVendedor.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbVendedor.Location = New System.Drawing.Point(172, 107)
+        Me.tbVendedor.Location = New System.Drawing.Point(172, 75)
         Me.tbVendedor.Name = "tbVendedor"
         Me.tbVendedor.PreventEnterBeep = True
         Me.tbVendedor.Size = New System.Drawing.Size(294, 22)

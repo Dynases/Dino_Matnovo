@@ -3,6 +3,8 @@ Imports DevComponents.DotNetBar.SuperGrid
 Imports System.IO
 Imports DevComponents.DotNetBar
 Imports Janus.Windows.GridEX
+Imports AcroPDFLib
+
 
 Public Class F0_AnularFactura
 
@@ -271,25 +273,26 @@ Public Class F0_AnularFactura
     End Sub
 
     Private Sub P_MostrarFactura(Cod As String, Cod2 As String)
-        If (Not Directory.Exists(gs_CarpetaRaiz + "\Facturas")) Then
-            ToastNotification.Show(Me, "La ruta de la carpeta " + gs_CarpetaRaiz + "\Facturas, No EXISTE!!!",
-                                   My.Resources.INFORMATION, _DuracionSms * 1000,
-                                   eToastGlowColor.Blue, eToastPosition.BottomLeft)
-        End If
-        Dim bool As Boolean
-        If (File.Exists(gs_CarpetaRaiz + "\Facturas\" + Cod + ".pdf")) Then
-            ArFactura.LoadFile(gs_CarpetaRaiz + "\Facturas\" + Cod + ".pdf")
-            ArFactura.setZoom(95)
-            bool = True
-        ElseIf (File.Exists(gs_CarpetaRaiz + "\Facturas\" + Cod2 + ".pdf")) Then
-            ArFactura.LoadFile(gs_CarpetaRaiz + "\Facturas\" + Cod2 + ".pdf")
-            ArFactura.setZoom(95)
-            bool = False
-        Else
-            ToastNotification.Show(Me, "El archivo " + IIf(bool, Cod, Cod2) + ".pdf, No EXISTE!!!",
-                                   My.Resources.INFORMATION, _DuracionSms * 1000,
-                                   eToastGlowColor.Blue, eToastPosition.BottomLeft)
-        End If
+        'If (Not Directory.Exists(gs_CarpetaRaiz + "\Facturas")) Then
+        '    ToastNotification.Show(Me, "La ruta de la carpeta " + gs_CarpetaRaiz + "\Facturas, No EXISTE!!!",
+        '                           My.Resources.INFORMATION, _DuracionSms * 1000,
+        '                           eToastGlowColor.Blue, eToastPosition.BottomLeft)
+        'End If
+        'Dim bool As Boolean
+        'If (File.Exists(gs_CarpetaRaiz + "\Facturas\" + Cod + ".pdf")) Then
+        '    ArFactura.LoadFile(gs_CarpetaRaiz + "\Facturas\" + Cod + ".pdf")
+        '    ArFactura.LoadFile(gs_CarpetaRaiz + "\Facturas\" + Cod)
+        '    ArFactura.setZoom(95)
+        '    bool = True
+        'ElseIf (File.Exists(gs_CarpetaRaiz + "\Facturas\" + Cod2 + ".pdf")) Then
+        '    ArFactura.LoadFile(gs_CarpetaRaiz + "\Facturas\" + Cod2 + ".pdf")
+        '    ArFactura.setZoom(95)
+        '    bool = False
+        'Else
+        '    ToastNotification.Show(Me, "El archivo " + IIf(bool, Cod, Cod2) + ".pdf, No EXISTE!!!",
+        '                           My.Resources.INFORMATION, _DuracionSms * 1000,
+        '                           eToastGlowColor.Blue, eToastPosition.BottomLeft)
+        'End If
 
     End Sub
 

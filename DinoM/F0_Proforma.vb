@@ -171,6 +171,7 @@ Public Class F0_Proforma
         swMoneda.Value = True
         _CodCliente = 0
         _CodEmpleado = 0
+        _CodObra = 0
         tbFechaVenta.Value = Now.Date
         _prCargarDetalleVenta(-1)
         MSuperTabControl.SelectedTabIndex = 0
@@ -1160,6 +1161,7 @@ Public Class F0_Proforma
         If (Not _fnAccesible()) Then
             Return
         End If
+
         If (e.KeyData = Keys.Enter) Then
             Dim f, c As Integer
             c = grdetalle.Col
@@ -1280,7 +1282,7 @@ salirIf:
                     conv = dtconv.Rows(0).Item("yfvsup")
 
                     grdetalle.SetValue("pbccaja", grdetalle.GetValue("pbcmin") / conv)
-                    Dim CjReal As Integer = Math.Round(grdetalle.GetValue("pbccaja"), 0)
+                    Dim CjReal As Integer = Math.Ceiling(grdetalle.GetValue("pbccaja"))
                     grdetalle.SetValue("pbcantc", CjReal)
                     grdetalle.SetValue("pbcantu", CjReal * conv)
 
@@ -1689,8 +1691,6 @@ salirIf:
         P_Global.Visualizador.Show() 'Comentar
         P_Global.Visualizador.BringToFront() 'Comentar
 
-
-
     End Sub
 
     Private Sub cbSucursal_Leave(sender As Object, e As EventArgs) Handles cbSucursal.Leave
@@ -1705,7 +1705,7 @@ salirIf:
     End Sub
 
     Private Sub btCliente_Click(sender As Object, e As EventArgs) Handles btCliente.Click
-        proforma = True
+        prof_venta = True
         'P_Principal.btConfFabrica_Click(sender, e)
         Dim ef = New F1_Clientes
         ef._nameButton = "btConfCliente"
@@ -1723,7 +1723,7 @@ salirIf:
 
     Private Sub btObra_Click(sender As Object, e As EventArgs) Handles btObra.Click
         'P_Principal.btObras_Click(sender, e)
-        proforma = True
+        prof_venta = True
         Dim ef = New F1_Obras
         ef._nameButton = "btObras"
         ef.ShowDialog()

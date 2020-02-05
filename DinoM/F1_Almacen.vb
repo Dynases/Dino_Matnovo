@@ -273,8 +273,6 @@ Public Class F1_Almacen
     End Sub
 
     Public Overrides Function _PMOGrabarRegistro() As Boolean
-
-
         'ByRef _abnumi As String, _aata2dep As Integer, _abdesc As String, _abdir As String, _abtelf As String, _ablat As Double, _ablong As Double, _abimg As String, _abest As Integer
         Dim res As Boolean = L_fnGrabarAlmacen(tbCodigoOriginal.Text, cbDeposito.Value, tbNombre.Text, tbDireccion.Text, tbTelf1.Text, _latitud, _longitud, nameImg)
 

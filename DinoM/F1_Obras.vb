@@ -221,11 +221,11 @@ Public Class F1_Obras
             ToastNotification.Show(Me, "La obra no pudo ser insertada".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
         End If
-        If proforma = True Then
+        If prof_venta = True Then
             codobra = tbCodigoOriginal.Text
             nomobra = tbNombre.Text
             banderaobra = True
-            proforma = False
+            prof_venta = False
             Me.Close()
             Return res = False
         End If
@@ -446,8 +446,13 @@ Public Class F1_Obras
 
         Else
             '  Public _modulo As SideNavItem
-            _modulo.Select()
-            _tab.Close()
+            If prof_venta = True Then
+                Close()
+            Else
+                _modulo.Select()
+                _tab.Close()
+            End If
+
         End If
     End Sub
 
