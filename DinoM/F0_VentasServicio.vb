@@ -2158,17 +2158,19 @@ salirIf:
                 Dim bandera As Boolean = False
                 bandera = ef.band
                 If (bandera = True) Then
-                    Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
-                    _CodEmpleado = Row.Cells("pcVen").Value
-                    _CodCliente = Row.Cells("pcClie").Value
-                    tbCliente.Text = Row.Cells("cliente").Value
-                    tbVendedor.Text = Row.Cells("vendedor").Value
-                    tbProforma.Text = Row.Cells("pcNumi").Value
-                    _CodObra = Row.Cells("pcObra").Value
-                    tbObra.Text = Row.Cells("oanomb").Value
-                    tbProforma.Text = Row.Cells("pcNumi").Value
-                    tbMdesc.Text = Row.Cells("pcDesc").Value
-                    _prCargarProductoDeLaProforma(Row.Cells("pcNumi").Value)
+                    If dt.Rows.Count > 0 Then
+                        Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+                        _CodEmpleado = Row.Cells("pcVen").Value
+                        _CodCliente = Row.Cells("pcClie").Value
+                        tbCliente.Text = Row.Cells("cliente").Value
+                        tbVendedor.Text = Row.Cells("vendedor").Value
+                        tbProforma.Text = Row.Cells("pcNumi").Value
+                        _CodObra = Row.Cells("pcObra").Value
+                        tbObra.Text = Row.Cells("oanomb").Value
+                        tbProforma.Text = Row.Cells("pcNumi").Value
+                        tbMdesc.Text = Row.Cells("pcDesc").Value
+                        _prCargarProductoDeLaProforma(Row.Cells("pcNumi").Value)
+                    End If
                 End If
             End If
         End If
@@ -2228,6 +2230,7 @@ salirIf:
                 bandera = ef.band
                 If (bandera = True) Then
                     Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+                    _CodObra = Row.Cells("oanumi").Value
                     tbObra.Text = Row.Cells("oanomb").Value
                     grdetalle.Select()
                     grdetalle.Col = 4
