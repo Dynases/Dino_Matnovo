@@ -219,9 +219,9 @@ Partial Class F0_ProformaServicio
         '
         'PanelContent
         '
+        Me.PanelContent.Controls.Add(Me.GPanelProductos)
         Me.PanelContent.Controls.Add(Me.GroupPanel4)
         Me.PanelContent.Controls.Add(Me.PanelTotal)
-        Me.PanelContent.Controls.Add(Me.GPanelProductos)
         Me.PanelContent.Controls.Add(Me.GroupPanel1)
         Me.PanelContent.Size = New System.Drawing.Size(1082, 450)
         '

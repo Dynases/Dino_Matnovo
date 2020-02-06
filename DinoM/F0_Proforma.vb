@@ -71,7 +71,7 @@ Public Class F0_Proforma
             .DropDownList.Columns.Clear()
             .DropDownList.Columns.Add("aanumi").Width = 60
             .DropDownList.Columns("aanumi").Caption = "COD"
-            .DropDownList.Columns.Add("aabdes").Width = 500
+            .DropDownList.Columns.Add("aabdes").Width = 200
             .DropDownList.Columns("aabdes").Caption = "SUCURSAL"
             .ValueMember = "aanumi"
             .DisplayMember = "aabdes"

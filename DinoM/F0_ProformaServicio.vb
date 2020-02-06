@@ -480,7 +480,7 @@ Public Class F0_ProformaServicio
         _prCargarProductos()
         Gr_Servicios.Focus()
         Gr_Servicios.MoveTo(Gr_Servicios.FilterRow)
-        Gr_Servicios.Col = 2
+        Gr_Servicios.Col = 1
     End Sub
     Private Sub _DesHabilitarProductos()
         GPanelProductos.Visible = False

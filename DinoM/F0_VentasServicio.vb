@@ -663,7 +663,7 @@ Public Class F0_VentasServicio
         _prCargarProductos()
         grProductos.Focus()
         grProductos.MoveTo(grProductos.FilterRow)
-        grProductos.Col = 2
+        grProductos.Col = 1
     End Sub
 
     Private Sub _DesHabilitarProductos()
@@ -1443,7 +1443,8 @@ Public Class F0_VentasServicio
                             tbVendedor.Text = Row.Cells("vendedor").Value
                             _CodEmpleado = Row.Cells("ydnumivend").Value
 
-                            grdetalle.Select()
+                            'grdetalle.Select()
+                            tbObra.Select()
                             Table_Producto = Nothing
                         Else
                             tbVendedor.Clear()
