@@ -1041,7 +1041,7 @@ Public Class F0_Proforma
                     Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
                     _CodCliente = Row.Cells("ydnumi").Value
-                    tbCliente.Text = Row.Cells("ydrazonsocial").Value
+                    tbCliente.Text = Row.Cells("yddesc").Value
                     '_dias = Row.Cells("yddias").Value
 
                     Dim numiVendedor As Integer = IIf(IsDBNull(Row.Cells("ydnumivend").Value), 0, Row.Cells("ydnumivend").Value)

@@ -587,19 +587,16 @@ Public Class F1_Clientes
             MEP.SetError(tbRazonSocial, "")
         End If
         If (cbCatPrec.SelectedIndex < 0) Then
-
             If (CType(cbCatPrec.DataSource, DataTable).Rows.Count > 0) Then
                 cbCatPrec.SelectedIndex = 0
             End If
         End If
         If (cbZona.SelectedIndex < 0) Then
-
             If (CType(cbZona.DataSource, DataTable).Rows.Count > 0) Then
                 cbZona.SelectedIndex = 0
             End If
         End If
         If (cbTipoDoc.SelectedIndex < 0) Then
-
             If (CType(cbTipoDoc.DataSource, DataTable).Rows.Count > 0) Then
                 cbTipoDoc.SelectedIndex = 0
             End If

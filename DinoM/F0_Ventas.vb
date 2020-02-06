@@ -103,7 +103,7 @@ Public Class F0_Ventas
             .DropDownList.Columns.Clear()
             .DropDownList.Columns.Add("aanumi").Width = 60
             .DropDownList.Columns("aanumi").Caption = "COD"
-            .DropDownList.Columns.Add("aabdes").Width = 500
+            .DropDownList.Columns.Add("aabdes").Width = 200
             .DropDownList.Columns("aabdes").Caption = "SUCURSAL"
             .ValueMember = "aanumi"
             .DisplayMember = "aabdes"
@@ -270,6 +270,9 @@ Public Class F0_Ventas
         SwProforma.Value = False
         tbCliente.Focus()
         Table_Producto = Nothing
+
+        btCliente.Visible = True
+        btObra.Visible = True
     End Sub
     Public Sub _prMostrarRegistro(_N As Integer)
 
@@ -1409,8 +1412,6 @@ Public Class F0_Ventas
     Public Sub _GuardarNuevo()
         Dim numi As String = ""
         Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True, Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")), _CodCliente, _CodObra, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTransporte.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value, IIf(SwProforma.Value = True, tbProforma.Text, 0), IIf(swEmision.Value = True, 1, 0))
-        'Dim res As Boolean = L_fnGrabarProforma(numi, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, _CodCliente, _CodObra, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbTransporte.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value)
-
 
         If res Then
             'res = P_fnGrabarFacturarTFV001(numi)
@@ -1425,7 +1426,7 @@ Public Class F0_Ventas
                                       eToastGlowColor.Green,
                                       eToastPosition.TopCenter
                                       )
-            _prImiprimirNotaVenta(numi)
+            '_prImiprimirNotaVenta(numi)
 
             If swTipoVenta.Value = True Then
 
@@ -2121,16 +2122,11 @@ Public Class F0_Ventas
     End Sub
 
 
-
     Private Sub tbCliente_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCliente.KeyDown
         If (_fnAccesible()) Then
             If e.KeyData = Keys.Control + Keys.Enter Then
-
                 Dim dt As DataTable
-
                 dt = L_fnListarClientes()
-                '              a.ydnumi, a.ydcod, a.yddesc, a.yddctnum, a.yddirec
-                ',a.ydtelf1 ,a.ydfnac 
 
                 Dim listEstCeldas As New List(Of Modelo.Celda)
                 listEstCeldas.Add(New Modelo.Celda("ydnumi,", True, "ID", 50))
@@ -2159,7 +2155,8 @@ Public Class F0_Ventas
                     Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
 
                     _CodCliente = Row.Cells("ydnumi").Value
-                    tbCliente.Text = Row.Cells("ydrazonsocial").Value
+                    'tbCliente.Text = Row.Cells("ydrazonsocial").Value
+                    tbCliente.Text = Row.Cells("yddesc").Value
                     _dias = Row.Cells("yddias").Value
 
                     Dim numiVendedor As Integer = IIf(IsDBNull(Row.Cells("ydnumivend").Value), 0, Row.Cells("ydnumivend").Value)
