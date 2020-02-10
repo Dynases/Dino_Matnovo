@@ -115,31 +115,31 @@ Public Class F0_KardexMovimiento
 
         If (cbAlmacen.SelectedIndex < 0) Then
             Return
-
         End If
         If e.KeyData = Keys.Control + Keys.Enter Then
 
             Dim dt As DataTable
 
             dt = L_fnListarProductosKardex(cbAlmacen.Value)
-            ' a.yfnumi ,a.yfcdprod1 as producto,a.yfcdprod2 as descripcioncorta,a.yfcprod,b.iccven as stock 
 
             Dim listEstCeldas As New List(Of Modelo.Celda)
-            listEstCeldas.Add(New Modelo.Celda("yfnumi", True, "ID", 50))
-            listEstCeldas.Add(New Modelo.Celda("producto", True, "PRODUCTO", 280))
-            listEstCeldas.Add(New Modelo.Celda("descripcioncorta", True, "DESC. CORTA".ToUpper, 150))
-            listEstCeldas.Add(New Modelo.Celda("yfcprod", False, "COD PRODUCTO", 150))
-
+            listEstCeldas.Add(New Modelo.Celda("yfnumi", False, "ID", 50))
+            listEstCeldas.Add(New Modelo.Celda("yfcprod", True, "COD PRODUCTO", 150))
+            listEstCeldas.Add(New Modelo.Celda("producto", True, "PRODUCTO", 350))
+            listEstCeldas.Add(New Modelo.Celda("descripcioncorta", False, "DESC. CORTA".ToUpper, 150))
             listEstCeldas.Add(New Modelo.Celda("stock", True, "StockGeneral".ToUpper, 100))
+
             Dim ef = New Efecto
             ef.tipo = 3
             ef.dt = dt
             ef.SeleclCol = 2
+            Modelo.MGlobal.SeleccionarCol = 1
             ef.listEstCeldas = listEstCeldas
             ef.alto = 50
             ef.ancho = 350
             ef.Context = "Seleccione PRODUCTO".ToUpper
             ef.ShowDialog()
+
             Dim bandera As Boolean = False
             bandera = ef.band
             If (bandera = True) Then

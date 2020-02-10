@@ -45,7 +45,6 @@ Public Class Efecto
         If (SeleclCol >= 0) Then
             frmAyuda.Columna = SeleclCol
             frmAyuda._prSeleccionar()
-
         End If
         frmAyuda.ShowDialog()
         If frmAyuda.seleccionado = True Then

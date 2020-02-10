@@ -167,10 +167,6 @@
     <Reference Include="GMap.NET.WindowsForms">
       <HintPath>..\..\..\..\DINASES\Librerias\Gmap\GMap.NET.WindowsForms.dll</HintPath>
     </Reference>
-    <Reference Include="Interop.AcroPDFLib.1.0">
-      <HintPath>..\..\..\..\DINASES\Librerias\librerias\Interop.AcroPDFLib.1.0.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="itextsharp">
       <HintPath>..\..\..\..\DINASES\Librerias\Gmap\itextsharp.dll</HintPath>
     </Reference>

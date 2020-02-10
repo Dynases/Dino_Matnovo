@@ -38,10 +38,10 @@ Public Class ModeloAyuda
     End Sub
     Public Sub _prSeleccionar()
         If (Columna >= 0) Then
-            grJBuscador.Select()
-            ''  grJBuscador.Focus()
+            'grJBuscador.Select()
+            grJBuscador.Focus()
             grJBuscador.MoveTo(grJBuscador.FilterRow)
-            grJBuscador.Col = Columna
+            grJBuscador.Col = MGlobal.SeleccionarCol
         End If
     End Sub
 
@@ -113,5 +113,12 @@ Public Class ModeloAyuda
             seleccionado = True
             Me.Close()
         End If
+    End Sub
+
+    Private Sub ModeloAyuda_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'grJBuscador.Select()
+        grJBuscador.Focus()
+        grJBuscador.MoveTo(grJBuscador.FilterRow)
+        grJBuscador.Col = MGlobal.SeleccionarCol
     End Sub
 End Class

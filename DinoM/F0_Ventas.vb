@@ -405,32 +405,32 @@ Public Class F0_Ventas
             .Visible = False
         End With
         With grdetalle.RootTable.Columns("tbcantu")
-            .Width = 120
+            .Width = 160
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Cant. Un.".ToUpper
+            .Caption = "Medición(m2-ml)".ToUpper
         End With
         With grdetalle.RootTable.Columns("tbccaja")
-            .Width = 120
+            .Width = 130
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Cant.".ToUpper
+            .Caption = "Cant. Cj/Ba".ToUpper
         End With
         With grdetalle.RootTable.Columns("tbcantc")
-            .Width = 120
+            .Width = 130
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Cant. Real".ToUpper
+            .Caption = "Cajas/Barras".ToUpper
         End With
         With grdetalle.RootTable.Columns("tbcmin")
-            .Width = 120
+            .Width = 160
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Cant. Un. Real".ToUpper
+            .Caption = "Cantidad(m2-ml)".ToUpper
         End With
         With grdetalle.RootTable.Columns("tbumin")
             .Width = 50
@@ -2087,8 +2087,6 @@ Public Class F0_Ventas
             FechaVenc = Row.Cells("icfven").Value
             iccven = Row.Cells("iccven").Value
         End If
-
-
     End Sub
 
 
@@ -2597,11 +2595,9 @@ salirIf:
     Private Sub grdetalle_CellValueChanged(sender As Object, e As ColumnActionEventArgs) Handles grdetalle.CellValueChanged
         Dim codprod As Integer
         'If (e.Column.Index = grdetalle.RootTable.Columns("tbcmin").Index) Or (e.Column.Index = grdetalle.RootTable.Columns("tbpbas").Index) Then
-        If (e.Column.Index = grdetalle.RootTable.Columns("tbcantu").Index) Or (e.Column.Index = grdetalle.RootTable.Columns("tbpbas").Index) Then
+        If (e.Column.Index = grdetalle.RootTable.Columns("tbcantu").Index) Then
             If (Not IsNumeric(grdetalle.GetValue("tbcantu")) Or grdetalle.GetValue("tbcantu").ToString = String.Empty) Then
 
-                'grDetalle.GetRow(rowIndex).Cells("cant").Value = 1
-                '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
                 Dim lin As Integer = grdetalle.GetValue("tbnumi")
                 Dim pos As Integer = -1
                 _fnObtenerFilaDetalle(pos, lin)
@@ -2616,19 +2612,6 @@ salirIf:
                 'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
             Else
                 If (grdetalle.GetValue("tbcantu") > 0) Then
-                    'Saca la conversión de cada producto
-                    codprod = grdetalle.GetValue("tbty5prod")
-                    Dim dtconv As New DataTable
-                    dtconv = L_fnConversionProd(codprod)
-                    conv = dtconv.Rows(0).Item("yfvsup")
-
-                    grdetalle.SetValue("tbccaja", grdetalle.GetValue("tbcantu") / conv)
-                    'Dim CjReal As Integer = Math.Round(grdetalle.GetValue("tbccaja"), 0)
-                    Dim CjReal As Integer = Math.Ceiling(grdetalle.GetValue("tbccaja"))
-
-                    grdetalle.SetValue("tbcantc", CjReal)
-                    grdetalle.SetValue("tbcmin", CjReal * conv)
-
 
                     Dim rowIndex As Integer = grdetalle.Row
                     Dim porcdesc As Double = grdetalle.GetValue("tbporc")
@@ -2639,8 +2622,18 @@ salirIf:
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = montodesc
                     grdetalle.SetValue("tbdesc", montodesc)
 
-                    P_PonerTotal(rowIndex)
+                    'Saca la conversión de cada producto
+                    codprod = grdetalle.GetValue("tbty5prod")
+                    Dim dtconv As New DataTable
+                    dtconv = L_fnConversionProd(codprod)
+                    conv = dtconv.Rows(0).Item("yfvsup")
 
+                    grdetalle.SetValue("tbccaja", grdetalle.GetValue("tbcantu") / conv)
+                    Dim CjReal As Integer = Math.Ceiling(grdetalle.GetValue("tbccaja"))
+                    grdetalle.SetValue("tbcantc", CjReal)
+                    grdetalle.SetValue("tbcmin", CjReal * conv)
+
+                    P_PonerTotal(rowIndex)
                 Else
                     Dim lin As Integer = grdetalle.GetValue("tbnumi")
                     Dim pos As Integer = -1
@@ -2654,100 +2647,141 @@ salirIf:
                 End If
             End If
         End If
-        '''''''''''''''''''''PORCENTAJE DE DESCUENTO '''''''''''''''''''''
-        If (e.Column.Index = grdetalle.RootTable.Columns("tbporc").Index) Then
-            If (Not IsNumeric(grdetalle.GetValue("tbporc")) Or grdetalle.GetValue("tbporc").ToString = String.Empty) Then
 
-                'grDetalle.GetRow(rowIndex).Cells("cant").Value = 1
-                '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
+        ''''''''''''''''''''''CAMBIO PRECIO UNITARIO '''''''''''''''''''''
+        If (e.Column.Index = grdetalle.RootTable.Columns("tbpbas").Index) Then
+            If (Not IsNumeric(grdetalle.GetValue("tbpbas")) Or grdetalle.GetValue("tbpbas").ToString = String.Empty) Then
+
                 Dim lin As Integer = grdetalle.GetValue("tbnumi")
                 Dim pos As Integer = -1
                 _fnObtenerFilaDetalle(pos, lin)
+                CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbpbas") = 1
+                CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbpbas")
                 CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
                 CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
-                CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
-                'grdetalle.SetValue("tbcmin", 1)
-                'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
-            Else
-                If (grdetalle.GetValue("tbporc") > 0 And grdetalle.GetValue("tbporc") <= 100) Then
+                CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbpbas")
+                CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot2") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbpcos")
 
+            Else
+                If (grdetalle.GetValue("tbpbas") > 0) Then
+
+                    Dim rowIndex As Integer = grdetalle.Row
                     Dim porcdesc As Double = grdetalle.GetValue("tbporc")
-                    Dim montodesc As Double = (grdetalle.GetValue("tbptot") * (porcdesc / 100))
+                    Dim montodesc As Double = ((grdetalle.GetValue("tbpbas") * grdetalle.GetValue("tbcmin")) * (porcdesc / 100))
                     Dim lin As Integer = grdetalle.GetValue("tbnumi")
                     Dim pos As Integer = -1
                     _fnObtenerFilaDetalle(pos, lin)
                     CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = montodesc
                     grdetalle.SetValue("tbdesc", montodesc)
 
-                    Dim rowIndex As Integer = grdetalle.Row
                     P_PonerTotal(rowIndex)
-
                 Else
                     Dim lin As Integer = grdetalle.GetValue("tbnumi")
                     Dim pos As Integer = -1
                     _fnObtenerFilaDetalle(pos, lin)
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
-                    grdetalle.SetValue("tbporc", 0)
-                    grdetalle.SetValue("tbdesc", 0)
-                    grdetalle.SetValue("tbtotdesc", grdetalle.GetValue("tbptot"))
+                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbpbas") = 1
+                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbpbas")
                     _prCalcularPrecioTotal()
-                    'grdetalle.SetValue("tbcmin", 1)
-                    'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
 
                 End If
             End If
         End If
 
 
-        '''''''''''''''''''''MONTO DE DESCUENTO '''''''''''''''''''''
-        If (e.Column.Index = grdetalle.RootTable.Columns("tbdesc").Index) Then
-            If (Not IsNumeric(grdetalle.GetValue("tbdesc")) Or grdetalle.GetValue("tbdesc").ToString = String.Empty) Then
+        ''''''''''''''''''''''PORCENTAJE DE DESCUENTO '''''''''''''''''''''
+        'If (e.Column.Index = grdetalle.RootTable.Columns("tbporc").Index) Then
+        '    If (Not IsNumeric(grdetalle.GetValue("tbporc")) Or grdetalle.GetValue("tbporc").ToString = String.Empty) Then
 
-                'grDetalle.GetRow(rowIndex).Cells("cant").Value = 1
-                '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
-                Dim lin As Integer = grdetalle.GetValue("tbnumi")
-                Dim pos As Integer = -1
-                _fnObtenerFilaDetalle(pos, lin)
-                CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
-                CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
-                CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
-                'grdetalle.SetValue("tbcmin", 1)
-                'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
-            Else
-                If (grdetalle.GetValue("tbdesc") > 0 And grdetalle.GetValue("tbdesc") <= grdetalle.GetValue("tbptot")) Then
+        '        'grDetalle.GetRow(rowIndex).Cells("cant").Value = 1
+        '        '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
+        '        Dim lin As Integer = grdetalle.GetValue("tbnumi")
+        '        Dim pos As Integer = -1
+        '        _fnObtenerFilaDetalle(pos, lin)
+        '        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
+        '        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
+        '        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
+        '        'grdetalle.SetValue("tbcmin", 1)
+        '        'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
+        '    Else
+        '        If (grdetalle.GetValue("tbporc") > 0 And grdetalle.GetValue("tbporc") <= 100) Then
 
-                    Dim montodesc As Double = grdetalle.GetValue("tbdesc")
-                    Dim pordesc As Double = ((montodesc * 100) / grdetalle.GetValue("tbptot"))
+        '            Dim porcdesc As Double = grdetalle.GetValue("tbporc")
+        '            Dim montodesc As Double = (grdetalle.GetValue("tbptot") * (porcdesc / 100))
+        '            Dim lin As Integer = grdetalle.GetValue("tbnumi")
+        '            Dim pos As Integer = -1
+        '            _fnObtenerFilaDetalle(pos, lin)
+        '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = montodesc
+        '            grdetalle.SetValue("tbdesc", montodesc)
 
-                    Dim lin As Integer = grdetalle.GetValue("tbnumi")
-                    Dim pos As Integer = -1
-                    _fnObtenerFilaDetalle(pos, lin)
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = montodesc
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = pordesc
+        '            Dim rowIndex As Integer = grdetalle.Row
+        '            P_PonerTotal(rowIndex)
 
-                    grdetalle.SetValue("tbporc", pordesc)
-                    Dim rowIndex As Integer = grdetalle.Row
-                    P_PonerTotal(rowIndex)
+        '        Else
+        '            Dim lin As Integer = grdetalle.GetValue("tbnumi")
+        '            Dim pos As Integer = -1
+        '            _fnObtenerFilaDetalle(pos, lin)
+        '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
+        '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
+        '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
+        '            grdetalle.SetValue("tbporc", 0)
+        '            grdetalle.SetValue("tbdesc", 0)
+        '            grdetalle.SetValue("tbtotdesc", grdetalle.GetValue("tbptot"))
+        '            _prCalcularPrecioTotal()
+        '            'grdetalle.SetValue("tbcmin", 1)
+        '            'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
 
-                Else
-                    Dim lin As Integer = grdetalle.GetValue("tbnumi")
-                    Dim pos As Integer = -1
-                    _fnObtenerFilaDetalle(pos, lin)
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
-                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
-                    grdetalle.SetValue("tbporc", 0)
-                    grdetalle.SetValue("tbdesc", 0)
-                    grdetalle.SetValue("tbtotdesc", grdetalle.GetValue("tbptot"))
-                    _prCalcularPrecioTotal()
-                    'grdetalle.SetValue("tbcmin", 1)
-                    'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
+        '        End If
+        '    End If
+        'End If
 
-                End If
-            End If
-        End If
+
+        ''''''''''''''''''''''MONTO DE DESCUENTO '''''''''''''''''''''
+        'If (e.Column.Index = grdetalle.RootTable.Columns("tbdesc").Index) Then
+        '    If (Not IsNumeric(grdetalle.GetValue("tbdesc")) Or grdetalle.GetValue("tbdesc").ToString = String.Empty) Then
+
+        '        'grDetalle.GetRow(rowIndex).Cells("cant").Value = 1
+        '        '  grDetalle.CurrentRow.Cells.Item("cant").Value = 1
+        '        Dim lin As Integer = grdetalle.GetValue("tbnumi")
+        '        Dim pos As Integer = -1
+        '        _fnObtenerFilaDetalle(pos, lin)
+        '        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
+        '        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
+        '        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
+        '        'grdetalle.SetValue("tbcmin", 1)
+        '        'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
+        '    Else
+        '        If (grdetalle.GetValue("tbdesc") > 0 And grdetalle.GetValue("tbdesc") <= grdetalle.GetValue("tbptot")) Then
+
+        '            Dim montodesc As Double = grdetalle.GetValue("tbdesc")
+        '            Dim pordesc As Double = ((montodesc * 100) / grdetalle.GetValue("tbptot"))
+
+        '            Dim lin As Integer = grdetalle.GetValue("tbnumi")
+        '            Dim pos As Integer = -1
+        '            _fnObtenerFilaDetalle(pos, lin)
+        '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = montodesc
+        '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = pordesc
+
+        '            grdetalle.SetValue("tbporc", pordesc)
+        '            Dim rowIndex As Integer = grdetalle.Row
+        '            P_PonerTotal(rowIndex)
+
+        '        Else
+        '            Dim lin As Integer = grdetalle.GetValue("tbnumi")
+        '            Dim pos As Integer = -1
+        '            _fnObtenerFilaDetalle(pos, lin)
+        '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbporc") = 0
+        '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = 0
+        '            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbtotdesc") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot")
+        '            grdetalle.SetValue("tbporc", 0)
+        '            grdetalle.SetValue("tbdesc", 0)
+        '            grdetalle.SetValue("tbtotdesc", grdetalle.GetValue("tbptot"))
+        '            _prCalcularPrecioTotal()
+        '            'grdetalle.SetValue("tbcmin", 1)
+        '            'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
+
+        '        End If
+        '    End If
+        'End If
 
     End Sub
     Private Sub tbPdesc_ValueChanged(sender As Object, e As EventArgs) Handles tbPdesc.ValueChanged
@@ -3112,7 +3146,7 @@ salirIf:
                     _CodObra = Row.Cells("paobra").Value
                     tbObra.Text = Row.Cells("oanomb").Value
                     tbMdesc.Text = Row.Cells("padesc").Value
-                    tbTransporte.Text = Row.Cells("patransp").Value
+                    'tbTransporte.Text = Row.Cells("patransp").Value
 
                     _prCargarProductoDeLaProforma(Row.Cells("panumi").Value)
 
