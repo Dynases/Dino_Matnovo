@@ -129,6 +129,9 @@ Public Class F0_Proforma
         End If
         cbSucursal.ReadOnly = True
         FilaSelectLote = Nothing
+
+        SwServicio.IsReadOnly = True
+        tbServicio.ReadOnly = True
     End Sub
     Private Sub _prhabilitar()
         grVentas.Enabled = False
@@ -147,8 +150,10 @@ Public Class F0_Proforma
             cbSucursal.ReadOnly = True
         Else
             cbSucursal.ReadOnly = False
-
         End If
+
+        SwServicio.IsReadOnly = False
+        tbServicio.ReadOnly = False
     End Sub
     Public Sub _prFiltrar()
         'cargo el buscador
@@ -240,6 +245,13 @@ Public Class F0_Proforma
         btCliente.Visible = False
         btObra.Visible = False
 
+        If grVentas.GetValue("paservicio") > 0 Then
+            SwServicio.Value = True
+            tbServicio.Text = grVentas.GetValue("paservicio")
+        Else
+            SwServicio.Value = False
+            tbServicio.Text = ""
+        End If
     End Sub
 
     Private Sub _prCargarDetalleVenta(_numi As String)
@@ -878,16 +890,10 @@ Public Class F0_Proforma
 
     Public Sub _GuardarNuevo()
         Dim numi As String = ""
-        'ByRef _panumi As String, _pafdoc As String, _paven As Integer, _paclpr As Integer,
-        '                                   _pamon As Integer, _paobs As String,
-        '                                   _padesc As Double,
-        '                                   _patotal As Double, detalle As DataTable, _almacen As Integer
-        Dim res As Boolean = L_fnGrabarProforma(numi, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, _CodCliente, _CodObra, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbTransporte.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value)
 
+        Dim res As Boolean = L_fnGrabarProforma(numi, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, _CodCliente, _CodObra, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbTransporte.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value, IIf(SwServicio.Value = True, tbServicio.Text, 0))
 
         If res Then
-
-           
 
             Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
             ToastNotification.Show(Me, "Código de Proforma ".ToUpper + tbCodigo.Text + " Grabado con Exito.".ToUpper,
@@ -1700,21 +1706,56 @@ salirIf:
     End Sub
     Private Sub P_GenerarReporte()
         Dim dt As DataTable = L_fnReporteProforma(tbCodigo.Text)
+        Dim dt1 As DataTable = L_fnReporteProformaCompuesta(tbCodigo.Text)
+        Dim _Ds As DataSet = L_Reporte_Factura_Cia("1")
 
         If Not IsNothing(P_Global.Visualizador) Then
             P_Global.Visualizador.Close()
         End If
-       
-        P_Global.Visualizador = New Visualizador
 
-        Dim objrep As New R_Proforma
-        '' GenerarNro(_dt)
-        ''objrep.SetDataSource(Dt1Kardex)
-        objrep.SetDataSource(dt)
-        objrep.SetParameterValue("usuario", gs_user)
-        P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
-        P_Global.Visualizador.Show() 'Comentar
-        P_Global.Visualizador.BringToFront() 'Comentar
+        If SwServicio.Value = False Then
+            P_Global.Visualizador = New Visualizador
+            Dim objrep As New R_Proforma
+
+            objrep.SetDataSource(dt)
+            objrep.SetParameterValue("usuario", gs_user)
+            objrep.SetParameterValue("Direccion", _Ds.Tables(0).Rows(0).Item("scdir").ToString)
+            objrep.SetParameterValue("Telefono", _Ds.Tables(0).Rows(0).Item("sctelf").ToString)
+            objrep.SetParameterValue("Ciudad", _Ds.Tables(0).Rows(0).Item("scciu").ToString)
+            P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+            P_Global.Visualizador.Show() 'Comentar
+            P_Global.Visualizador.BringToFront() 'Comentar
+        Else
+
+            'Dim ds As New DataSet1
+            'ds.Tables("VENTA").Rows.Add(Text1.Text, Text2.Text, Text3.Text) 'agrego registro a mi datatable venta
+
+            'ds.Tables("CLIENTE").Rows.Add(Text4.Text, Text5.Text, Text6.Text) 'agrego registro a mi datatable cliente
+            'Dim objRpt As New CrystalReports1
+
+            'objRpt.Database.Tables("CLIENTE").SetDataSource(ds.Tables("CLIENTE"))
+            'objRpt.Database.Tables("VENTA").SetDataSource(ds.Tables("VENTA"))frmReporte.crvMiReporte.ReportSource = objRpt 'envio mi reporte al form donde tengo mi CrystalReportView
+            'frmReporte.Show()
+
+            'Dim _Ds1 As DataSet = L_fnReporteProforma(tbCodigo.Text).DataSet
+
+
+            P_Global.Visualizador = New Visualizador
+            Dim objrep As New R_ProformaCompuesta
+
+            objrep.SetDataSource(dt)
+            objrep.SetDataSource(dt1)
+            objrep.SetParameterValue("usuario", gs_user)
+            objrep.SetParameterValue("Direccion", _Ds.Tables(0).Rows(0).Item("scdir").ToString)
+            objrep.SetParameterValue("Telefono", _Ds.Tables(0).Rows(0).Item("sctelf").ToString)
+            objrep.SetParameterValue("Ciudad", _Ds.Tables(0).Rows(0).Item("scciu").ToString)
+            P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+            P_Global.Visualizador.Show() 'Comentar
+            P_Global.Visualizador.BringToFront() 'Comentar
+
+        End If
+
+
     End Sub
 
     Private Sub cbSucursal_Leave(sender As Object, e As EventArgs) Handles cbSucursal.Leave

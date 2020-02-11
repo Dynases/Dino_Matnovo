@@ -4353,6 +4353,18 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
+    Public Shared Function L_fnReporteProformaCompuesta(_numi As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 13))
+        _listParam.Add(New Datos.DParametro("@panumi", _numi))
+        _listParam.Add(New Datos.DParametro("@pauact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TP001", _listParam)
+
+        Return _Tabla
+    End Function
     Public Shared Function L_fnReportecliente() As DataTable
         Dim _Tabla As DataTable
 
@@ -4446,7 +4458,7 @@ Public Class AccesoLogica
 
     Public Shared Function L_fnGrabarProforma(ByRef _panumi As String, _pafdoc As String, _paven As Integer, _paclpr As Integer,
                                            _paobra As Integer, _pamon As Integer, _paobs As String, _padesc As Double,
-                                           _patransp As Double, _patotal As Double, detalle As DataTable, _almacen As Integer) As Boolean
+                                           _patransp As Double, _patotal As Double, detalle As DataTable, _almacen As Integer, _servicio As Integer) As Boolean
         Dim _Tabla As DataTable
         Dim _resultado As Boolean
         Dim _listParam As New List(Of Datos.DParametro)
@@ -4464,6 +4476,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@padesc", _padesc))
         _listParam.Add(New Datos.DParametro("@patransp", _patransp))
         _listParam.Add(New Datos.DParametro("@patotal", _patotal))
+        _listParam.Add(New Datos.DParametro("@paservicio", _servicio))
         _listParam.Add(New Datos.DParametro("@pauact", L_Usuario))
         _listParam.Add(New Datos.DParametro("@TP0011", "", detalle))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TP001", _listParam)
