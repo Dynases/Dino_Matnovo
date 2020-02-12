@@ -380,11 +380,11 @@ Public Class F0_Ventas
         'End If
         With grdetalle.RootTable.Columns("Codigo")
             .Caption = "Código".ToUpper
-            .Width = 100
+            .Width = 120
             .Visible = True
         End With
         With grdetalle.RootTable.Columns("unidad")
-            .Width = 90
+            .Width = 70
             '.CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .Caption = "Unidad".ToUpper
@@ -396,7 +396,7 @@ Public Class F0_Ventas
         End With
         With grdetalle.RootTable.Columns("producto")
             .Caption = "Productos".ToUpper
-            .Width = 250
+            .Width = 300
             .Visible = True
         End With
         With grdetalle.RootTable.Columns("tbest")
@@ -405,7 +405,7 @@ Public Class F0_Ventas
             .Visible = False
         End With
         With grdetalle.RootTable.Columns("tbcantu")
-            .Width = 160
+            .Width = 140
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
@@ -426,7 +426,7 @@ Public Class F0_Ventas
             .Caption = "Cajas/Barras".ToUpper
         End With
         With grdetalle.RootTable.Columns("tbcmin")
-            .Width = 160
+            .Width = 140
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
@@ -519,13 +519,13 @@ Public Class F0_Ventas
                 .Width = 120
                 .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
                 .Visible = True
-                .Caption = "LOTE"
+                .Caption = "NRO. ORDEN"
             End With
             With grdetalle.RootTable.Columns("tbfechaVenc")
                 .Width = 120
                 .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
                 .Visible = True
-                .Caption = "FECHA VENC."
+                .Caption = "FECHA ORDEN"
                 .FormatString = "yyyy/MM/dd"
             End With
 
@@ -696,7 +696,6 @@ Public Class F0_Ventas
             .FilterRowUpdateMode = FilterRowUpdateMode.WhenValueChanges
             .GroupByBoxVisible = False
             'diseño de la grilla
-
         End With
 
         If (dt.Rows.Count <= 0) Then
@@ -757,7 +756,7 @@ Public Class F0_Ventas
 
         End With
         With grProductos.RootTable.Columns("yfcprod")
-            .Width = 60
+            .Width = 120
             .Caption = "CÓDIGO"
             .Visible = True
         End With
@@ -767,7 +766,7 @@ Public Class F0_Ventas
             .Visible = gb_CodigoBarra
         End With
         With grProductos.RootTable.Columns("yfcdprod1")
-            .Width = 250
+            .Width = 340
             .Visible = True
             .Caption = "DESCRIPCIÓN"
         End With
@@ -776,8 +775,6 @@ Public Class F0_Ventas
             .Visible = False
             .Caption = "Descripcion Corta"
         End With
-
-
         With grProductos.RootTable.Columns("yfgr1")
             .Width = 160
             .Visible = False
@@ -788,13 +785,13 @@ Public Class F0_Ventas
                 .Width = 120
                 .Caption = dtname.Rows(0).Item("Grupo 1").ToString
                 .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-                .Visible = True
+                .Visible = False
             End With
             With grProductos.RootTable.Columns("grupo2")
                 .Width = 120
                 .Caption = dtname.Rows(0).Item("Grupo 2").ToString
                 .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-                .Visible = True
+                .Visible = False
             End With
 
             With grProductos.RootTable.Columns("grupo3")
@@ -814,13 +811,13 @@ Public Class F0_Ventas
                 .Width = 120
                 .Caption = "Grupo 1"
                 .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-                .Visible = True
+                .Visible = False
             End With
             With grProductos.RootTable.Columns("grupo2")
                 .Width = 120
                 .Caption = "Grupo 2"
                 .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-                .Visible = True
+                .Visible = False
             End With
             With grProductos.RootTable.Columns("grupo3")
                 .Width = 120
@@ -835,8 +832,6 @@ Public Class F0_Ventas
                 .Visible = False
             End With
         End If
-
-
         With grProductos.RootTable.Columns("yfgr2")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -854,8 +849,6 @@ Public Class F0_Ventas
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = False
         End With
-
-
         With grProductos.RootTable.Columns("yfumin")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -1125,35 +1118,31 @@ Public Class F0_Ventas
         grProductos.DataSource = dt
         grProductos.RetrieveStructure()
         grProductos.AlternatingColors = True
+
         With grProductos.RootTable.Columns("yfcdprod1")
             .Width = 150
             .Visible = False
 
         End With
-        'b.yfcdprod1 ,a.iclot ,a.icfven  ,a.iccven 
+        'CAMBIAMOS EL NOMBRE DE LOTE A NRO. DE ORDEN
         With grProductos.RootTable.Columns("iclot")
             .Width = 150
-            .Caption = "LOTE"
+            .Caption = "NRO. ORDEN"
             .Visible = True
-
         End With
         With grProductos.RootTable.Columns("icfven")
             .Width = 160
-            .Caption = "FECHA VENCIMIENTO"
+            .Caption = "FECHA ORDEN"
             .FormatString = "yyyy/MM/dd"
             .Visible = True
-
         End With
-
         With grProductos.RootTable.Columns("iccven")
             .Width = 150
             .Visible = True
-            .Caption = "Stock"
+            .Caption = "STOCK"
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
         End With
-
-
         With grProductos
             .DefaultFilterRowComparison = FilterConditionOperator.Contains
             .FilterMode = FilterMode.Automatic
@@ -1166,7 +1155,8 @@ Public Class F0_Ventas
             .VisualStyle = VisualStyle.Office2007
         End With
         _prAplicarCondiccionJanusLote()
-
+        grProductos.MoveTo(grProductos.FilterRow)
+        grProductos.Col = 1
     End Sub
     Public Sub _prAplicarCondiccionJanusLote()
         Dim fc As GridEXFormatCondition
@@ -1204,14 +1194,14 @@ Public Class F0_Ventas
         Return tbFechaVenta.IsInputReadOnly = False
     End Function
     Private Sub _HabilitarProductos()
-        GPanelProductos.Height = 530
+        GPanelProductos.Height = 520
         GPanelProductos.Visible = True
         'PanelTotal.Visible = False
         'PanelInferior.Visible = False
         _prCargarProductos(Str(_CodCliente))
         grProductos.Focus()
         grProductos.MoveTo(grProductos.FilterRow)
-        grProductos.Col = 2
+        grProductos.Col = 1
     End Sub
     Private Sub _HabilitarProductosSeleccion()
         GPanelProductos.Visible = True
@@ -1997,7 +1987,7 @@ Public Class F0_Ventas
             CType(grdetalle.DataSource, DataTable).Rows.Clear()
             For i As Integer = 0 To dt.Rows.Count - 1
                 Dim numiproducto As Integer = dt.Rows(i).Item("pbty5prod")
-                Dim numimanual As Integer = dt.Rows(i).Item("yfcprod")
+                Dim numimanual As String = dt.Rows(i).Item("yfcprod")
                 Dim nameproducto As String = dt.Rows(i).Item("producto")
                 Dim lote As String = ""
                 Dim FechaVenc As Date = Now.Date
@@ -2066,12 +2056,13 @@ Public Class F0_Ventas
         'b.yfcdprod1 ,a.iclot ,a.icfven  ,a.iccven 
         Dim listEstCeldas As New List(Of Modelo.Celda)
         listEstCeldas.Add(New Modelo.Celda("yfcdprod1,", False, "", 150))
-        listEstCeldas.Add(New Modelo.Celda("iclot", True, "LOTE", 150))
-        listEstCeldas.Add(New Modelo.Celda("icfven", True, "FECHA VENCIMIENTO", 180, "dd/MM/yyyy"))
+        listEstCeldas.Add(New Modelo.Celda("iclot", True, "NRO. ORDEN", 150))
+        listEstCeldas.Add(New Modelo.Celda("icfven", True, "FECHA ORDEN", 180, "dd/MM/yyyy"))
         listEstCeldas.Add(New Modelo.Celda("iccven", True, "Stock".ToUpper, 150))
         Dim ef = New Efecto
         ef.tipo = 3
         ef.dt = dt
+        Modelo.MGlobal.SeleccionarCol = 1
         ef.SeleclCol = 2
         ef.listEstCeldas = listEstCeldas
         ef.alto = 50
@@ -2116,7 +2107,6 @@ Public Class F0_Ventas
     End Sub
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         _prSalir()
-
     End Sub
 
 
@@ -2141,6 +2131,7 @@ Public Class F0_Ventas
                 Dim ef = New Efecto
                 ef.tipo = 3
                 ef.dt = dt
+                Modelo.MGlobal.SeleccionarCol = 3
                 ef.SeleclCol = 2
                 ef.listEstCeldas = listEstCeldas
                 ef.alto = 50
@@ -2187,10 +2178,7 @@ Public Class F0_Ventas
             If e.KeyData = Keys.Control + Keys.Enter Then
 
                 Dim dt As DataTable
-
                 dt = L_fnListarEmpleado()
-                '              a.ydnumi, a.ydcod, a.yddesc, a.yddctnum, a.yddirec
-                ',a.ydtelf1 ,a.ydfnac 
 
                 Dim listEstCeldas As New List(Of Modelo.Celda)
                 listEstCeldas.Add(New Modelo.Celda("ydnumi,", True, "ID", 50))
@@ -2203,6 +2191,7 @@ Public Class F0_Ventas
                 Dim ef = New Efecto
                 ef.tipo = 3
                 ef.dt = dt
+                Modelo.MGlobal.SeleccionarCol = 2
                 ef.SeleclCol = 1
                 ef.listEstCeldas = listEstCeldas
                 ef.alto = 50
@@ -2372,10 +2361,7 @@ salirIf:
 
         End If
         If (e.KeyData = Keys.Escape And grdetalle.Row >= 0) Then
-
             _prEliminarFila()
-
-
         End If
 
 
@@ -2872,7 +2858,7 @@ salirIf:
                         CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot2") = grdetalle.GetValue("tbpcos") * 1
                         Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
                         ToastNotification.Show(Me, "La cantidad de la venta no debe ser mayor al del stock" & vbCrLf &
-                        "Stock=" + Str(stock).ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                        "Stock=" + Str(stock).ToUpper, img, 4000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                         grdetalle.SetValue("tbcantu", 1)
                         grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
                         grdetalle.SetValue("tbptot2", grdetalle.GetValue("tbpcos") * 1)
@@ -3105,10 +3091,7 @@ salirIf:
             If e.KeyData = Keys.Control + Keys.Enter Then
 
                 Dim dt As DataTable
-
                 dt = L_fnListarProforma()
-                '              a.panumi ,a.pafdoc ,a.paven ,vendedor .yddesc as vendedor,a.paclpr,
-                'cliente.yddesc as cliente,a.patotal as total
 
                 Dim listEstCeldas As New List(Of Modelo.Celda)
                 listEstCeldas.Add(New Modelo.Celda("panumi,", True, "NRO PROFORMA", 120))
@@ -3126,6 +3109,7 @@ salirIf:
                 Dim ef = New Efecto
                 ef.tipo = 3
                 ef.dt = dt
+                Modelo.MGlobal.SeleccionarCol = 5
                 ef.SeleclCol = 2
                 ef.listEstCeldas = listEstCeldas
                 ef.alto = 50
@@ -3199,6 +3183,7 @@ salirIf:
                 Dim ef = New Efecto
                 ef.tipo = 3
                 ef.dt = dtObra
+                Modelo.MGlobal.SeleccionarCol = 1
                 ef.SeleclCol = 2
                 ef.listEstCeldas = listEstCeldas
                 ef.alto = 120

@@ -146,8 +146,8 @@ Public Class F0_ProformaServicio
             PanelInferior.Visible = True
         End If
         tbCliente.Focus()
-        btCliente.Visible = True
-        btObra.Visible = True
+        'btCliente.Visible = True
+        'btObra.Visible = True
     End Sub
     Public Sub _prMostrarRegistro(_N As Integer)
         With Gr_Busqueda
@@ -189,7 +189,6 @@ Public Class F0_ProformaServicio
             .Caption = "CODIGO"
             .Visible = False
         End With
-
         With Gr_Detalle.RootTable.Columns("pdEst")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -200,17 +199,15 @@ Public Class F0_ProformaServicio
             .Visible = False
         End With
         With Gr_Detalle.RootTable.Columns("pdNumiServ")
-            .Caption = "COD. ORIG."
-            .Width = 80
-            .Visible = False
+            .Caption = "CÓDIGO."
+            .Width = 100
+            .Visible = True
         End With
         With Gr_Detalle.RootTable.Columns("Servicio")
             .Caption = "PRODUCTOS"
-            .Width = 250
+            .Width = 350
             .Visible = True
         End With
-
-
         With Gr_Detalle.RootTable.Columns("pdCantidad")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -218,7 +215,6 @@ Public Class F0_ProformaServicio
             .FormatString = "0.00"
             .Caption = "Cantidad".ToUpper
         End With
-
         With Gr_Detalle.RootTable.Columns("pdNumiUnidad")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -230,7 +226,6 @@ Public Class F0_ProformaServicio
             .Visible = True
             .Caption = "Unidad".ToUpper
         End With
-
         With Gr_Detalle.RootTable.Columns("pdPrecio")
             .Width = 120
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -241,25 +236,24 @@ Public Class F0_ProformaServicio
         With Gr_Detalle.RootTable.Columns("pdSubTotal")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "Sub Total".ToUpper
         End With
         With Gr_Detalle.RootTable.Columns("pdPorc")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "P.Desc(%)".ToUpper
         End With
         With Gr_Detalle.RootTable.Columns("pdDesc")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
-            .Visible = True
+            .Visible = False
             .FormatString = "0.00"
             .Caption = "M.Desc".ToUpper
         End With
-
         With Gr_Detalle.RootTable.Columns("pdTotal")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
@@ -692,7 +686,6 @@ Public Class F0_ProformaServicio
     End Sub
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         _prSalir()
-
     End Sub
 
     Private Sub tbCliente_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCliente.KeyDown
@@ -715,6 +708,7 @@ Public Class F0_ProformaServicio
                 Dim ef = New Efecto
                 ef.tipo = 3
                 ef.dt = dt
+                Modelo.MGlobal.SeleccionarCol = 3
                 ef.SeleclCol = 2
                 ef.listEstCeldas = listEstCeldas
                 ef.alto = 50
@@ -760,6 +754,7 @@ Public Class F0_ProformaServicio
                 Dim ef = New Efecto
                 ef.tipo = 3
                 ef.dt = dt
+                Modelo.MGlobal.SeleccionarCol = 2
                 ef.SeleclCol = 1
                 ef.listEstCeldas = listEstCeldas
                 ef.alto = 50
@@ -1398,12 +1393,23 @@ salirIf:
     Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
         If (Not _fnAccesible()) Then
             P_GenerarReporte()
-
         End If
     End Sub
 
     Private Sub btCliente_Click(sender As Object, e As EventArgs) Handles btCliente.Click
-        P_Principal.btConfFabrica_Click(sender, e)
+        prof_venta = True
+        Dim ef = New F1_Clientes
+        ef._nameButton = "btConfCliente"
+        ef._Tipo = 1
+        ef.ShowDialog()
+
+        If (ef.bandera = True) Then
+            _CodCliente = codcli
+            tbCliente.Text = nomcli
+            _CodEmpleado = codvend
+            tbVendedor.Text = nomvend
+            tbObra.Focus()
+        End If
     End Sub
 
     Private Sub btObra_Click(sender As Object, e As EventArgs) Handles btObra.Click
@@ -1430,6 +1436,7 @@ salirIf:
                 Dim ef = New Efecto
                 ef.tipo = 3
                 ef.dt = dtObra
+                Modelo.MGlobal.SeleccionarCol = 1
                 ef.SeleclCol = 2
                 ef.listEstCeldas = listEstCeldas
                 ef.alto = 120
@@ -1453,5 +1460,9 @@ salirIf:
             End If
 
         End If
+    End Sub
+
+    Private Sub LabelX12_Click(sender As Object, e As EventArgs) Handles LabelX12.Click
+
     End Sub
 End Class

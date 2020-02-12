@@ -747,7 +747,7 @@ Public Class F0_Proforma
         Return tbFechaVenta.IsInputReadOnly = False
     End Function
     Private Sub _HabilitarProductos()
-        GPanelProductos.Height = 530
+        GPanelProductos.Height = 520
         GPanelProductos.Visible = True
         'PanelTotal.Visible = False
         'PanelInferior.Visible = False
@@ -916,7 +916,7 @@ Public Class F0_Proforma
 
     End Sub
     Private Sub _prGuardarModificado()
-        Dim res As Boolean = L_fnModificarProforma(tbCodigo.Text, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, _CodCliente, _CodObra, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbTransporte.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value)
+        Dim res As Boolean = L_fnModificarProforma(tbCodigo.Text, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, _CodCliente, _CodObra, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbTransporte.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value, IIf(SwServicio.Value = True, tbServicio.Text, 0))
         If res Then
 
             Dim img As Bitmap = New Bitmap(My.Resources.checked, 50, 50)
@@ -925,14 +925,9 @@ Public Class F0_Proforma
                                       eToastGlowColor.Green,
                                       eToastPosition.TopCenter
                                       )
-
             _prImprimirReporte()
-
             _prCargarProforma()
-
             _prSalir()
-
-
         Else
             Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
             ToastNotification.Show(Me, "La Venta no pudo ser Modificada".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
@@ -943,12 +938,9 @@ Public Class F0_Proforma
         If btnGrabar.Enabled = True Then
             _prInhabiliitar()
             If grVentas.RowCount > 0 Then
-
                 _prMostrarRegistro(0)
-
             End If
         Else
-
             _modulo.Select()
             _tab.Close()
         End If
@@ -1723,35 +1715,25 @@ salirIf:
             objrep.SetParameterValue("Telefono", _Ds.Tables(0).Rows(0).Item("sctelf").ToString)
             objrep.SetParameterValue("Ciudad", _Ds.Tables(0).Rows(0).Item("scciu").ToString)
             P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
-            P_Global.Visualizador.Show() 'Comentar
+            P_Global.Visualizador.ShowDialog() 'Comentar
             P_Global.Visualizador.BringToFront() 'Comentar
+
         Else
-
-            'Dim ds As New DataSet1
-            'ds.Tables("VENTA").Rows.Add(Text1.Text, Text2.Text, Text3.Text) 'agrego registro a mi datatable venta
-
-            'ds.Tables("CLIENTE").Rows.Add(Text4.Text, Text5.Text, Text6.Text) 'agrego registro a mi datatable cliente
-            'Dim objRpt As New CrystalReports1
-
-            'objRpt.Database.Tables("CLIENTE").SetDataSource(ds.Tables("CLIENTE"))
-            'objRpt.Database.Tables("VENTA").SetDataSource(ds.Tables("VENTA"))frmReporte.crvMiReporte.ReportSource = objRpt 'envio mi reporte al form donde tengo mi CrystalReportView
-            'frmReporte.Show()
-
-            'Dim _Ds1 As DataSet = L_fnReporteProforma(tbCodigo.Text).DataSet
-
+            Dim Total As Double = dt.Rows(0).Item("patotal") + dt1.Rows(0).Item("pcTotal")
 
             P_Global.Visualizador = New Visualizador
             Dim objrep As New R_ProformaCompuesta
 
             objrep.SetDataSource(dt)
-            objrep.SetDataSource(dt1)
+            objrep.Subreports.Item("R_ProformaServicios.rpt").SetDataSource(dt1)
             objrep.SetParameterValue("usuario", gs_user)
             objrep.SetParameterValue("Direccion", _Ds.Tables(0).Rows(0).Item("scdir").ToString)
             objrep.SetParameterValue("Telefono", _Ds.Tables(0).Rows(0).Item("sctelf").ToString)
             objrep.SetParameterValue("Ciudad", _Ds.Tables(0).Rows(0).Item("scciu").ToString)
-            P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
-            P_Global.Visualizador.Show() 'Comentar
-            P_Global.Visualizador.BringToFront() 'Comentar
+            objrep.SetParameterValue("TotalBs", Total.ToString)
+            P_Global.Visualizador.CrGeneral.ReportSource = objrep
+            P_Global.Visualizador.ShowDialog()
+            P_Global.Visualizador.BringToFront()
 
         End If
 
@@ -1765,7 +1747,6 @@ salirIf:
     Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
         If (Not _fnAccesible()) Then
             P_GenerarReporte()
-
         End If
     End Sub
 
@@ -1885,11 +1866,12 @@ salirIf:
                 listEstCeldas.Add(New Modelo.Celda("cliente", True, "CLIENTE", 150))
                 listEstCeldas.Add(New Modelo.Celda("total", True, "TOTAL".ToUpper, 120))
                 listEstCeldas.Add(New Modelo.Celda("pcObra,", False, "IdObra", 120))
-                listEstCeldas.Add(New Modelo.Celda("oanomb,", True, "Obra", 120))
+                listEstCeldas.Add(New Modelo.Celda("oanomb,", True, "Obra", 150))
                 listEstCeldas.Add(New Modelo.Celda("pcDesc,", False, "Descuento", 120))
                 Dim ef = New Efecto
                 ef.tipo = 3
                 ef.dt = dt
+                Modelo.MGlobal.SeleccionarCol = 4
                 ef.SeleclCol = 2
                 ef.listEstCeldas = listEstCeldas
                 ef.alto = 250
@@ -1915,7 +1897,6 @@ salirIf:
                 tbServicio.ReadOnly = True
                 tbServicio.Enabled = True
                 tbServicio.Focus()
-
             Else
                 tbServicio.BackColor = Color.LightGray
                 tbServicio.ReadOnly = True
