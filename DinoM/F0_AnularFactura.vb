@@ -307,13 +307,34 @@ Public Class F0_AnularFactura
                                        eToastGlowColor.Blue, eToastPosition.BottomLeft)
             End If
         Else
-            If (MessageBox.Show("Esta seguro de ANULAR la Factura " + Tb2NroFactura.Text + "?", "PREGUNTA", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes) Then
+            Dim res1 As Boolean = L_fnVerificarPagosVentas(Tb1Codigo.Text)
+            If res1 Then
+                Dim img As Bitmap = New Bitmap(My.Resources.WARNING, 50, 50)
+                ToastNotification.Show(Me, "No se puede anular la Factura y Venta con código ".ToUpper + Tb1Codigo.Text + ", porque tiene pagos realizados, por favor primero elimine los pagos correspondientes".ToUpper,
+                                          img, 5000,
+                                          eToastGlowColor.Green,
+                                          eToastPosition.TopCenter)
+                Exit Sub
+            End If
+
+            Dim result As Boolean = L_fnVerificarSiSeContabilizoVenta(Tb1Codigo.Text)
+            If result Then
+                Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
+                ToastNotification.Show(Me, "La Factura y Venta no puede ser anuladas porque ya fueron contabilizadas".ToUpper, img, 4500, eToastGlowColor.Red, eToastPosition.TopCenter)
+            End If
+
+            If (MessageBox.Show("Esta seguro de ANULAR la Factura " + Tb2NroFactura.Text + " y la Venta?", "PREGUNTA", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes) Then
+
+                'Primero modifica factura correspondiente a la venta
                 L_Modificar_Factura("fvanumi = " + Tb1Codigo.Text + " and fvanfac = " + NroFactura + " and fvaautoriz = " + NroAutorizacion, "", "", "", IIf(Sb1Estado.Value, "1", "0"))
-                'P_ActStock()
+
+                Dim mensajeError As String = ""
+                Dim res As Boolean = L_fnEliminarVenta(Tb1Codigo.Text, mensajeError)
+
                 P_LlenarDatosGrilla()
-                ToastNotification.Show(Me, "La Factura " + Tb2NroFactura.Text + ", Se ANULADO correctamente",
-                                       My.Resources.OK, _DuracionSms * 1000,
-                                       eToastGlowColor.Blue, eToastPosition.BottomLeft)
+                ToastNotification.Show(Me, "La Factura y Venta " + Tb2NroFactura.Text + ", Se ANULARON correctamente",
+                               My.Resources.OK, _DuracionSms * 1000,
+                               eToastGlowColor.Blue, eToastPosition.BottomLeft)
             End If
         End If
     End Sub

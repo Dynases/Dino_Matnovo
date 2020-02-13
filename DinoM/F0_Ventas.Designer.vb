@@ -230,6 +230,7 @@ Partial Class F0_Ventas
         '
         'btnModificar
         '
+        Me.btnModificar.Visible = False
         '
         'btnNuevo
         '

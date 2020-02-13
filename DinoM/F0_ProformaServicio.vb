@@ -1462,7 +1462,4 @@ salirIf:
         End If
     End Sub
 
-    Private Sub LabelX12_Click(sender As Object, e As EventArgs) Handles LabelX12.Click
-
-    End Sub
 End Class
