@@ -118,7 +118,7 @@ Public Class Pr_StockMinimo
         End If
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btn_Generar.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs)
         _prCargarReporte()
     End Sub
 
@@ -185,9 +185,15 @@ Public Class Pr_StockMinimo
         'End If
     End Sub
 
-    Private Sub btn_Salir_Click(sender As Object, e As EventArgs) Handles btn_Salir.Click
+    Private Sub btn_Salir_Click(sender As Object, e As EventArgs)
         _tab.Close()
     End Sub
 
+    Private Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
+        _prCargarReporte()
+    End Sub
 
+    Private Sub btnSalir_Click_1(sender As Object, e As EventArgs) Handles btnSalir.Click
+        _tab.Close()
+    End Sub
 End Class

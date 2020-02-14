@@ -250,9 +250,9 @@ Partial Class PR_StockActualProductosLotes
         Me.LabelX1.Location = New System.Drawing.Point(7, 36)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX1.Size = New System.Drawing.Size(82, 16)
+        Me.LabelX1.Size = New System.Drawing.Size(42, 16)
         Me.LabelX1.TabIndex = 258
-        Me.LabelX1.Text = "Laboratorio:"
+        Me.LabelX1.Text = "Línea:"
         '
         'cbGrupos
         '
@@ -287,6 +287,7 @@ Partial Class PR_StockActualProductosLotes
         Me.LabelX2.Size = New System.Drawing.Size(125, 16)
         Me.LabelX2.TabIndex = 260
         Me.LabelX2.Text = "Fecha Vencimiento:"
+        Me.LabelX2.Visible = False
         '
         'Panel1
         '
@@ -297,6 +298,7 @@ Partial Class PR_StockActualProductosLotes
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(119, 35)
         Me.Panel1.TabIndex = 261
+        Me.Panel1.Visible = False
         '
         'chbTodos
         '
@@ -347,6 +349,7 @@ Partial Class PR_StockActualProductosLotes
         Me.txtValor.Size = New System.Drawing.Size(100, 22)
         Me.txtValor.TabIndex = 263
         Me.txtValor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtValor.Visible = False
         '
         'LabelX3
         '
@@ -364,6 +367,7 @@ Partial Class PR_StockActualProductosLotes
         Me.LabelX3.Size = New System.Drawing.Size(151, 16)
         Me.LabelX3.TabIndex = 264
         Me.LabelX3.Text = "Mayor o igual en (Días):"
+        Me.LabelX3.Visible = False
         '
         'PR_StockActualProductosLotes
         '

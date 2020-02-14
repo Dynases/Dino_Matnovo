@@ -4382,7 +4382,7 @@ Public Class AccesoLogica
 
         Dim _listParam As New List(Of Datos.DParametro)
 
-        _listParam.Add(New Datos.DParametro("@tipo", 11))
+        _listParam.Add(New Datos.DParametro("@tipo", 16))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TY005", _listParam)
 
         Return _Tabla

@@ -990,22 +990,22 @@ Public Class F1_Productos
         P_GenerarReporte()
     End Sub
     Private Sub P_GenerarReporte()
-        'Dim dt As DataTable = L_fnReporteproducto()
+        Dim dt As DataTable = L_fnReporteproducto()
 
-        'If Not IsNothing(P_Global.Visualizador) Then
-        '    P_Global.Visualizador.Close()
-        'End If
+        If Not IsNothing(P_Global.Visualizador) Then
+            P_Global.Visualizador.Close()
+        End If
 
-        'P_Global.Visualizador = New Visualizador
+        P_Global.Visualizador = New Visualizador
 
-        'Dim objrep As New R_Productos
-        ''' GenerarNro(_dt)
-        '''objrep.SetDataSource(Dt1Kardex)
-        'objrep.SetDataSource(dt)
+        Dim objrep As New R_Productos
+        '' GenerarNro(_dt)
+        ''objrep.SetDataSource(Dt1Kardex)
+        objrep.SetDataSource(dt)
 
-        'P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
-        'P_Global.Visualizador.Show() 'Comentar
-        'P_Global.Visualizador.BringToFront() 'Comentar
+        P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+        P_Global.Visualizador.Show() 'Comentar
+        P_Global.Visualizador.BringToFront() 'Comentar
 
     End Sub
 

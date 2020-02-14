@@ -273,13 +273,13 @@ Public Class F0_Movimiento
         If (Lote = True) Then
             With grdetalle.RootTable.Columns("iclot")
                 .Width = 120
-                .Caption = "lote".ToUpper
+                .Caption = "Nro. Orden".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
                 .Visible = True
             End With
             With grdetalle.RootTable.Columns("icfvenc")
                 .Width = 120
-                .Caption = "FECHA VENC.".ToUpper
+                .Caption = "FECHA ORD.".ToUpper
                 .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
                 .FormatString = "yyyy/MM/dd"
                 .Visible = True
@@ -299,8 +299,6 @@ Public Class F0_Movimiento
                 .FormatString = "yyyy/MM/dd"
                 .Visible = False
             End With
-
-
         End If
         With grdetalle.RootTable.Columns("stock")
             .Width = 120
@@ -997,8 +995,6 @@ Public Class F0_Movimiento
 #End Region
 
 #Region "Eventos Formulario"
-
-
 
     Private Sub F0_Movimiento_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         _IniciarTodo()

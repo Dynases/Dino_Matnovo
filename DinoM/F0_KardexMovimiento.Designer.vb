@@ -160,6 +160,10 @@ Partial Class F0_KardexMovimiento
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelSuperior, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.Panel1, 0)
         '
+        'btnImprimir
+        '
+        Me.btnImprimir.Visible = False
+        '
         'btnUltimo
         '
         Me.btnUltimo.Margin = New System.Windows.Forms.Padding(2)
@@ -322,7 +326,7 @@ Partial Class F0_KardexMovimiento
         Me.tbFechaVenc.DisabledBackColor = System.Drawing.Color.White
         Me.tbFechaVenc.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbFechaVenc.ForeColor = System.Drawing.Color.Black
-        Me.tbFechaVenc.Location = New System.Drawing.Point(748, 16)
+        Me.tbFechaVenc.Location = New System.Drawing.Point(761, 13)
         Me.tbFechaVenc.Name = "tbFechaVenc"
         Me.tbFechaVenc.PreventEnterBeep = True
         Me.tbFechaVenc.Size = New System.Drawing.Size(109, 21)
@@ -340,7 +344,7 @@ Partial Class F0_KardexMovimiento
         Me.tblote.DisabledBackColor = System.Drawing.Color.White
         Me.tblote.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tblote.ForeColor = System.Drawing.Color.Black
-        Me.tblote.Location = New System.Drawing.Point(627, 16)
+        Me.tblote.Location = New System.Drawing.Point(646, 13)
         Me.tblote.Name = "tblote"
         Me.tblote.PreventEnterBeep = True
         Me.tblote.Size = New System.Drawing.Size(109, 21)
@@ -357,12 +361,12 @@ Partial Class F0_KardexMovimiento
         Me.lblote.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.lblote.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblote.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.lblote.Location = New System.Drawing.Point(570, 16)
+        Me.lblote.Location = New System.Drawing.Point(562, 16)
         Me.lblote.Name = "lblote"
         Me.lblote.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.lblote.Size = New System.Drawing.Size(34, 16)
+        Me.lblote.Size = New System.Drawing.Size(77, 16)
         Me.lblote.TabIndex = 242
-        Me.lblote.Text = "Lote:"
+        Me.lblote.Text = "Nro. Orden:"
         Me.lblote.Visible = False
         '
         'cbAlmacen

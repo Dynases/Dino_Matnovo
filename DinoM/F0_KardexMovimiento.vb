@@ -580,7 +580,6 @@ Public Class F0_KardexMovimiento
     Private Sub btActualizar_Click(sender As Object, e As EventArgs) Handles btActualizar.Click
         If (cbAlmacen.SelectedIndex < 0) Then
             Return
-
         End If
         If (Dt1Kardex.Rows.Count > 0) Then
 

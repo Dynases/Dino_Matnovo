@@ -369,9 +369,9 @@ Partial Class Pr_SAldosPorAlmacenLinea
         Me.LabelX1.Location = New System.Drawing.Point(11, 101)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX1.Size = New System.Drawing.Size(82, 16)
+        Me.LabelX1.Size = New System.Drawing.Size(42, 16)
         Me.LabelX1.TabIndex = 250
-        Me.LabelX1.Text = "Laboratorio:"
+        Me.LabelX1.Text = "Línea:"
         '
         'cbGrupos
         '

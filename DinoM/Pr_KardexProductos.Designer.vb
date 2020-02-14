@@ -76,12 +76,12 @@ Partial Class Pr_KardexProductos
         '
         'SuperTabControlPanelBuscador
         '
-        Me.SuperTabControlPanelBuscador.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SuperTabControlPanelBuscador.Margin = New System.Windows.Forms.Padding(4)
         Me.SuperTabControlPanelBuscador.Size = New System.Drawing.Size(858, 561)
         '
         'SuperTabControlPanelRegistro
         '
-        Me.SuperTabControlPanelRegistro.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SuperTabControlPanelRegistro.Margin = New System.Windows.Forms.Padding(4)
         Me.SuperTabControlPanelRegistro.Size = New System.Drawing.Size(852, 561)
         Me.SuperTabControlPanelRegistro.Controls.SetChildIndex(Me.PanelInferior, 0)
         Me.SuperTabControlPanelRegistro.Controls.SetChildIndex(Me.PanelIzq, 0)
@@ -100,7 +100,7 @@ Partial Class Pr_KardexProductos
         '
         'PanelInferior
         '
-        Me.PanelInferior.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PanelInferior.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelInferior.Size = New System.Drawing.Size(852, 36)
         Me.PanelInferior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelInferior.Style.BackColor1.Color = System.Drawing.Color.Gold
@@ -142,17 +142,17 @@ Partial Class Pr_KardexProductos
         '
         'PanelPrincipal
         '
-        Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(4)
         Me.PanelPrincipal.Size = New System.Drawing.Size(489, 525)
         '
         'MPanelUserAct
         '
         Me.MPanelUserAct.Location = New System.Drawing.Point(652, 0)
-        Me.MPanelUserAct.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MPanelUserAct.Margin = New System.Windows.Forms.Padding(4)
         '
         'MReportViewer
         '
-        Me.MReportViewer.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MReportViewer.Margin = New System.Windows.Forms.Padding(4)
         Me.MReportViewer.Size = New System.Drawing.Size(489, 525)
         '
         'MGPFiltros
@@ -198,7 +198,7 @@ Partial Class Pr_KardexProductos
         Me.tbFechaI.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbFechaI.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
         Me.tbFechaI.ButtonDropDown.Visible = True
-        Me.tbFechaI.Font = New System.Drawing.Font("Open Sans Light", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaI.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbFechaI.IsPopupCalendarOpen = False
         Me.tbFechaI.Location = New System.Drawing.Point(145, 54)
         '
@@ -231,7 +231,7 @@ Partial Class Pr_KardexProductos
         Me.tbFechaI.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbFechaI.MonthCalendar.TodayButtonVisible = True
         Me.tbFechaI.Name = "tbFechaI"
-        Me.tbFechaI.Size = New System.Drawing.Size(120, 25)
+        Me.tbFechaI.Size = New System.Drawing.Size(120, 22)
         Me.tbFechaI.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.tbFechaI.TabIndex = 232
         '
@@ -260,7 +260,7 @@ Partial Class Pr_KardexProductos
         Me.tbFechaF.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbFechaF.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
         Me.tbFechaF.ButtonDropDown.Visible = True
-        Me.tbFechaF.Font = New System.Drawing.Font("Open Sans Light", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaF.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbFechaF.IsPopupCalendarOpen = False
         Me.tbFechaF.Location = New System.Drawing.Point(145, 85)
         '
@@ -293,7 +293,7 @@ Partial Class Pr_KardexProductos
         Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbFechaF.MonthCalendar.TodayButtonVisible = True
         Me.tbFechaF.Name = "tbFechaF"
-        Me.tbFechaF.Size = New System.Drawing.Size(120, 25)
+        Me.tbFechaF.Size = New System.Drawing.Size(120, 22)
         Me.tbFechaF.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.tbFechaF.TabIndex = 234
         '
@@ -372,7 +372,7 @@ Partial Class Pr_KardexProductos
         Me.Panel1.Controls.Add(Me.CheckGeneralLote)
         Me.Panel1.Controls.Add(Me.checkGeneral)
         Me.Panel1.Location = New System.Drawing.Point(29, 119)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(274, 93)
         Me.Panel1.TabIndex = 243
@@ -389,10 +389,10 @@ Partial Class Pr_KardexProductos
         Me.CheckGeneralLote.EnableMarkup = False
         Me.CheckGeneralLote.Location = New System.Drawing.Point(15, 63)
         Me.CheckGeneralLote.Name = "CheckGeneralLote"
-        Me.CheckGeneralLote.Size = New System.Drawing.Size(162, 22)
+        Me.CheckGeneralLote.Size = New System.Drawing.Size(212, 22)
         Me.CheckGeneralLote.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.CheckGeneralLote.TabIndex = 242
-        Me.CheckGeneralLote.Text = "GENERAL POR LOTE"
+        Me.CheckGeneralLote.Text = "GENERAL POR NRO. ORDEN"
         '
         'LabelX5
         '
@@ -432,7 +432,7 @@ Partial Class Pr_KardexProductos
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(884, 561)
         Me.Location = New System.Drawing.Point(0, 0)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "Pr_KardexProductos"
         Me.Text = "KARDEX PRODUCTO"
         Me.Controls.SetChildIndex(Me.SuperTabPrincipal, 0)
