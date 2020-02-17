@@ -119,6 +119,7 @@ Public Class F1_Productos
         cbUMed.MaxLength = 10
         cbUniVenta.MaxLength = 2
         cbUnidMaxima.MaxLength = 2
+
     End Sub
 
     Private Sub _prCargarComboLibreria(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo, cod1 As String, cod2 As String)

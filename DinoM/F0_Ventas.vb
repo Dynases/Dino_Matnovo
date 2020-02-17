@@ -48,6 +48,7 @@ Public Class F0_Ventas
 
         _prValidarLote()
         _prCargarComboLibreriaSucursal(cbSucursal)
+        _prCargarComboTipoVenta(cbTipoVenta)
         lbTipoMoneda.Visible = False
         swMoneda.Visible = False
         P_prCargarVariablesIndispensables()
@@ -110,6 +111,34 @@ Public Class F0_Ventas
             .DataSource = dt
             .Refresh()
         End With
+    End Sub
+    Private Sub _prCargarComboTipoVenta(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim dt As New DataTable
+        dt = L_prlistarCategoriasTipoVenta()
+        If (dt.Columns.Count <= 0) Then
+            Dim info As New TaskDialogInfo("INFORMACION", eTaskDialogIcon.Information2, "Error de Conexion con el Servidor. Desea Intentar Nuevamente?." + vbLf + "Si el error persite comuniquese con su administrador de sistemas", eTaskDialogButton.Yes Or eTaskDialogButton.Cancel, eTaskDialogBackgroundColor.DarkBlue)
+            Dim result As eTaskDialogResult = TaskDialog.Show(info)
+            If result = eTaskDialogResult.Yes Then
+                _prCargarComboTipoVenta(mCombo)
+            Else
+                _prSalir()
+                Return
+            End If
+        End If
+        With mCombo
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("yccod3").Width = 60
+            .DropDownList.Columns("yccod3").Caption = "COD"
+            .DropDownList.Columns.Add("ycdes3").Width = 130
+            .DropDownList.Columns("ycdes3").Caption = "TIPO VENTA"
+            .ValueMember = "yccod3"
+            .DisplayMember = "ycdes3"
+            .DataSource = dt
+            .Refresh()
+        End With
+        If (CType(mCombo.DataSource, DataTable).Rows.Count > 0) Then
+            mCombo.SelectedIndex = 0
+        End If
     End Sub
     Private Sub _prAsignarPermisos()
 
@@ -1401,7 +1430,7 @@ Public Class F0_Ventas
 
     Public Sub _GuardarNuevo()
         Dim numi As String = ""
-        Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True, Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")), _CodCliente, _CodObra, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTransporte.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value, IIf(SwProforma.Value = True, tbProforma.Text, 0), IIf(swEmision.Value = True, 1, 0))
+        Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, cbTipoVenta.Value, IIf(cbTipoVenta.Value = 1 Or cbTipoVenta.Value = 2, Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")), _CodCliente, _CodObra, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTransporte.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value, IIf(SwProforma.Value = True, tbProforma.Text, 0), IIf(swEmision.Value = True, 1, 0))
 
         If res Then
             'res = P_fnGrabarFacturarTFV001(numi)
@@ -1464,7 +1493,8 @@ Public Class F0_Ventas
     End Sub
     Private Sub _prGuardarModificado()
 
-        Dim res As Boolean = L_fnModificarVenta(tbCodigo.Text, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True, Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")), _CodCliente, _CodObra, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTransporte.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value, IIf(SwProforma.Value = True, tbProforma.Text, 0), IIf(swEmision.Value = True, 1, 0))
+        'Dim res As Boolean = L_fnModificarVenta(tbCodigo.Text, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True, Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")), _CodCliente, _CodObra, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTransporte.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value, IIf(SwProforma.Value = True, tbProforma.Text, 0), IIf(swEmision.Value = True, 1, 0))
+        Dim res As Boolean = L_fnModificarVenta(tbCodigo.Text, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, cbTipoVenta.Value, IIf(cbTipoVenta.Value = 1 Or cbTipoVenta.Value = 2, Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")), _CodCliente, _CodObra, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTransporte.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value, IIf(SwProforma.Value = True, tbProforma.Text, 0), IIf(swEmision.Value = True, 1, 0))
         If res Then
 
             If (gb_FacturaEmite) Then
@@ -1955,8 +1985,6 @@ Public Class F0_Ventas
         ParteDecimal = total - ParteEntera
         Dim li As String = Facturacion.ConvertirLiteral.A_fnConvertirLiteral(CDbl(ParteEntera)) + " con " +
         IIf(ParteDecimal.ToString.Equals("0"), "00", ParteDecimal.ToString) + "/100 Bolivianos"
-
-
 
 
 
@@ -3266,6 +3294,24 @@ salirIf:
             grdetalle.Select()
             grdetalle.Col = 5
             grdetalle.Row = 0
+        End If
+    End Sub
+
+    Private Sub cbTipoVenta_ValueChanged(sender As Object, e As EventArgs) Handles cbTipoVenta.ValueChanged
+        If (cbTipoVenta.Value = 0) Then
+            lbCredito.Visible = True
+            tbFechaVenc.Visible = True
+            tbFechaVenc.Value = DateAdd(DateInterval.Day, _dias, Now.Date)
+        Else
+            lbCredito.Visible = False
+            tbFechaVenc.Visible = False
+        End If
+        If (cbTipoVenta.Value = 2) Then
+            lbbanco.Visible = True
+            tbbanco.Visible = True
+        Else
+            lbbanco.Visible = False
+            tbbanco.Visible = False
         End If
     End Sub
 

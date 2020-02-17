@@ -1,10 +1,10 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class F1_Productos
     Inherits Modelo.ModeloF1
 
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -21,7 +21,7 @@ Partial Class F1_Productos
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(F1_Productos))
         Dim cbUniVenta_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
@@ -80,13 +80,13 @@ Partial Class F1_Productos
         Me.SuperTabControl_Imagenes_DetalleProducto = New DevComponents.DotNetBar.SuperTabControl()
         Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.UsImg = New DinoM.UCImg()
         Me.SuperTabItem_Imagenes = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel2 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.dgjDetalleProducto = New Janus.Windows.GridEX.GridEX()
         Me.SuperTabItem_DetalleProducto = New DevComponents.DotNetBar.SuperTabItem()
         Me.btExcel = New DevComponents.DotNetBar.ButtonX()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.UsImg = New DinoM.UCImg()
         CType(Me.SuperTabPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabPrincipal.SuspendLayout()
         Me.SuperTabControlPanelRegistro.SuspendLayout()
@@ -424,6 +424,7 @@ Partial Class F1_Productos
         Me.tbConversion.BackgroundStyle.Class = "DateTimeInputBackground"
         Me.tbConversion.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbConversion.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tbConversion.DisplayFormat = "0.000"
         Me.tbConversion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbConversion.Increment = 1.0R
         Me.tbConversion.Location = New System.Drawing.Point(91, 47)
@@ -1184,16 +1185,6 @@ Partial Class F1_Productos
         Me.Panel1.Size = New System.Drawing.Size(430, 290)
         Me.Panel1.TabIndex = 223
         '
-        'UsImg
-        '
-        Me.UsImg.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.UsImg.BackColor = System.Drawing.Color.Transparent
-        Me.UsImg.Location = New System.Drawing.Point(108, 6)
-        Me.UsImg.Margin = New System.Windows.Forms.Padding(4)
-        Me.UsImg.Name = "UsImg"
-        Me.UsImg.Size = New System.Drawing.Size(290, 270)
-        Me.UsImg.TabIndex = 222
-        '
         'SuperTabItem_Imagenes
         '
         Me.SuperTabItem_Imagenes.AttachedControl = Me.SuperTabControlPanel1
@@ -1261,6 +1252,16 @@ Partial Class F1_Productos
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 329.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1322, 329)
         Me.TableLayoutPanel1.TabIndex = 227
+        '
+        'UsImg
+        '
+        Me.UsImg.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.UsImg.BackColor = System.Drawing.Color.Transparent
+        Me.UsImg.Location = New System.Drawing.Point(108, 6)
+        Me.UsImg.Margin = New System.Windows.Forms.Padding(4)
+        Me.UsImg.Name = "UsImg"
+        Me.UsImg.Size = New System.Drawing.Size(290, 270)
+        Me.UsImg.TabIndex = 222
         '
         'F1_Productos
         '

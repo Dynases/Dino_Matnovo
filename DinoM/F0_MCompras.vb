@@ -312,14 +312,11 @@ Public Class F0_MCompras
                 .FormatString = "dd/MM/yyyy"
             End With
         End If
-
-
         With grdetalle.RootTable.Columns("cbnumi")
             .Width = 100
             .Caption = "CODIGO"
             .Visible = False
         End With
-
         With grdetalle.RootTable.Columns("cbtv1numi")
             .Width = 90
             .Visible = False
@@ -333,20 +330,18 @@ Public Class F0_MCompras
             .Caption = "PRODUCTOS"
             .Width = 280
             .Visible = True
-
         End With
         With grdetalle.RootTable.Columns("cbest")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = False
         End With
-
         With grdetalle.RootTable.Columns("cbcmin")
-            .Width = 100
+            .Width = 140
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .FormatString = "0.00"
-            .Caption = "Cantidad".ToUpper
+            .Caption = "Cantidad(m2-ml)".ToUpper
         End With
         With grdetalle.RootTable.Columns("cbumin")
             .Width = 50
@@ -366,6 +361,7 @@ Public Class F0_MCompras
             .FormatString = "0.00"
             .Caption = "Precio U.".ToUpper
         End With
+
         If (_estadoPor = 1) Then
             With grdetalle.RootTable.Columns("cbutven")
                 .Width = 110
@@ -397,7 +393,6 @@ Public Class F0_MCompras
                 .Caption = "Precio Venta".ToUpper
             End With
         End If
-
         With grdetalle.RootTable.Columns("cbptot")
             .Width = 100
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far

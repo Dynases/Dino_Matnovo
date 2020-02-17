@@ -412,9 +412,8 @@ Public Class F0_Proforma
         grVentas.RetrieveStructure()
         grVentas.AlternatingColors = True
 
-
         With grVentas.RootTable.Columns("panumi")
-            .Width = 100
+            .Width = 80
             .Caption = "CODIGO"
             .Visible = True
         End With
@@ -423,21 +422,19 @@ Public Class F0_Proforma
             .Visible = False
         End With
         With grVentas.RootTable.Columns("pafdoc")
-            .Width = 90
+            .Width = 85
             .Visible = True
             .Caption = "FECHA"
         End With
-
         With grVentas.RootTable.Columns("paven")
-            .Width = 160
+            .Width = 140
             .Visible = False
         End With
         With grVentas.RootTable.Columns("vendedor")
-            .Width = 250
+            .Width = 140
             .Visible = True
             .Caption = "VENDEDOR".ToUpper
         End With
-
         With grVentas.RootTable.Columns("paclpr")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -459,6 +456,18 @@ Public Class F0_Proforma
             .Visible = True
             .Caption = "CLIENTE"
         End With
+        With grVentas.RootTable.Columns("empresa")
+            .Width = 250
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = True
+            .Caption = "EMPRESA"
+        End With
+        With grVentas.RootTable.Columns("rsocial")
+            .Width = 250
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = True
+            .Caption = "RAZÓN SOCIAL"
+        End With
         With grVentas.RootTable.Columns("pamon")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -467,18 +476,13 @@ Public Class F0_Proforma
         With grVentas.RootTable.Columns("moneda")
             .Width = 150
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-            .Visible = True
+            .Visible = False
             .Caption = "MONEDA"
         End With
-        '    a.panumi ,a.paalm ,a.pafdoc ,a.paven ,vendedor .yddesc as vendedor,a.paclpr,
-        'cliente.yddesc as cliente ,a.pamon ,IIF(pamon=1,'Boliviano','Dolar') as moneda,a.paest ,a.paobs ,
-        'a.padesc, a.pafact ,a.pahact ,a.pauact,a.patotal as total
-
-
         With grVentas.RootTable.Columns("paobs")
             .Width = 200
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-            .Visible = True
+            .Visible = False
             .Caption = "OBSERVACION"
         End With
         With grVentas.RootTable.Columns("padesc")
@@ -518,6 +522,13 @@ Public Class F0_Proforma
             .Visible = True
             .Caption = "TOTAL"
             .FormatString = "0.00"
+        End With
+        With grVentas.RootTable.Columns("paservicio")
+            .Width = 120
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .Caption = "NRO. SERVICIO"
+
         End With
         With grVentas
             .DefaultFilterRowComparison = FilterConditionOperator.Contains
