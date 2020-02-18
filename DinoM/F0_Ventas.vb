@@ -24,6 +24,7 @@ Public Class F0_Ventas
     Dim _CodCliente As Integer = 0
     Dim _CodEmpleado As Integer = 0
     Dim _CodObra As Integer = 0
+    Dim _Codbanco As Integer = 0
     Dim OcultarFact As Integer = 0
     Dim _codeBar As Integer = 1
     Dim _dias As Integer = 0
@@ -164,12 +165,15 @@ Public Class F0_Ventas
         tbCodigo.ReadOnly = True
         tbCliente.ReadOnly = True
         tbObra.ReadOnly = True
+        tbbanco.ReadOnly = True
         tbVendedor.ReadOnly = True
         tbObservacion.ReadOnly = True
         tbFechaVenta.IsInputReadOnly = True
         tbFechaVenc.IsInputReadOnly = True
         swMoneda.IsReadOnly = True
         swTipoVenta.IsReadOnly = True
+        cbTipoVenta.ReadOnly = True
+        swEmision.IsReadOnly = True
 
         'Datos facturacion
         tbNroAutoriz.ReadOnly = True
@@ -209,11 +213,14 @@ Public Class F0_Ventas
         ''  tbCliente.ReadOnly = False  por que solo podra seleccionar Cliente
         ''  tbVendedor.ReadOnly = False
         tbObra.ReadOnly = False
+        tbbanco.ReadOnly = False
         tbObservacion.ReadOnly = False
         tbFechaVenta.IsInputReadOnly = False
         tbFechaVenc.IsInputReadOnly = False
         swMoneda.IsReadOnly = False
         swTipoVenta.IsReadOnly = False
+        swEmision.IsReadOnly = False
+
         btnGrabar.Enabled = True
 
         TbNit.ReadOnly = False
@@ -232,7 +239,11 @@ Public Class F0_Ventas
             cbSucursal.ReadOnly = True
         Else
             cbSucursal.ReadOnly = False
-
+        End If
+        If (tbCodigo.Text.Length > 0) Then
+            cbTipoVenta.ReadOnly = True
+        Else
+            cbTipoVenta.ReadOnly = False
         End If
     End Sub
     Public Sub _prFiltrar()
@@ -258,7 +269,9 @@ Public Class F0_Ventas
         _CodCliente = 0
         _CodEmpleado = 0
         _CodObra = 0
+        _Codbanco = 0
         tbObra.Clear()
+        tbbanco.Clear()
         tbFechaVenta.Value = Now.Date
         tbFechaVenc.Visible = False
         lbCredito.Visible = False
@@ -311,7 +324,7 @@ Public Class F0_Ventas
             tbFechaVenta.Value = .GetValue("tafdoc")
             _CodEmpleado = .GetValue("taven")
             tbVendedor.Text = .GetValue("vendedor")
-            swTipoVenta.Value = .GetValue("tatven")
+            cbTipoVenta.Value = .GetValue("tatven")
             _CodCliente = .GetValue("taclpr")
             tbCliente.Text = .GetValue("cliente")
             swMoneda.Value = .GetValue("tamon")
@@ -332,6 +345,10 @@ Public Class F0_Ventas
             End If
             tbFechaVenc.Value = .GetValue("tafvcr")
 
+            If cbTipoVenta.Value = 2 Then
+                _Codbanco = .GetValue("tabanco")
+                tbbanco.Text = .GetValue("banco")
+            End If
 
             'If (gb_FacturaEmite) Then
             Dim dt As DataTable = L_fnObtenerTabla("TFV001", "fvanitcli, fvadescli1, fvadescli2, fvaautoriz, fvanfac, fvaccont, fvafec", "fvanumi=" + tbCodigo.Text.Trim)
@@ -715,6 +732,16 @@ Public Class F0_Ventas
             .FormatString = "0.00"
         End With
         With grVentas.RootTable.Columns("taemision")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("tabanco")
+            .Width = 50
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = False
+        End With
+        With grVentas.RootTable.Columns("banco")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = False
@@ -1430,7 +1457,7 @@ Public Class F0_Ventas
 
     Public Sub _GuardarNuevo()
         Dim numi As String = ""
-        Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, cbTipoVenta.Value, IIf(cbTipoVenta.Value = 1 Or cbTipoVenta.Value = 2, Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")), _CodCliente, _CodObra, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTransporte.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value, IIf(SwProforma.Value = True, tbProforma.Text, 0), IIf(swEmision.Value = True, 1, 0))
+        Dim res As Boolean = L_fnGrabarVenta(numi, "", tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, cbTipoVenta.Value, IIf(cbTipoVenta.Value = 1 Or cbTipoVenta.Value = 2, Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")), _CodCliente, _CodObra, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTransporte.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value, IIf(SwProforma.Value = True, tbProforma.Text, 0), IIf(swEmision.Value = True, 1, 0), _Codbanco)
 
         If res Then
             'res = P_fnGrabarFacturarTFV001(numi)
@@ -1494,7 +1521,7 @@ Public Class F0_Ventas
     Private Sub _prGuardarModificado()
 
         'Dim res As Boolean = L_fnModificarVenta(tbCodigo.Text, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, IIf(swTipoVenta.Value = True, 1, 0), IIf(swTipoVenta.Value = True, Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")), _CodCliente, _CodObra, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTransporte.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value, IIf(SwProforma.Value = True, tbProforma.Text, 0), IIf(swEmision.Value = True, 1, 0))
-        Dim res As Boolean = L_fnModificarVenta(tbCodigo.Text, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, cbTipoVenta.Value, IIf(cbTipoVenta.Value = 1 Or cbTipoVenta.Value = 2, Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")), _CodCliente, _CodObra, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTransporte.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value, IIf(SwProforma.Value = True, tbProforma.Text, 0), IIf(swEmision.Value = True, 1, 0))
+        Dim res As Boolean = L_fnModificarVenta(tbCodigo.Text, tbFechaVenta.Value.ToString("yyyy/MM/dd"), _CodEmpleado, cbTipoVenta.Value, IIf(cbTipoVenta.Value = 1 Or cbTipoVenta.Value = 2, Now.Date.ToString("yyyy/MM/dd"), tbFechaVenc.Value.ToString("yyyy/MM/dd")), _CodCliente, _CodObra, IIf(swMoneda.Value = True, 1, 0), tbObservacion.Text, tbMdesc.Value, tbIce.Value, tbTransporte.Value, tbtotal.Value, CType(grdetalle.DataSource, DataTable), cbSucursal.Value, IIf(SwProforma.Value = True, tbProforma.Text, 0), IIf(swEmision.Value = True, 1, 0), _Codbanco)
         If res Then
 
             If (gb_FacturaEmite) Then
@@ -3309,12 +3336,54 @@ salirIf:
         If (cbTipoVenta.Value = 2) Then
             lbbanco.Visible = True
             tbbanco.Visible = True
+            lbCtrlEnter.Visible = True
+            tbbanco.Focus()
         Else
             lbbanco.Visible = False
             tbbanco.Visible = False
+            lbCtrlEnter.Visible = False
         End If
     End Sub
 
+    Private Sub tbbanco_KeyDown(sender As Object, e As KeyEventArgs) Handles tbbanco.KeyDown
+        If (_fnAccesible()) Then
+            If e.KeyData = Keys.Control + Keys.Enter Then
+                Dim dt As DataTable
+                dt = L_fnListarBancos()
+
+                Dim listEstCeldas As New List(Of Modelo.Celda)
+                listEstCeldas.Add(New Modelo.Celda("canumi,", True, "COD", 50))
+                listEstCeldas.Add(New Modelo.Celda("canombre", True, "BANCO", 90))
+                listEstCeldas.Add(New Modelo.Celda("canrocuenta", True, "NRO. CUENTA", 150))
+                listEstCeldas.Add(New Modelo.Celda("catc001numi", False, "NOMBRE", 100))
+                listEstCeldas.Add(New Modelo.Celda("cuenta_contable", True, "CUENTA CONTABLE", 160))
+                listEstCeldas.Add(New Modelo.Celda("caobs", True, "OBSERVACIÓN", 200))
+                listEstCeldas.Add(New Modelo.Celda("caestado", False, "ESTADO", 200))
+
+                Dim ef = New Efecto
+                ef.tipo = 3
+                ef.dt = dt
+                Modelo.MGlobal.SeleccionarCol = 2
+                ef.SeleclCol = 2
+                ef.listEstCeldas = listEstCeldas
+                ef.alto = 350
+                ef.ancho = 350
+                ef.Context = "Seleccione Banco".ToUpper
+                ef.ShowDialog()
+                Dim bandera As Boolean = False
+                bandera = ef.band
+                If (bandera = True) Then
+                    Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+                    _Codbanco = Row.Cells("canumi").Value
+                    tbbanco.Text = Row.Cells("canombre").Value.ToString + " " + Row.Cells("canrocuenta").Value.ToString
+
+                End If
+
+            End If
+
+        End If
+
+    End Sub
 
 
 

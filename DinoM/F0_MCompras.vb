@@ -288,13 +288,13 @@ Public Class F0_MCompras
         If (Lote = True) Then
             With grdetalle.RootTable.Columns("cblote")
                 .Width = 150
-                .Caption = "LOTE"
+                .Caption = "NRO. ORDEN"
                 .Visible = True
                 .MaxLength = 50
             End With
             With grdetalle.RootTable.Columns("cbfechavenc")
                 .Width = 120
-                .Caption = "FECHA VENC."
+                .Caption = "FECHA ORD."
                 .Visible = True
                 .FormatString = "dd/MM/yyyy"
             End With
@@ -491,6 +491,10 @@ Public Class F0_MCompras
         End With
 
         With grCompra.RootTable.Columns("caty4prov")
+            .Width = 160
+            .Visible = False
+        End With
+        With grCompra.RootTable.Columns("ydcod")
             .Width = 160
             .Visible = False
         End With
@@ -803,7 +807,7 @@ Public Class F0_MCompras
         _prCargarProductos(73) ''''Aqui poner el Primer Precio de Costo
         grProductos.Focus()
         grProductos.MoveTo(grProductos.FilterRow)
-        grProductos.Col = 2
+        grProductos.Col = 1
         PanelDetalle.Height = 370
     End Sub
     Private Sub _DesHabilitarProductos()
@@ -1258,14 +1262,24 @@ Public Class F0_MCompras
             c = grdetalle.Col
             f = grdetalle.Row
 
-            If (grdetalle.Col = grdetalle.RootTable.Columns("cbcmin").Index) Then
+            If (grdetalle.Col = grdetalle.RootTable.Columns("cbpcost").Index) Then
                 If (grdetalle.GetValue("producto") <> String.Empty) Then
                     _prAddDetalleVenta()
                     _HabilitarProductos()
                 Else
                     ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
-
+            End If
+            If (grdetalle.Col = grdetalle.RootTable.Columns("cbcmin").Index) Then
+                If (grdetalle.GetValue("producto") <> String.Empty) Then
+                    '_prAddDetalleVenta()
+                    '_HabilitarProductos()
+                    grdetalle.Select()
+                    grdetalle.Col = 8
+                    grdetalle.Row = grdetalle.RowCount - 1
+                Else
+                    ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                End If
             End If
             If (grdetalle.Col = grdetalle.RootTable.Columns("producto").Index) Then
                 If (grdetalle.GetValue("producto") <> String.Empty) Then
@@ -1274,7 +1288,6 @@ Public Class F0_MCompras
                 Else
                     ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
-
             End If
 salirIf:
         End If

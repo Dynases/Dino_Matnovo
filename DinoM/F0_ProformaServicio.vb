@@ -837,14 +837,24 @@ Public Class F0_ProformaServicio
             c = Gr_Detalle.Col
             f = Gr_Detalle.Row
 
-            If (Gr_Detalle.Col = Gr_Detalle.RootTable.Columns("pdCantidad").Index) Then
+            If (Gr_Detalle.Col = Gr_Detalle.RootTable.Columns("pdPrecio").Index) Then
                 If (Gr_Detalle.GetValue("Servicio") <> String.Empty) Then
                     _prAddDetalleVenta()
                     _HabilitarProductos()
                 Else
                     ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
-
+            End If
+            If (Gr_Detalle.Col = Gr_Detalle.RootTable.Columns("pdCantidad").Index) Then
+                If (Gr_Detalle.GetValue("Servicio") <> String.Empty) Then
+                    Gr_Detalle.Select()
+                    Gr_Detalle.Col = 8
+                    Gr_Detalle.Row = Gr_Detalle.RowCount - 1
+                    '_prAddDetalleVenta()
+                    '_HabilitarProductos()
+                Else
+                    ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                End If
             End If
             If (Gr_Detalle.Col = Gr_Detalle.RootTable.Columns("Servicio").Index) Then
                 If (Gr_Detalle.GetValue("Servicio") <> String.Empty) Then
@@ -853,8 +863,8 @@ Public Class F0_ProformaServicio
                 Else
                     ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
                 End If
-
             End If
+
 salirIf:
         End If
 
@@ -863,13 +873,9 @@ salirIf:
             Dim indexfil As Integer = Gr_Detalle.Row
             Dim indexcol As Integer = Gr_Detalle.Col
             _HabilitarProductos()
-
         End If
         If (e.KeyData = Keys.Escape And Gr_Detalle.Row >= 0) Then
-
             _prEliminarFila()
-
-
         End If
 
 

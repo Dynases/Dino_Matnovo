@@ -23,8 +23,8 @@ Partial Class F0_Ventas
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(F0_Ventas))
-        Dim cbSucursal_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbTipoVenta_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cbSucursal_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.SuperTabItem1 = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel2 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
@@ -35,6 +35,9 @@ Partial Class F0_Ventas
         Me.PanelContentSup = New System.Windows.Forms.Panel()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.tbbanco = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.lbbanco = New DevComponents.DotNetBar.LabelX()
+        Me.cbTipoVenta = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.btCliente = New DevComponents.DotNetBar.ButtonX()
         Me.btObra = New DevComponents.DotNetBar.ButtonX()
         Me.tbObra = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -55,13 +58,13 @@ Partial Class F0_Ventas
         Me.LabelX15 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX14 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
+        Me.swTipoVenta = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.lbTipoMoneda = New DevComponents.DotNetBar.LabelX()
         Me.swMoneda = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.lbCredito = New DevComponents.DotNetBar.LabelX()
         Me.LabelX5 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
         Me.tbFechaVenc = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
-        Me.swTipoVenta = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.tbFechaVenta = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.tbObservacion = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -101,9 +104,7 @@ Partial Class F0_Ventas
         Me.GPanelProductos = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.grProductos = New Janus.Windows.GridEX.GridEX()
-        Me.cbTipoVenta = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
-        Me.tbbanco = New DevComponents.DotNetBar.Controls.TextBoxX()
-        Me.lbbanco = New DevComponents.DotNetBar.LabelX()
+        Me.lbCtrlEnter = New DevComponents.DotNetBar.LabelX()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -129,6 +130,7 @@ Partial Class F0_Ventas
         Me.PanelContentSup.SuspendLayout()
         Me.GroupPanel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        CType(Me.cbTipoVenta, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupPanelFactura2.SuspendLayout()
         CType(Me.dtiFechaFactura, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -151,7 +153,6 @@ Partial Class F0_Ventas
         Me.GPanelProductos.SuspendLayout()
         Me.Panel7.SuspendLayout()
         CType(Me.grProductos, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cbTipoVenta, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PanelSuperior
@@ -509,6 +510,7 @@ Partial Class F0_Ventas
         '
         Me.Panel2.AutoScroll = True
         Me.Panel2.BackColor = System.Drawing.Color.White
+        Me.Panel2.Controls.Add(Me.lbCtrlEnter)
         Me.Panel2.Controls.Add(Me.tbbanco)
         Me.Panel2.Controls.Add(Me.lbbanco)
         Me.Panel2.Controls.Add(Me.cbTipoVenta)
@@ -544,6 +546,56 @@ Partial Class F0_Ventas
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(1176, 188)
         Me.Panel2.TabIndex = 234
+        '
+        'tbbanco
+        '
+        Me.tbbanco.BackColor = System.Drawing.Color.White
+        '
+        '
+        '
+        Me.tbbanco.Border.Class = "TextBoxBorder"
+        Me.tbbanco.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbbanco.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbbanco.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbbanco.Location = New System.Drawing.Point(635, 156)
+        Me.tbbanco.Name = "tbbanco"
+        Me.tbbanco.PreventEnterBeep = True
+        Me.tbbanco.Size = New System.Drawing.Size(180, 22)
+        Me.tbbanco.TabIndex = 378
+        Me.tbbanco.Tag = ""
+        Me.tbbanco.Visible = False
+        '
+        'lbbanco
+        '
+        Me.lbbanco.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.lbbanco.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.lbbanco.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbbanco.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.lbbanco.Location = New System.Drawing.Point(482, 155)
+        Me.lbbanco.Name = "lbbanco"
+        Me.lbbanco.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.lbbanco.Size = New System.Drawing.Size(113, 23)
+        Me.lbbanco.TabIndex = 379
+        Me.lbbanco.Text = "Banco:"
+        Me.lbbanco.Visible = False
+        '
+        'cbTipoVenta
+        '
+        cbTipoVenta_DesignTimeLayout.LayoutString = resources.GetString("cbTipoVenta_DesignTimeLayout.LayoutString")
+        Me.cbTipoVenta.DesignTimeLayout = cbTipoVenta_DesignTimeLayout
+        Me.cbTipoVenta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbTipoVenta.Location = New System.Drawing.Point(635, 97)
+        Me.cbTipoVenta.Name = "cbTipoVenta"
+        Me.cbTipoVenta.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbTipoVenta.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.cbTipoVenta.SelectedIndex = -1
+        Me.cbTipoVenta.SelectedItem = Nothing
+        Me.cbTipoVenta.Size = New System.Drawing.Size(164, 22)
+        Me.cbTipoVenta.TabIndex = 377
+        Me.cbTipoVenta.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
         'btCliente
         '
@@ -929,6 +981,26 @@ Partial Class F0_Ventas
         Me.LabelX7.TabIndex = 232
         Me.LabelX7.Text = "Nro de Autorización:"
         '
+        'swTipoVenta
+        '
+        '
+        '
+        '
+        Me.swTipoVenta.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.swTipoVenta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.swTipoVenta.Location = New System.Drawing.Point(8, 136)
+        Me.swTipoVenta.Name = "swTipoVenta"
+        Me.swTipoVenta.OffBackColor = System.Drawing.Color.LawnGreen
+        Me.swTipoVenta.OffText = "CREDITO"
+        Me.swTipoVenta.OnBackColor = System.Drawing.Color.Gold
+        Me.swTipoVenta.OnText = "CONTADO"
+        Me.swTipoVenta.Size = New System.Drawing.Size(95, 22)
+        Me.swTipoVenta.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.swTipoVenta.TabIndex = 8
+        Me.swTipoVenta.Value = True
+        Me.swTipoVenta.ValueObject = "Y"
+        Me.swTipoVenta.Visible = False
+        '
         'lbTipoMoneda
         '
         Me.lbTipoMoneda.BackColor = System.Drawing.Color.Transparent
@@ -994,7 +1066,7 @@ Partial Class F0_Ventas
         Me.LabelX5.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX5.Size = New System.Drawing.Size(129, 23)
         Me.LabelX5.TabIndex = 232
-        Me.LabelX5.Text = "Tipo Venta:"
+        Me.LabelX5.Text = "Tipo Pago:"
         '
         'LabelX4
         '
@@ -1058,26 +1130,6 @@ Partial Class F0_Ventas
         Me.tbFechaVenc.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.tbFechaVenc.TabIndex = 7
         Me.tbFechaVenc.Visible = False
-        '
-        'swTipoVenta
-        '
-        '
-        '
-        '
-        Me.swTipoVenta.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.swTipoVenta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.swTipoVenta.Location = New System.Drawing.Point(8, 136)
-        Me.swTipoVenta.Name = "swTipoVenta"
-        Me.swTipoVenta.OffBackColor = System.Drawing.Color.LawnGreen
-        Me.swTipoVenta.OffText = "CREDITO"
-        Me.swTipoVenta.OnBackColor = System.Drawing.Color.Gold
-        Me.swTipoVenta.OnText = "CONTADO"
-        Me.swTipoVenta.Size = New System.Drawing.Size(95, 22)
-        Me.swTipoVenta.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.swTipoVenta.TabIndex = 8
-        Me.swTipoVenta.Value = True
-        Me.swTipoVenta.ValueObject = "Y"
-        Me.swTipoVenta.Visible = False
         '
         'tbFechaVenta
         '
@@ -1800,55 +1852,21 @@ Partial Class F0_Ventas
         Me.grProductos.TabIndex = 0
         Me.grProductos.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
-        'cbTipoVenta
+        'lbCtrlEnter
         '
-        cbTipoVenta_DesignTimeLayout.LayoutString = resources.GetString("cbTipoVenta_DesignTimeLayout.LayoutString")
-        Me.cbTipoVenta.DesignTimeLayout = cbTipoVenta_DesignTimeLayout
-        Me.cbTipoVenta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbTipoVenta.Location = New System.Drawing.Point(635, 97)
-        Me.cbTipoVenta.Name = "cbTipoVenta"
-        Me.cbTipoVenta.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
-        Me.cbTipoVenta.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.cbTipoVenta.SelectedIndex = -1
-        Me.cbTipoVenta.SelectedItem = Nothing
-        Me.cbTipoVenta.Size = New System.Drawing.Size(164, 22)
-        Me.cbTipoVenta.TabIndex = 377
-        Me.cbTipoVenta.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
-        'tbbanco
-        '
-        Me.tbbanco.BackColor = System.Drawing.Color.White
+        Me.lbCtrlEnter.BackColor = System.Drawing.Color.Transparent
         '
         '
         '
-        Me.tbbanco.Border.Class = "TextBoxBorder"
-        Me.tbbanco.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbbanco.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbbanco.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbbanco.Location = New System.Drawing.Point(635, 156)
-        Me.tbbanco.Name = "tbbanco"
-        Me.tbbanco.PreventEnterBeep = True
-        Me.tbbanco.Size = New System.Drawing.Size(180, 22)
-        Me.tbbanco.TabIndex = 378
-        Me.tbbanco.Tag = ""
-        Me.tbbanco.Visible = False
-        '
-        'lbbanco
-        '
-        Me.lbbanco.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.lbbanco.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.lbbanco.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbbanco.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.lbbanco.Location = New System.Drawing.Point(482, 155)
-        Me.lbbanco.Name = "lbbanco"
-        Me.lbbanco.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.lbbanco.Size = New System.Drawing.Size(113, 23)
-        Me.lbbanco.TabIndex = 379
-        Me.lbbanco.Text = "Banco:"
-        Me.lbbanco.Visible = False
+        Me.lbCtrlEnter.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.lbCtrlEnter.Font = New System.Drawing.Font("Georgia", 7.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbCtrlEnter.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.lbCtrlEnter.Location = New System.Drawing.Point(758, 143)
+        Me.lbCtrlEnter.Name = "lbCtrlEnter"
+        Me.lbCtrlEnter.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.lbCtrlEnter.Size = New System.Drawing.Size(58, 10)
+        Me.lbCtrlEnter.TabIndex = 380
+        Me.lbCtrlEnter.Text = "Ctrl+Enter"
         '
         'F0_Ventas
         '
@@ -1887,6 +1905,7 @@ Partial Class F0_Ventas
         Me.GroupPanel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        CType(Me.cbTipoVenta, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupPanelFactura2.ResumeLayout(False)
         CType(Me.dtiFechaFactura, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1909,7 +1928,6 @@ Partial Class F0_Ventas
         Me.GPanelProductos.ResumeLayout(False)
         Me.Panel7.ResumeLayout(False)
         CType(Me.grProductos, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cbTipoVenta, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1992,4 +2010,5 @@ Partial Class F0_Ventas
     Friend WithEvents cbTipoVenta As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents tbbanco As DevComponents.DotNetBar.Controls.TextBoxX
     Friend WithEvents lbbanco As DevComponents.DotNetBar.LabelX
+    Friend WithEvents lbCtrlEnter As DevComponents.DotNetBar.LabelX
 End Class
