@@ -612,16 +612,14 @@ Public Class F0_Ventas
         'a.tadesc ,a.tafact ,a.tahact ,a.tauact,(Sum(b.tbptot)-a.tadesc ) as total
 
         With grVentas.RootTable.Columns("tanumi")
-            .Width = 100
+            .Width = 70
             .Caption = "CODIGO"
             .Visible = True
         End With
-
         With grVentas.RootTable.Columns("taalm")
             .Width = 90
             .Visible = False
         End With
-
         With grVentas.RootTable.Columns("taproforma")
             .Width = 90
             .Visible = False
@@ -631,13 +629,12 @@ Public Class F0_Ventas
             .Visible = True
             .Caption = "FECHA"
         End With
-
         With grVentas.RootTable.Columns("taven")
             .Width = 160
             .Visible = False
         End With
         With grVentas.RootTable.Columns("vendedor")
-            .Width = 250
+            .Width = 180
             .Visible = True
             .Caption = "VENDEDOR".ToUpper
         End With
@@ -645,6 +642,11 @@ Public Class F0_Ventas
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = False
+        End With
+        With grVentas.RootTable.Columns("tipopago")
+            .Width = 90
+            .Visible = True
+            .Caption = "TIPO PAGO"
         End With
         With grVentas.RootTable.Columns("tafvcr")
             .Width = 50
@@ -657,7 +659,7 @@ Public Class F0_Ventas
             .Visible = False
         End With
         With grVentas.RootTable.Columns("cliente")
-            .Width = 250
+            .Width = 270
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = True
             .Caption = "CLIENTE"
@@ -668,9 +670,10 @@ Public Class F0_Ventas
             .Visible = False
         End With
         With grVentas.RootTable.Columns("oanomb")
-            .Width = 50
+            .Width = 220
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-            .Visible = False
+            .Visible = True
+            .Caption = "OBRA"
         End With
         With grVentas.RootTable.Columns("tamon")
             .Width = 50
@@ -680,7 +683,7 @@ Public Class F0_Ventas
         With grVentas.RootTable.Columns("moneda")
             .Width = 150
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-            .Visible = True
+            .Visible = False
             .Caption = "MONEDA"
         End With
         With grVentas.RootTable.Columns("taobs")
@@ -725,7 +728,7 @@ Public Class F0_Ventas
             .Visible = False
         End With
         With grVentas.RootTable.Columns("total")
-            .Width = 150
+            .Width = 120
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
             .Caption = "TOTAL"
@@ -1222,12 +1225,14 @@ Public Class F0_Ventas
         fc.FormatStyle.ForeColor = Color.White
         grProductos.RootTable.FormatConditions.Add(fc)
 
-        Dim fc2 As GridEXFormatCondition
-        fc2 = New GridEXFormatCondition(grProductos.RootTable.Columns("icfven"), ConditionOperator.LessThanOrEqualTo, Now.Date)
-        fc2.FormatStyle.BackColor = Color.Red
-        fc2.FormatStyle.FontBold = TriState.True
-        fc2.FormatStyle.ForeColor = Color.White
-        grProductos.RootTable.FormatConditions.Add(fc2)
+        ''Ocultamos el control por la fecha de vencimiento porque ahora es fecha orden para otros negocios con fecha de vencimiento descomentar
+
+        'Dim fc2 As GridEXFormatCondition
+        'fc2 = New GridEXFormatCondition(grProductos.RootTable.Columns("icfven"), ConditionOperator.LessThanOrEqualTo, Now.Date)
+        'fc2.FormatStyle.BackColor = Color.Red
+        'fc2.FormatStyle.FontBold = TriState.True
+        'fc2.FormatStyle.ForeColor = Color.White
+        'grProductos.RootTable.FormatConditions.Add(fc2)
     End Sub
     Private Sub _prAddDetalleVenta()
         '   a.tbnumi ,a.tbtv1numi ,a.tbty5prod ,b.yfcdprod1 as producto,a.tbest ,a.tbcmin ,a.tbumin ,Umin .ycdes3 as unidad,a.tbpbas ,a.tbptot ,a.tbobs ,
@@ -1818,7 +1823,7 @@ Public Class F0_Ventas
                 End If
 
                 objrep.SetDataSource(_Ds.Tables(0))
-                objrep.SetParameterValue("Hora", _Hora)
+                'objrep.SetParameterValue("Hora", _Hora)
                 objrep.SetParameterValue("Direccionpr", _Ds2.Tables(0).Rows(0).Item("scdir").ToString)
                 objrep.SetParameterValue("Telefonopr", _Ds2.Tables(0).Rows(0).Item("sctelf").ToString)
                 objrep.SetParameterValue("Literal1", _Literal)
@@ -2354,6 +2359,15 @@ Public Class F0_Ventas
             c = grdetalle.Col
             f = grdetalle.Row
 
+            If (grdetalle.Col = grdetalle.RootTable.Columns("tbpbas").Index) Then
+                If (grdetalle.GetValue("producto") <> String.Empty) Then
+                    _prAddDetalleVenta()
+                    _HabilitarProductos()
+                Else
+                    ToastNotification.Show(Me, "Seleccione un Producto Por Favor", My.Resources.WARNING, 3000, eToastGlowColor.Red, eToastPosition.TopCenter)
+                End If
+
+            End If
             'If (grdetalle.Col = grdetalle.RootTable.Columns("tbcmin").Index) Then
             If (grdetalle.Col = grdetalle.RootTable.Columns("tbcantu").Index) Then
                 If (grdetalle.GetValue("producto") <> String.Empty) Then
@@ -2923,7 +2937,7 @@ salirIf:
                         CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbptot2") = grdetalle.GetValue("tbpcos") * 1
                         Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
                         ToastNotification.Show(Me, "La cantidad de la venta no debe ser mayor al del stock" & vbCrLf &
-                        "Stock=" + Str(stock).ToUpper, img, 4000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                        "Stock=" + Str(stock).ToUpper, img, 6000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                         grdetalle.SetValue("tbcantu", 1)
                         grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
                         grdetalle.SetValue("tbptot2", grdetalle.GetValue("tbpcos") * 1)

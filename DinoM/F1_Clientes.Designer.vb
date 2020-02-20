@@ -448,7 +448,7 @@ Partial Class F1_Clientes
         Me.tbDireccion.Name = "tbDireccion"
         Me.tbDireccion.PreventEnterBeep = True
         Me.tbDireccion.Size = New System.Drawing.Size(248, 24)
-        Me.tbDireccion.TabIndex = 6
+        Me.tbDireccion.TabIndex = 7
         '
         'LabelX4
         '
@@ -618,6 +618,7 @@ Partial Class F1_Clientes
         Me.tbRazonSocial.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbRazonSocial.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbRazonSocial.Location = New System.Drawing.Point(158, 120)
+        Me.tbRazonSocial.MaxLength = 200
         Me.tbRazonSocial.Name = "tbRazonSocial"
         Me.tbRazonSocial.PreventEnterBeep = True
         Me.tbRazonSocial.Size = New System.Drawing.Size(242, 22)
@@ -685,7 +686,7 @@ Partial Class F1_Clientes
         Me.tbTelf2.Name = "tbTelf2"
         Me.tbTelf2.PreventEnterBeep = True
         Me.tbTelf2.Size = New System.Drawing.Size(248, 22)
-        Me.tbTelf2.TabIndex = 7
+        Me.tbTelf2.TabIndex = 6
         '
         'tbTelf1
         '
@@ -1303,6 +1304,7 @@ Partial Class F1_Clientes
         Me.tbNombFac.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbNombFac.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbNombFac.Location = New System.Drawing.Point(140, 162)
+        Me.tbNombFac.MaxLength = 200
         Me.tbNombFac.Name = "tbNombFac"
         Me.tbNombFac.PreventEnterBeep = True
         Me.tbNombFac.Size = New System.Drawing.Size(266, 22)

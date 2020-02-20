@@ -1505,36 +1505,32 @@ salirIf:
 
                     Dim cant As Integer = grdetalle.GetValue("pbcmin")
                     Dim stock As Integer = grdetalle.GetValue("stock")
-                    'If (cant > stock) Then
-                    '    Dim lin As Integer = grdetalle.GetValue("pbnumi")
-                    '    Dim pos As Integer = -1
-                    '    _fnObtenerFilaDetalle(pos, lin)
-                    '    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("pbcmin") = 1
-                    '    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("pbptot") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("pbpbas")
+                    If (cant > stock) Then
+                        Dim lin As Integer = grdetalle.GetValue("pbnumi")
+                        Dim pos As Integer = -1
+                        _fnObtenerFilaDetalle(pos, lin)
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("pbcmin") = 1
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("pbptot") = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("pbpbas")
 
 
-                    '    Dim img As Bitmap = New Bitmap(My.Resources.Mensaje, 50, 50)
-                    '    ToastNotification.Show(Me, "La cantidad de la venta no debe ser mayor al del stock" & vbCrLf &
-                    '    "Stock=" + Str(stock).ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
-                    '    grdetalle.SetValue("pbcmin", 1)
-                    '    grdetalle.SetValue("pbptot", grdetalle.GetValue("pbpbas"))
+                        Dim img As Bitmap = New Bitmap(My.Resources.mensaje, 50, 50)
+                        ToastNotification.Show(Me, "La cantidad de la venta no debe ser mayor al del stock" & vbCrLf &
+                        "Stock=" + Str(stock).ToUpper, img, 6000, eToastGlowColor.Red, eToastPosition.BottomCenter)
+                        grdetalle.SetValue("pbcmin", 1)
+                        grdetalle.SetValue("pbptot", grdetalle.GetValue("pbpbas"))
 
-                    '    _prCalcularPrecioTotal()
-                    'Else
-                    '    If (cant = stock) Then
-
-
-                    '        'grdetalle.SelectedFormatStyle.ForeColor = Color.Blue
-                    '        'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle = New GridEXFormatStyle
-                    '        'grdetalle.CurrentRow.Cells(e.Column).FormatStyle.BackColor = Color.Pink
-                    '        'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle.BackColor = Color.DodgerBlue
-                    '        'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle.ForeColor = Color.White
-                    '        'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle.FontBold = TriState.True
-                    '    End If
-                    'End If
-
+                        _prCalcularPrecioTotal()
+                    Else
+                        If (cant = stock) Then
+                            'grdetalle.SelectedFormatStyle.ForeColor = Color.Blue
+                            'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle = New GridEXFormatStyle
+                            'grdetalle.CurrentRow.Cells(e.Column).FormatStyle.BackColor = Color.Pink
+                            'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle.BackColor = Color.DodgerBlue
+                            'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle.ForeColor = Color.White
+                            'grdetalle.CurrentRow.Cells.Item(e.Column).FormatStyle.FontBold = TriState.True
+                        End If
+                    End If
                 Else
-
                     grdetalle.SetValue("pbcmin", 1)
                     grdetalle.SetValue("pbptot", grdetalle.GetValue("pbpbas"))
                     grdetalle.SetValue("pbporc", 0)

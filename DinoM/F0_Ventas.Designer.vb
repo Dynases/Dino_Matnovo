@@ -35,6 +35,7 @@ Partial Class F0_Ventas
         Me.PanelContentSup = New System.Windows.Forms.Panel()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.lbCtrlEnter = New DevComponents.DotNetBar.LabelX()
         Me.tbbanco = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.lbbanco = New DevComponents.DotNetBar.LabelX()
         Me.cbTipoVenta = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
@@ -104,7 +105,6 @@ Partial Class F0_Ventas
         Me.GPanelProductos = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.grProductos = New Janus.Windows.GridEX.GridEX()
-        Me.lbCtrlEnter = New DevComponents.DotNetBar.LabelX()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -547,6 +547,22 @@ Partial Class F0_Ventas
         Me.Panel2.Size = New System.Drawing.Size(1176, 188)
         Me.Panel2.TabIndex = 234
         '
+        'lbCtrlEnter
+        '
+        Me.lbCtrlEnter.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.lbCtrlEnter.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.lbCtrlEnter.Font = New System.Drawing.Font("Georgia", 7.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbCtrlEnter.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.lbCtrlEnter.Location = New System.Drawing.Point(758, 143)
+        Me.lbCtrlEnter.Name = "lbCtrlEnter"
+        Me.lbCtrlEnter.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.lbCtrlEnter.Size = New System.Drawing.Size(58, 10)
+        Me.lbCtrlEnter.TabIndex = 380
+        Me.lbCtrlEnter.Text = "Ctrl+Enter"
+        '
         'tbbanco
         '
         Me.tbbanco.BackColor = System.Drawing.Color.White
@@ -755,7 +771,7 @@ Partial Class F0_Ventas
         Me.LabelX17.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX17.Size = New System.Drawing.Size(129, 23)
         Me.LabelX17.TabIndex = 238
-        Me.LabelX17.Text = "Sucursal:"
+        Me.LabelX17.Text = "Almacen:"
         '
         'cbSucursal
         '
@@ -1851,22 +1867,6 @@ Partial Class F0_Ventas
         Me.grProductos.Size = New System.Drawing.Size(677, 17)
         Me.grProductos.TabIndex = 0
         Me.grProductos.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
-        '
-        'lbCtrlEnter
-        '
-        Me.lbCtrlEnter.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.lbCtrlEnter.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.lbCtrlEnter.Font = New System.Drawing.Font("Georgia", 7.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbCtrlEnter.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.lbCtrlEnter.Location = New System.Drawing.Point(758, 143)
-        Me.lbCtrlEnter.Name = "lbCtrlEnter"
-        Me.lbCtrlEnter.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.lbCtrlEnter.Size = New System.Drawing.Size(58, 10)
-        Me.lbCtrlEnter.TabIndex = 380
-        Me.lbCtrlEnter.Text = "Ctrl+Enter"
         '
         'F0_Ventas
         '

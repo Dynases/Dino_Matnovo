@@ -218,9 +218,6 @@ Partial Class F0_MCompras
         Me.PanelPrincipal.Controls.SetChildIndex(Me.PanelSuperior, 0)
         Me.PanelPrincipal.Controls.SetChildIndex(Me.Panel1, 0)
         '
-        'btnImprimir
-        '
-        '
         'btnUltimo
         '
         '
@@ -1073,7 +1070,7 @@ Partial Class F0_MCompras
         Me.LabelX7.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX7.Size = New System.Drawing.Size(100, 23)
         Me.LabelX7.TabIndex = 235
-        Me.LabelX7.Text = "Sucursal:"
+        Me.LabelX7.Text = "Almacen:"
         '
         'lbCredito
         '

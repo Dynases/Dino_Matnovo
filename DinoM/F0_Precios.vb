@@ -511,10 +511,7 @@ Public Class F0_Precios
                         precio.Rows(pos).Item("yhprecio") = grprecio.GetValue(e.Column.Index)
                     End If
                 End If
-
-
             End If
-
         End If
     End Sub
 

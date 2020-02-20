@@ -542,13 +542,13 @@ Public Class F0_Movimiento
         'b.yfcdprod1 ,a.iclot ,a.icfven  ,a.iccven 
         With grproducto.RootTable.Columns("iclot")
             .Width = 150
-            .Caption = "LOTE"
+            .Caption = "NRO. ORDEN"
             .Visible = True
 
         End With
         With grproducto.RootTable.Columns("icfven")
             .Width = 160
-            .Caption = "FECHA VENCIMIENTO"
+            .Caption = "FECHA ORD."
             .FormatString = "yyyy/MM/dd"
             .Visible = True
 
@@ -585,12 +585,14 @@ Public Class F0_Movimiento
         fc.FormatStyle.ForeColor = Color.White
         grproducto.RootTable.FormatConditions.Add(fc)
 
-        Dim fc2 As GridEXFormatCondition
-        fc2 = New GridEXFormatCondition(grproducto.RootTable.Columns("icfven"), ConditionOperator.LessThanOrEqualTo, Now.Date)
-        fc2.FormatStyle.BackColor = Color.Red
-        fc2.FormatStyle.FontBold = TriState.True
-        fc2.FormatStyle.ForeColor = Color.White
-        grproducto.RootTable.FormatConditions.Add(fc2)
+        ''Ocultamos el control por la fecha de vencimiento porque ahora es fecha orden para otros negocios con fecha de vencimiento descomentar
+
+        'Dim fc2 As GridEXFormatCondition
+        'fc2 = New GridEXFormatCondition(grproducto.RootTable.Columns("icfven"), ConditionOperator.LessThanOrEqualTo, Now.Date)
+        'fc2.FormatStyle.BackColor = Color.Red
+        'fc2.FormatStyle.FontBold = TriState.True
+        'fc2.FormatStyle.ForeColor = Color.White
+        'grproducto.RootTable.FormatConditions.Add(fc2)
     End Sub
     Public Sub _prAplicarCondiccionJanusSinLote()
         Dim fc As GridEXFormatCondition

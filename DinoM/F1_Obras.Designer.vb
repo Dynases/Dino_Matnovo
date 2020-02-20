@@ -361,7 +361,7 @@ Partial Class F1_Obras
         Me.tbContacto.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbContacto.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbContacto.Location = New System.Drawing.Point(171, 155)
-        Me.tbContacto.MaxLength = 50
+        Me.tbContacto.MaxLength = 200
         Me.tbContacto.Name = "tbContacto"
         Me.tbContacto.PreventEnterBeep = True
         Me.tbContacto.Size = New System.Drawing.Size(364, 22)
@@ -377,6 +377,7 @@ Partial Class F1_Obras
         Me.tbTelf1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbTelf1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbTelf1.Location = New System.Drawing.Point(172, 183)
+        Me.tbTelf1.MaxLength = 50
         Me.tbTelf1.Name = "tbTelf1"
         Me.tbTelf1.PreventEnterBeep = True
         Me.tbTelf1.Size = New System.Drawing.Size(298, 22)
@@ -426,6 +427,7 @@ Partial Class F1_Obras
         Me.tbDireccion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbDireccion.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbDireccion.Location = New System.Drawing.Point(172, 125)
+        Me.tbDireccion.MaxLength = 200
         Me.tbDireccion.Multiline = True
         Me.tbDireccion.Name = "tbDireccion"
         Me.tbDireccion.PreventEnterBeep = True
@@ -442,6 +444,7 @@ Partial Class F1_Obras
         Me.tbObs.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbObs.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbObs.Location = New System.Drawing.Point(171, 212)
+        Me.tbObs.MaxLength = 200
         Me.tbObs.Multiline = True
         Me.tbObs.Name = "tbObs"
         Me.tbObs.PreventEnterBeep = True
@@ -507,6 +510,7 @@ Partial Class F1_Obras
         Me.tbNombre.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbNombre.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbNombre.Location = New System.Drawing.Point(172, 43)
+        Me.tbNombre.MaxLength = 300
         Me.tbNombre.Multiline = True
         Me.tbNombre.Name = "tbNombre"
         Me.tbNombre.PreventEnterBeep = True
