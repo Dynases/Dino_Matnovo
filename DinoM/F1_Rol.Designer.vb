@@ -86,8 +86,8 @@ Partial Class F1_Rol
         'SuperTabControlPanelBuscador
         '
         Me.SuperTabControlPanelBuscador.Location = New System.Drawing.Point(0, 0)
-        Me.SuperTabControlPanelBuscador.Margin = New System.Windows.Forms.Padding(5)
-        Me.SuperTabControlPanelBuscador.Size = New System.Drawing.Size(1102, 624)
+        Me.SuperTabControlPanelBuscador.Margin = New System.Windows.Forms.Padding(4)
+        Me.SuperTabControlPanelBuscador.Size = New System.Drawing.Size(821, 507)
         '
         'SupTabItemBusqueda
         '
@@ -95,16 +95,16 @@ Partial Class F1_Rol
         '
         'SuperTabControlPanelRegistro
         '
-        Me.SuperTabControlPanelRegistro.Margin = New System.Windows.Forms.Padding(5)
-        Me.SuperTabControlPanelRegistro.Size = New System.Drawing.Size(1102, 624)
+        Me.SuperTabControlPanelRegistro.Margin = New System.Windows.Forms.Padding(4)
+        Me.SuperTabControlPanelRegistro.Size = New System.Drawing.Size(821, 507)
         Me.SuperTabControlPanelRegistro.Controls.SetChildIndex(Me.PanelSuperior, 0)
         Me.SuperTabControlPanelRegistro.Controls.SetChildIndex(Me.PanelInferior, 0)
         Me.SuperTabControlPanelRegistro.Controls.SetChildIndex(Me.PanelPrincipal, 0)
         '
         'PanelSuperior
         '
-        Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(5)
-        Me.PanelSuperior.Size = New System.Drawing.Size(1102, 89)
+        Me.PanelSuperior.Margin = New System.Windows.Forms.Padding(4)
+        Me.PanelSuperior.Size = New System.Drawing.Size(821, 72)
         Me.PanelSuperior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelSuperior.Style.BackColor1.Color = System.Drawing.Color.DarkSlateGray
         Me.PanelSuperior.Style.BackColor2.Color = System.Drawing.Color.DarkSlateGray
@@ -116,8 +116,8 @@ Partial Class F1_Rol
         '
         'PanelInferior
         '
-        Me.PanelInferior.Margin = New System.Windows.Forms.Padding(5)
-        Me.PanelInferior.Size = New System.Drawing.Size(1102, 44)
+        Me.PanelInferior.Margin = New System.Windows.Forms.Padding(4)
+        Me.PanelInferior.Size = New System.Drawing.Size(821, 36)
         Me.PanelInferior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelInferior.Style.BackColor1.Color = System.Drawing.Color.DarkSlateGray
         Me.PanelInferior.Style.BackColor2.Color = System.Drawing.Color.DarkSlateGray
@@ -152,39 +152,38 @@ Partial Class F1_Rol
         '
         'TxtNombreUsu
         '
-        Me.TxtNombreUsu.Margin = New System.Windows.Forms.Padding(5)
-        Me.TxtNombreUsu.Size = New System.Drawing.Size(267, 44)
+        Me.TxtNombreUsu.Margin = New System.Windows.Forms.Padding(4)
         '
         'btnSalir
         '
         '
         'PanelToolBar2
         '
-        Me.PanelToolBar2.Location = New System.Drawing.Point(995, 0)
-        Me.PanelToolBar2.Margin = New System.Windows.Forms.Padding(5)
+        Me.PanelToolBar2.Location = New System.Drawing.Point(741, 0)
+        Me.PanelToolBar2.Margin = New System.Windows.Forms.Padding(4)
         '
         'MPanelSup
         '
         Me.MPanelSup.Controls.Add(Me.Panel1)
         Me.MPanelSup.Controls.Add(Me.Panel2)
         Me.MPanelSup.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MPanelSup.Margin = New System.Windows.Forms.Padding(5)
-        Me.MPanelSup.Size = New System.Drawing.Size(1102, 491)
+        Me.MPanelSup.Margin = New System.Windows.Forms.Padding(4)
+        Me.MPanelSup.Size = New System.Drawing.Size(821, 399)
         Me.MPanelSup.Controls.SetChildIndex(Me.PanelUsuario, 0)
         Me.MPanelSup.Controls.SetChildIndex(Me.Panel2, 0)
         Me.MPanelSup.Controls.SetChildIndex(Me.Panel1, 0)
         '
         'PanelPrincipal
         '
-        Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(5)
-        Me.PanelPrincipal.Size = New System.Drawing.Size(1102, 491)
+        Me.PanelPrincipal.Margin = New System.Windows.Forms.Padding(4)
+        Me.PanelPrincipal.Size = New System.Drawing.Size(821, 399)
         '
         'GroupPanelBuscador
         '
         Me.GroupPanelBuscador.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupPanelBuscador.Location = New System.Drawing.Point(0, 437)
-        Me.GroupPanelBuscador.Margin = New System.Windows.Forms.Padding(5)
-        Me.GroupPanelBuscador.Size = New System.Drawing.Size(1102, 54)
+        Me.GroupPanelBuscador.Location = New System.Drawing.Point(0, 355)
+        Me.GroupPanelBuscador.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupPanelBuscador.Size = New System.Drawing.Size(821, 44)
         '
         '
         '
@@ -220,16 +219,16 @@ Partial Class F1_Rol
         '
         Me.JGrM_Buscador.HeaderFormatStyle.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.HeaderFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(15, Byte), Integer), CType(CType(72, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.JGrM_Buscador.Margin = New System.Windows.Forms.Padding(5)
+        Me.JGrM_Buscador.Margin = New System.Windows.Forms.Padding(4)
         Me.JGrM_Buscador.SelectedFormatStyle.BackColor = System.Drawing.Color.DodgerBlue
-        Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Open Sans", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.JGrM_Buscador.SelectedFormatStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.JGrM_Buscador.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.JGrM_Buscador.Size = New System.Drawing.Size(1096, 27)
+        Me.JGrM_Buscador.Size = New System.Drawing.Size(815, 21)
         '
         'PanelUsuario
         '
-        Me.PanelUsuario.Location = New System.Drawing.Point(871, 36)
-        Me.PanelUsuario.Margin = New System.Windows.Forms.Padding(5)
+        Me.PanelUsuario.Location = New System.Drawing.Point(653, 29)
+        Me.PanelUsuario.Margin = New System.Windows.Forms.Padding(4)
         '
         'btnImprimir
         '
@@ -237,12 +236,12 @@ Partial Class F1_Rol
         '
         'btnUltimo
         '
-        Me.btnUltimo.Location = New System.Drawing.Point(171, 0)
+        Me.btnUltimo.Margin = New System.Windows.Forms.Padding(2)
         '
         'MPanelUserAct
         '
-        Me.MPanelUserAct.Location = New System.Drawing.Point(835, 0)
-        Me.MPanelUserAct.Margin = New System.Windows.Forms.Padding(5)
+        Me.MPanelUserAct.Location = New System.Drawing.Point(621, 0)
+        Me.MPanelUserAct.Margin = New System.Windows.Forms.Padding(4)
         '
         'tbRol
         '
@@ -251,12 +250,11 @@ Partial Class F1_Rol
         '
         Me.tbRol.Border.Class = "TextBoxBorder"
         Me.tbRol.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbRol.Font = New System.Drawing.Font("Open Sans Light", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbRol.Location = New System.Drawing.Point(129, 58)
-        Me.tbRol.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbRol.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbRol.Location = New System.Drawing.Point(97, 47)
         Me.tbRol.Name = "tbRol"
         Me.tbRol.PreventEnterBeep = True
-        Me.tbRol.Size = New System.Drawing.Size(271, 28)
+        Me.tbRol.Size = New System.Drawing.Size(203, 21)
         Me.tbRol.TabIndex = 23
         '
         'tbNumi
@@ -266,12 +264,11 @@ Partial Class F1_Rol
         '
         Me.tbNumi.Border.Class = "TextBoxBorder"
         Me.tbNumi.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbNumi.Font = New System.Drawing.Font("Open Sans Light", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNumi.Location = New System.Drawing.Point(129, 23)
-        Me.tbNumi.Margin = New System.Windows.Forms.Padding(4)
+        Me.tbNumi.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbNumi.Location = New System.Drawing.Point(97, 19)
         Me.tbNumi.Name = "tbNumi"
         Me.tbNumi.PreventEnterBeep = True
-        Me.tbNumi.Size = New System.Drawing.Size(133, 28)
+        Me.tbNumi.Size = New System.Drawing.Size(100, 21)
         Me.tbNumi.TabIndex = 20
         Me.tbNumi.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -284,9 +281,8 @@ Partial Class F1_Rol
         Me.GroupPanel1.Dock = System.Windows.Forms.DockStyle.Left
         Me.GroupPanel1.Font = New System.Drawing.Font("Georgia", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.GroupPanel1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupPanel1.Name = "GroupPanel1"
-        Me.GroupPanel1.Size = New System.Drawing.Size(343, 364)
+        Me.GroupPanel1.Size = New System.Drawing.Size(257, 296)
         '
         '
         '
@@ -326,13 +322,12 @@ Partial Class F1_Rol
         Me.grModulos.FlatBorderColor = System.Drawing.Color.DodgerBlue
         Me.grModulos.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle
         Me.grModulos.FocusCellFormatStyle.ForeColor = System.Drawing.Color.White
-        Me.grModulos.Font = New System.Drawing.Font("Open Sans", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grModulos.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grModulos.GridLineColor = System.Drawing.Color.DodgerBlue
         Me.grModulos.HeaderFormatStyle.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grModulos.HideSelection = Janus.Windows.GridEX.HideSelection.Highlight
         Me.grModulos.Hierarchical = True
         Me.grModulos.Location = New System.Drawing.Point(0, 0)
-        Me.grModulos.Margin = New System.Windows.Forms.Padding(4)
         Me.grModulos.Name = "grModulos"
         Me.grModulos.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grModulos.Office2007CustomColor = System.Drawing.Color.DodgerBlue
@@ -340,7 +335,7 @@ Partial Class F1_Rol
         Me.grModulos.SelectedFormatStyle.BackColor = System.Drawing.Color.DodgerBlue
         Me.grModulos.SelectedFormatStyle.ForeColor = System.Drawing.Color.White
         Me.grModulos.SelectedInactiveFormatStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.grModulos.Size = New System.Drawing.Size(337, 337)
+        Me.grModulos.Size = New System.Drawing.Size(251, 273)
         Me.grModulos.TabIndex = 1
         Me.grModulos.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -349,10 +344,9 @@ Partial Class F1_Rol
         Me.Panel1.Controls.Add(Me.GroupPanel2)
         Me.Panel1.Controls.Add(Me.GroupPanel1)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(0, 127)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(4)
+        Me.Panel1.Location = New System.Drawing.Point(0, 103)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1102, 364)
+        Me.Panel1.Size = New System.Drawing.Size(821, 296)
         Me.Panel1.TabIndex = 25
         '
         'GroupPanel2
@@ -363,10 +357,9 @@ Partial Class F1_Rol
         Me.GroupPanel2.DisabledBackColor = System.Drawing.Color.Empty
         Me.GroupPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupPanel2.Font = New System.Drawing.Font("Georgia", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupPanel2.Location = New System.Drawing.Point(343, 0)
-        Me.GroupPanel2.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupPanel2.Location = New System.Drawing.Point(257, 0)
         Me.GroupPanel2.Name = "GroupPanel2"
-        Me.GroupPanel2.Size = New System.Drawing.Size(759, 364)
+        Me.GroupPanel2.Size = New System.Drawing.Size(564, 296)
         '
         '
         '
@@ -402,14 +395,13 @@ Partial Class F1_Rol
         '
         Me.grDetalle.BackColor = System.Drawing.Color.WhiteSmoke
         Me.grDetalle.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grDetalle.Font = New System.Drawing.Font("Open Sans Light", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grDetalle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grDetalle.HeaderFormatStyle.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grDetalle.Location = New System.Drawing.Point(0, 0)
-        Me.grDetalle.Margin = New System.Windows.Forms.Padding(4)
         Me.grDetalle.Name = "grDetalle"
         Me.grDetalle.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.grDetalle.Office2007CustomColor = System.Drawing.Color.DodgerBlue
-        Me.grDetalle.Size = New System.Drawing.Size(753, 334)
+        Me.grDetalle.Size = New System.Drawing.Size(558, 270)
         Me.grDetalle.TabIndex = 0
         Me.grDetalle.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
@@ -421,9 +413,8 @@ Partial Class F1_Rol
         Me.Panel2.Controls.Add(Me.tbRol)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
-        Me.Panel2.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1102, 127)
+        Me.Panel2.Size = New System.Drawing.Size(821, 103)
         Me.Panel2.TabIndex = 26
         '
         'LabelX2
@@ -435,11 +426,10 @@ Partial Class F1_Rol
         Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX2.Location = New System.Drawing.Point(16, 25)
-        Me.LabelX2.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX2.Location = New System.Drawing.Point(12, 20)
         Me.LabelX2.Name = "LabelX2"
         Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX2.Size = New System.Drawing.Size(99, 28)
+        Me.LabelX2.Size = New System.Drawing.Size(74, 23)
         Me.LabelX2.TabIndex = 25
         Me.LabelX2.Text = "CODIGO:"
         '
@@ -452,11 +442,10 @@ Partial Class F1_Rol
         Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX3.Location = New System.Drawing.Point(17, 59)
-        Me.LabelX3.Margin = New System.Windows.Forms.Padding(4)
+        Me.LabelX3.Location = New System.Drawing.Point(13, 48)
         Me.LabelX3.Name = "LabelX3"
         Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX3.Size = New System.Drawing.Size(67, 28)
+        Me.LabelX3.Size = New System.Drawing.Size(50, 23)
         Me.LabelX3.TabIndex = 24
         Me.LabelX3.Text = "ROL:"
         '
@@ -465,14 +454,14 @@ Partial Class F1_Rol
         Me.msModulos.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.msModulos.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SELECCIONARTODOSSHOWToolStripMenuItem, Me.SELECCIONARTODOSADDToolStripMenuItem, Me.SELECCIONARTODOSEDITToolStripMenuItem, Me.SELECCIONARTODOSDELToolStripMenuItem})
         Me.msModulos.Name = "msModulos"
-        Me.msModulos.Size = New System.Drawing.Size(293, 148)
+        Me.msModulos.Size = New System.Drawing.Size(246, 170)
         '
         'SELECCIONARTODOSSHOWToolStripMenuItem
         '
         Me.SELECCIONARTODOSSHOWToolStripMenuItem.Image = Global.DinoM.My.Resources.Resources.verRegistros2
         Me.SELECCIONARTODOSSHOWToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.SELECCIONARTODOSSHOWToolStripMenuItem.Name = "SELECCIONARTODOSSHOWToolStripMenuItem"
-        Me.SELECCIONARTODOSSHOWToolStripMenuItem.Size = New System.Drawing.Size(292, 36)
+        Me.SELECCIONARTODOSSHOWToolStripMenuItem.Size = New System.Drawing.Size(245, 36)
         Me.SELECCIONARTODOSSHOWToolStripMenuItem.Text = "SELECCIONAR TODOS SHOW"
         '
         'SELECCIONARTODOSADDToolStripMenuItem
@@ -480,7 +469,7 @@ Partial Class F1_Rol
         Me.SELECCIONARTODOSADDToolStripMenuItem.Image = Global.DinoM.My.Resources.Resources.add2
         Me.SELECCIONARTODOSADDToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.SELECCIONARTODOSADDToolStripMenuItem.Name = "SELECCIONARTODOSADDToolStripMenuItem"
-        Me.SELECCIONARTODOSADDToolStripMenuItem.Size = New System.Drawing.Size(292, 36)
+        Me.SELECCIONARTODOSADDToolStripMenuItem.Size = New System.Drawing.Size(245, 36)
         Me.SELECCIONARTODOSADDToolStripMenuItem.Text = "SELECCIONAR TODOS ADD"
         '
         'SELECCIONARTODOSEDITToolStripMenuItem
@@ -488,7 +477,7 @@ Partial Class F1_Rol
         Me.SELECCIONARTODOSEDITToolStripMenuItem.Image = Global.DinoM.My.Resources.Resources.edit2
         Me.SELECCIONARTODOSEDITToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.SELECCIONARTODOSEDITToolStripMenuItem.Name = "SELECCIONARTODOSEDITToolStripMenuItem"
-        Me.SELECCIONARTODOSEDITToolStripMenuItem.Size = New System.Drawing.Size(292, 36)
+        Me.SELECCIONARTODOSEDITToolStripMenuItem.Size = New System.Drawing.Size(245, 36)
         Me.SELECCIONARTODOSEDITToolStripMenuItem.Text = "SELECCIONAR TODOS EDIT"
         '
         'SELECCIONARTODOSDELToolStripMenuItem
@@ -496,15 +485,15 @@ Partial Class F1_Rol
         Me.SELECCIONARTODOSDELToolStripMenuItem.Image = Global.DinoM.My.Resources.Resources.trash2
         Me.SELECCIONARTODOSDELToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.SELECCIONARTODOSDELToolStripMenuItem.Name = "SELECCIONARTODOSDELToolStripMenuItem"
-        Me.SELECCIONARTODOSDELToolStripMenuItem.Size = New System.Drawing.Size(292, 36)
+        Me.SELECCIONARTODOSDELToolStripMenuItem.Size = New System.Drawing.Size(245, 36)
         Me.SELECCIONARTODOSDELToolStripMenuItem.Text = "SELECCIONAR TODOS DELETE"
         '
         'F1_Rol
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1137, 624)
-        Me.Margin = New System.Windows.Forms.Padding(5)
+        Me.ClientSize = New System.Drawing.Size(853, 507)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "F1_Rol"
         Me.Text = "F1_Rol"
         Me.Controls.SetChildIndex(Me.SuperTabPrincipal, 0)

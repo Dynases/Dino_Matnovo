@@ -701,6 +701,7 @@ Public Class F1_Clientes
             lbUsuario.Text = .GetValue("yduact").ToString
             NumiVendedor = IIf(IsDBNull(.GetValue("ydnumivend")), 0, .GetValue("ydnumivend"))
             tbVendedor.Text = IIf(IsDBNull(.GetValue("vendedor")), "", .GetValue("vendedor"))
+            cbTipoCliente.Value = .GetValue("ydprconsu")
         End With
         Dim name As String = JGrM_Buscador.GetValue("ydimg")
         If name.Equals("Default.jpg") Or Not File.Exists(RutaGlobal + "\Imagenes\Imagenes ClienteDino" + name) Then

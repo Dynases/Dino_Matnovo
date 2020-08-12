@@ -1422,5 +1422,15 @@ salirIf:
 
 
     End Sub
+
+    Private Sub cbConcepto_TextChanged(sender As Object, e As EventArgs) Handles cbConcepto.TextChanged
+        If (Not IsNumeric(cbConcepto.Value)) Then
+            cbConcepto.BackColor = Color.Red
+            MEP.SetError(cbConcepto, "elija un concepto valido.".ToUpper)
+        Else
+            cbConcepto.BackColor = Color.White
+            MEP.SetError(cbConcepto, "")
+        End If
+    End Sub
 #End Region
 End Class

@@ -674,7 +674,6 @@ Public Class F1_Proveedor
 #End Region
 
 
-
     Private Sub F1_Clientes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         _prIniciarTodo()
 
