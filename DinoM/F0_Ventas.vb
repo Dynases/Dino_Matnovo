@@ -2207,6 +2207,8 @@ Public Class F0_Ventas
                 listEstCeldas.Add(New Modelo.Celda("ydnumivend,", False, "ID", 50))
                 listEstCeldas.Add(New Modelo.Celda("vendedor,", False, "ID", 50))
                 listEstCeldas.Add(New Modelo.Celda("yddias", False, "CRED", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydnomfac", False, "Nombre Factura", 50))
+                listEstCeldas.Add(New Modelo.Celda("ydnit", False, "Nit/CI", 50))
                 Dim ef = New Efecto
                 ef.tipo = 3
                 ef.dt = dt
@@ -2226,7 +2228,8 @@ Public Class F0_Ventas
                     'tbCliente.Text = Row.Cells("ydrazonsocial").Value
                     tbCliente.Text = Row.Cells("yddesc").Value
                     _dias = Row.Cells("yddias").Value
-
+                    TbNit.Text = Row.Cells("ydnit").Value
+                    TbNombre1.Text = Row.Cells("ydnomfac").Value
                     Dim numiVendedor As Integer = IIf(IsDBNull(Row.Cells("ydnumivend").Value), 0, Row.Cells("ydnumivend").Value)
                     If (numiVendedor > 0) Then
                         tbVendedor.Text = Row.Cells("vendedor").Value
