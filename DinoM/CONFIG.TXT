@@ -1,0 +1,6 @@
+IP=localhost
+User=sa
+Password=123
+Name_DB=BDDinoMatnovo
+Folder_Root=C:\BD
+Folder_guide=C:\

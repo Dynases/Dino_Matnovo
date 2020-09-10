@@ -5210,6 +5210,104 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 #End Region
+
+
+#Region "Categorias"
+    Public Shared Function L_fnGrabarCategoriasContables(ByRef Id As String, _NombreCategoria As String, _DescripcionContable As String, _CuentaContableId As Integer, _Estado As Integer) As Boolean
+        '@Id ,@NombreCategoria ,@DescripcionContable ,@CuentaContableId ,@Estado ,@newFecha ,@newHora ,@Usuario
+        Dim _resultado As Boolean
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@Id", Id))
+        _listParam.Add(New Datos.DParametro("@NombreCategoria", _NombreCategoria))
+        _listParam.Add(New Datos.DParametro("@DescripcionContable", _DescripcionContable))
+        _listParam.Add(New Datos.DParametro("@CuentaContableId", _CuentaContableId))
+        _listParam.Add(New Datos.DParametro("@Estado", _Estado))
+        _listParam.Add(New Datos.DParametro("@Usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Categoria", _listParam)
+        If _Tabla.Rows.Count > 0 Then
+            Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_fnModificarCategoriasContables(ByRef Id As String, _NombreCategoria As String, _DescripcionContable As String, _CuentaContableId As Integer, _Estado As Integer) As Boolean
+        '@Id ,@NombreCategoria ,@DescripcionContable ,@CuentaContableId ,@Estado ,@newFecha ,@newHora ,@Usuario
+        Dim _resultado As Boolean
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@Id", Id))
+        _listParam.Add(New Datos.DParametro("@NombreCategoria", _NombreCategoria))
+        _listParam.Add(New Datos.DParametro("@DescripcionContable", _DescripcionContable))
+        _listParam.Add(New Datos.DParametro("@CuentaContableId", _CuentaContableId))
+        _listParam.Add(New Datos.DParametro("@Estado", _Estado))
+        _listParam.Add(New Datos.DParametro("@Usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Categoria", _listParam)
+        If _Tabla.Rows.Count > 0 Then
+            Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_fnEliminarCategoriaContable(ByRef Id As String, ByRef mensaje As String) As Boolean
+        Dim _resultado As Boolean
+
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", -1))
+        _listParam.Add(New Datos.DParametro("@Id", Id))
+        _listParam.Add(New Datos.DParametro("@Usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Categoria", _listParam)
+        If _Tabla.Rows.Count > 0 Then
+            Id = _Tabla.Rows(0).Item(0)
+            _resultado = True
+        Else
+            _resultado = False
+        End If
+
+        Return _resultado
+    End Function
+
+    Public Shared Function L_fnListarCategoriasContables() As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@Usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Categoria", _listParam)
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_fnListarCuentaContables() As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@Usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Categoria", _listParam)
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_fnListarCategoriaComboContables() As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@Usuario", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_Categoria", _listParam)
+        Return _Tabla
+    End Function
+#End Region
 #Region "SERVICIOS TY008"
 #Region "Transacciones"
     Public Shared Function L_fnGrabarServicio(ByRef _yiId As String, _yiDesc As String, _yiEst As String, _yiUnidad As String) As Boolean

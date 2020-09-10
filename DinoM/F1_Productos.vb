@@ -25,7 +25,7 @@ Public Class F1_Productos
         _prCargarNameLabel()
         _prCargarComboLibreria(cbgrupo1, 1, 1)
         _prCargarComboLibreria(cbgrupo2, 1, 2)
-        _prCargarComboLibreria(cbgrupo3, 1, 3)
+        _prCargarComboCategoria(cbgrupo3)
         _prCargarComboLibreria(cbgrupo4, 1, 4)
         _prCargarComboLibreria(cbUMed, 1, 5)
         _prCargarComboLibreria(cbUniVenta, 1, 6)
@@ -121,7 +121,21 @@ Public Class F1_Productos
         cbUnidMaxima.MaxLength = 2
 
     End Sub
-
+    Private Sub _prCargarComboCategoria(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim dt As New DataTable
+        dt = L_fnListarCategoriaComboContables()
+        With mCombo
+            .DropDownList.Columns.Clear()
+            .DropDownList.Columns.Add("yccod3").Width = 70
+            .DropDownList.Columns("yccod3").Caption = "COD"
+            .DropDownList.Columns.Add("ycdes3").Width = 200
+            .DropDownList.Columns("ycdes3").Caption = "DESCRIPCION"
+            .ValueMember = "yccod3"
+            .DisplayMember = "ycdes3"
+            .DataSource = dt
+            .Refresh()
+        End With
+    End Sub
     Private Sub _prCargarComboLibreria(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo, cod1 As String, cod2 As String)
         Dim dt As New DataTable
         dt = L_prLibreriaClienteLGeneral(cod1, cod2)
@@ -720,11 +734,7 @@ Public Class F1_Productos
     End Sub
 
     Private Sub cbgrupo3_ValueChanged(sender As Object, e As EventArgs) Handles cbgrupo3.ValueChanged
-        If cbgrupo3.SelectedIndex < 0 And cbgrupo3.Text <> String.Empty Then
-            btgrupo3.Visible = True
-        Else
-            btgrupo3.Visible = False
-        End If
+
     End Sub
 
     Private Sub cbgrupo4_ValueChanged(sender As Object, e As EventArgs) Handles cbgrupo4.ValueChanged
@@ -775,7 +785,7 @@ Public Class F1_Productos
         End If
     End Sub
 
-    Private Sub btgrupo3_Click(sender As Object, e As EventArgs) Handles btgrupo3.Click
+    Private Sub btgrupo3_Click(sender As Object, e As EventArgs)
         Dim numi As String = ""
 
         If L_prLibreriaGrabar(numi, "1", "3", cbgrupo3.Text, "") Then
