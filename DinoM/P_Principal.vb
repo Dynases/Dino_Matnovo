@@ -18,7 +18,9 @@ Public Class P_Principal
         ' This call is required by the designer.
         InitializeComponent()
         FP_Configuracion.Select ()
-
+        Dim blah As New Bitmap(New Bitmap(My.Resources.almacen), 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        Me.Icon = ico
         ' Add any initialization after the InitializeComponent() call.
 
     End Sub
@@ -32,6 +34,7 @@ Public Class P_Principal
 
         'iniciar login de usuario
         _prLogin()
+
 
     End Sub
     Private Sub _prCambiarStyle()

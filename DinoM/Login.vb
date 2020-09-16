@@ -44,7 +44,9 @@ Public Class Login
         Timer1.Enabled = True
 
 
-
+        Dim blah As New Bitmap(New Bitmap(My.Resources.man_18), 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        Me.Icon = ico
 
 
     End Sub

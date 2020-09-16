@@ -735,65 +735,15 @@ Public Class F0_Movimiento
         End If
         Return True
     End Function
-    Public Sub _prGardarDetalleAbm(numi As String)
-        Dim Bin As New MemoryStream
-        Dim img As New Bitmap(My.Resources.delete, 28, 28)
-        img.Save(Bin, Imaging.ImageFormat.Png)
-
-        For i As Integer = 0 To CType(grdetalle.DataSource, DataTable).Rows.Count - 1 Step 1
-            Dim estado As Integer = CType(grdetalle.DataSource, DataTable).Rows(i).Item("estado")
-            If (estado = 0) Then
-
-                '              a.icid ,a.icibid ,a.iccprod ,b.yfcdprod1  as producto,a.iccant ,
-                'a.iclot ,a.icfvenc ,Cast(null as image ) as img,1 as estado,
-                '(Sum(inv.iccven )+a.iccant  ) as stock
-                'a.icid ,a.icibid ,a.iccprod ,b.cadesc as producto,a.iccant ,Cast(null as image ) as img,1 as estado
-
-                Dim detalleCopia As DataTable = CType(grdetalle.DataSource, DataTable).Copy
-                detalleCopia.Rows.Clear()
-
-                detalleCopia.Rows.Add(0, numi, CType(grdetalle.DataSource, DataTable).Rows(i).Item("iccprod"), "", "", "", "",
-                                      CType(grdetalle.DataSource, DataTable).Rows(i).Item("iccant"),
-                                      CType(grdetalle.DataSource, DataTable).Rows(i).Item("iclot"),
-                                      CType(grdetalle.DataSource, DataTable).Rows(i).Item("icfvenc"), Bin.GetBuffer, estado, 0)
-                L_prMovimientoChoferABMDetalle(numi, 10, detalleCopia)
-            End If
-            If (estado = 2) Then
-                'a.icid ,a.icibid ,a.iccprod ,b.cadesc as producto,a.iccant ,Cast(null as image ) as img,1 as estado
-                Dim detalleCopia As DataTable = CType(grdetalle.DataSource, DataTable).Copy
-                detalleCopia.Rows.Clear()
-                detalleCopia.Rows.Add(CType(grdetalle.DataSource, DataTable).Rows(i).Item("icid"), numi,
-                                      CType(grdetalle.DataSource, DataTable).Rows(i).Item("iccprod"), "", "", "", "",
-                                      CType(grdetalle.DataSource, DataTable).Rows(i).Item("iccant"), CType(grdetalle.DataSource, DataTable).Rows(i).Item("iclot"),
-                                      CType(grdetalle.DataSource, DataTable).Rows(i).Item("icfvenc"), Bin.GetBuffer, estado, 0)
-                L_prMovimientoChoferABMDetalle(numi, 11, detalleCopia)
-            End If
-            If (estado = -1) Then
-                'a.icid ,a.icibid ,a.iccprod ,b.cadesc as producto,a.iccant ,Cast(null as image ) as img,1 as estado
-                Dim detalleCopia As DataTable = CType(grdetalle.DataSource, DataTable).Copy
-                detalleCopia.Rows.Clear()
-                detalleCopia.Rows.Add(CType(grdetalle.DataSource, DataTable).Rows(i).Item("icid"), numi,
-                                      CType(grdetalle.DataSource, DataTable).Rows(i).Item("iccprod"), "", "", "", "",
-                                      CType(grdetalle.DataSource, DataTable).Rows(i).Item("iccant"),
-                                      CType(grdetalle.DataSource, DataTable).Rows(i).Item("iclot"),
-                                      CType(grdetalle.DataSource, DataTable).Rows(i).Item("icfvenc"), Bin.GetBuffer, estado, 0)
-                L_prMovimientoChoferABMDetalle(numi, 12, detalleCopia)
-            End If
-        Next
-    End Sub
     Sub _prGuardarTraspaso()
         Dim numi As String = ""
-        Dim res As Boolean = L_prMovimientoChoferGrabar(numi, tbFecha.Value.ToString("yyyy/MM/dd"), cbConcepto.Value, tbObservacion.Text, cbAlmacenOrigen.Value, cbDepositoDestino.Value, 0)
+        Dim res As Boolean = L_prMovimientoChoferGrabar(numi, tbFecha.Value.ToString("yyyy/MM/dd"), cbConcepto.Value, tbObservacion.Text, cbAlmacenOrigen.Value, cbDepositoDestino.Value, 0, CType(grdetalle.DataSource, DataTable))
         If res Then
-            If (numi <> String.Empty) Then
-                _prGardarDetalleAbm(numi)
-            End If
+
             Dim numDestino As String = ""
-            Dim resDestino As Boolean = L_prMovimientoChoferGrabar(numDestino, tbFecha.Value.ToString("yyyy/MM/dd"), 5, tbObservacion.Text, cbDepositoDestino.Value, cbAlmacenOrigen.Value, numi)
+            Dim resDestino As Boolean = L_prMovimientoChoferGrabar(numDestino, tbFecha.Value.ToString("yyyy/MM/dd"), 5, tbObservacion.Text, cbDepositoDestino.Value, cbAlmacenOrigen.Value, numi, CType(grdetalle.DataSource, DataTable))
             If resDestino Then
-                If (numDestino <> String.Empty) Then
-                    _prGardarDetalleAbm(numDestino)
-                End If
+
                 _prCargarVenta()
 
                 _Limpiar()
@@ -819,11 +769,9 @@ Public Class F0_Movimiento
 
         End If
         Dim numi As String = ""
-        Dim res As Boolean = L_prMovimientoChoferGrabar(numi, tbFecha.Value.ToString("yyyy/MM/dd"), cbConcepto.Value, tbObservacion.Text, cbAlmacenOrigen.Value, 0, 0)
+        Dim res As Boolean = L_prMovimientoChoferGrabar(numi, tbFecha.Value.ToString("yyyy/MM/dd"), cbConcepto.Value, tbObservacion.Text, cbAlmacenOrigen.Value, 0, 0, CType(grdetalle.DataSource, DataTable))
         If res Then
-            If (numi <> String.Empty) Then
-                _prGardarDetalleAbm(numi)
-            End If
+
             _prCargarVenta()
 
             _Limpiar()
@@ -841,10 +789,9 @@ Public Class F0_Movimiento
 
     End Sub
     Private Sub _prGuardarModificado()
-        Dim res As Boolean = L_prMovimientoModificar(tbCodigo.Text, tbFecha.Value.ToString("yyyy/MM/dd"), cbConcepto.Value, tbObservacion.Text, cbAlmacenOrigen.Value)
+        Dim res As Boolean = L_prMovimientoModificar(tbCodigo.Text, tbFecha.Value.ToString("yyyy/MM/dd"), cbConcepto.Value, tbObservacion.Text, cbAlmacenOrigen.Value, CType(grdetalle.DataSource, DataTable))
         If res Then
 
-            _prGardarDetalleAbm(tbCodigo.Text)
             _prCargarVenta()
 
             _prSalir()
