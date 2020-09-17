@@ -1465,6 +1465,13 @@ Public Class AccesoLogica
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
         Return _Tabla
     End Function
+    Public Shared Function L_fnListarClientesConRazonSocialNit() As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 19))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TV001", _listParam)
+        Return _Tabla
+    End Function
     Public Shared Function L_fnListarProforma() As DataTable
         Dim _Tabla As DataTable
 
