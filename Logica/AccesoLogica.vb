@@ -2388,6 +2388,16 @@ Public Class AccesoLogica
         _Ds.Tables.Add(_Tabla)
         Return _Ds
     End Function
+    Public Shared Function L_Reporte_FacturaVenta(_Numi As String) As DataSet
+        Dim _Tabla As DataTable
+        Dim _Ds As New DataSet
+        Dim _Where As String
+        _Where = " tanumi = " + _Numi
+
+        _Tabla = D_Datos_Tabla("*", "TV001", _Where)
+        _Ds.Tables.Add(_Tabla)
+        Return _Ds
+    End Function
 
     Public Shared Function L_Reporte_Factura_Cia(_Cia As String) As DataSet
         Dim _Tabla As DataTable

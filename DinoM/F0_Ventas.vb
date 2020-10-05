@@ -653,6 +653,12 @@ Public Class F0_Ventas
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = False
         End With
+        With grVentas.RootTable.Columns("fvanfac")
+            .Width = 100
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .Caption = "Nº FACTURA"
+        End With
         With grVentas.RootTable.Columns("taclpr")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -686,12 +692,7 @@ Public Class F0_Ventas
             .Visible = False
             .Caption = "MONEDA"
         End With
-        With grVentas.RootTable.Columns("taobs")
-            .Width = 200
-            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-            .Visible = True
-            .Caption = "OBSERVACION"
-        End With
+
         With grVentas.RootTable.Columns("tadesc")
             .Width = 50
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
@@ -733,6 +734,12 @@ Public Class F0_Ventas
             .Visible = True
             .Caption = "TOTAL"
             .FormatString = "0.00"
+        End With
+        With grVentas.RootTable.Columns("taobs")
+            .Width = 200
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+            .Visible = True
+            .Caption = "OBSERVACION"
         End With
         With grVentas.RootTable.Columns("taemision")
             .Width = 50
@@ -1681,7 +1688,8 @@ Public Class F0_Ventas
         Dim h As Double = g * (gi_IVA / 100)
 
         Dim res As Boolean = False
-        'Grabado de Cabesera Factura
+
+        'Grabado de Cabecera Factura
         L_Grabar_Factura(numi,
                         dtiFechaFactura.Value.ToString("yyyy/MM/dd"),
                         IIf(Val(tbNroFactura.Text) = 0, "0", tbNroFactura.Text),
@@ -1734,7 +1742,7 @@ Public Class F0_Ventas
 
     Private Sub P_prImprimirFacturar(numi As String, impFactura As Boolean, grabarPDF As Boolean)
         Dim _Fecha, _FechaAl As Date
-        Dim _Ds, _Ds1, _Ds2, _Ds3 As New DataSet
+        Dim _Ds, _Ds1, _Ds2, _Ds3, _Ds4 As New DataSet
         Dim _Autorizacion, _Nit, _Fechainv, _Total, _Key, _Cod_Control, _Hora,
             _Literal, _TotalDecimal, _TotalDecimal2 As String
         Dim I, _NumFac, _numidosif, _TotalCC As Integer
@@ -1746,9 +1754,10 @@ Public Class F0_Ventas
         If Not IsNothing(P_Global.Visualizador) Then
             P_Global.Visualizador.Close()
         End If
+        _Ds4 = L_Reporte_FacturaVenta(numi)
 
-        _Fecha = Now.Date '.ToString("dd/MM/yyyy")
-        _Hora = Now.Hour.ToString + ":" + Now.Minute.ToString
+        _Fecha = dtiFechaFactura.Value
+        _Hora = _Ds4.Tables(0).Rows(0).Item("tahact").ToString
         _Ds1 = L_Dosificacion("1", "1", _Fecha)
 
         _Ds = L_Reporte_Factura(numi, numi)
@@ -1832,7 +1841,7 @@ Public Class F0_Ventas
                 End If
 
                 objrep.SetDataSource(_Ds.Tables(0))
-                'objrep.SetParameterValue("Hora", _Hora)
+                objrep.SetParameterValue("Hora", _Hora)
                 objrep.SetParameterValue("Direccionpr", _Ds2.Tables(0).Rows(0).Item("scdir").ToString)
                 objrep.SetParameterValue("Telefonopr", _Ds2.Tables(0).Rows(0).Item("sctelf").ToString)
                 objrep.SetParameterValue("Literal1", _Literal)
@@ -1886,6 +1895,131 @@ Public Class F0_Ventas
             Next
         End If
         L_Actualiza_Dosificacion(_numidosif, _NumFac, numi)
+    End Sub
+    Private Sub P_prReImprimirFacturar(numi As String, impFactura As Boolean, grabarPDF As Boolean)
+        Dim _Fecha, _FechaAl As Date
+        Dim _Ds, _Ds1, _Ds2, _Ds3, _Ds4 As New DataSet
+        Dim _Autorizacion, _Nit, _Fechainv, _Total, _Key, _Cod_Control, _Hora,
+            _Literal, _TotalDecimal, _TotalDecimal2 As String
+        Dim I, _NumFac, _numidosif, _TotalCC As Integer
+        Dim ice, _Desc, _TotalLi As Decimal
+        Dim _VistaPrevia As Integer = 0
+
+
+        _Desc = CDbl(tbMdesc.Value)
+        If Not IsNothing(P_Global.Visualizador) Then
+            P_Global.Visualizador.Close()
+        End If
+        _Ds4 = L_Reporte_FacturaVenta(numi)
+
+        _Fecha = dtiFechaFactura.Value
+        _Hora = _Ds4.Tables(0).Rows(0).Item("tahact").ToString
+        _Ds1 = L_Dosificacion("1", "1", _Fecha)
+
+        _Ds = L_Reporte_Factura(numi, numi)
+
+
+        _Autorizacion = _Ds1.Tables(0).Rows(0).Item("sbautoriz").ToString
+        _NumFac = CInt(_Ds.Tables(0).Rows(0).Item("fvanfac").ToString)
+        _Nit = _Ds.Tables(0).Rows(0).Item("fvanitcli").ToString
+        _Fechainv = Microsoft.VisualBasic.Right(_Fecha.ToShortDateString, 4) +
+                    Microsoft.VisualBasic.Right(Microsoft.VisualBasic.Left(_Fecha.ToShortDateString, 5), 2) +
+                    Microsoft.VisualBasic.Left(_Fecha.ToShortDateString, 2)
+        _Total = _Ds.Tables(0).Rows(0).Item("fvatotal").ToString
+        ice = _Ds.Tables(0).Rows(0).Item("fvaimpsi")
+        _numidosif = _Ds1.Tables(0).Rows(0).Item("sbnumi").ToString
+        _Key = _Ds1.Tables(0).Rows(0).Item("sbkey")
+        _FechaAl = _Ds1.Tables(0).Rows(0).Item("sbfal")
+
+        'Dim maxNFac As Integer = L_fnObtenerMaxIdTabla("TFV001", "fvanfac", "fvaautoriz = " + _Autorizacion)
+        '_NumFac = maxNFac + 1
+
+        _TotalCC = Math.Round(CDbl(_Total), MidpointRounding.AwayFromZero)
+        _Cod_Control = ControlCode.generateControlCode(_Autorizacion, _NumFac, _Nit, _Fechainv, CStr(_TotalCC), _Key)
+
+        'Literal 
+        _TotalLi = _Ds.Tables(0).Rows(0).Item("fvastot") - _Ds.Tables(0).Rows(0).Item("fvadesc")
+        _TotalDecimal = _TotalLi - Math.Truncate(_TotalLi)
+        _TotalDecimal2 = CDbl(_TotalDecimal) * 100
+
+        'Dim li As String = Facturacion.ConvertirLiteral.A_fnConvertirLiteral(CDbl(_Total) - CDbl(_TotalDecimal)) + " con " + IIf(_TotalDecimal2.Equals("0"), "00", _TotalDecimal2) + "/100 Bolivianos"
+        _Literal = Facturacion.ConvertirLiteral.A_fnConvertirLiteral(CDbl(_TotalLi) - CDbl(_TotalDecimal)) + " con " + IIf(_TotalDecimal2.Equals("0"), "00", _TotalDecimal2) + "/100 Bolivianos"
+        _Ds2 = L_Reporte_Factura_Cia("1")
+        QrFactura.Text = _Ds2.Tables(0).Rows(0).Item("scnit").ToString + "|" + Str(_NumFac).Trim + "|" + _Autorizacion + "|" + _Fecha + "|" + _Total + "|" + _TotalLi.ToString + "|" + _Cod_Control + "|" + TbNit.Text.Trim + "|" + ice.ToString + "|0|0|" + Str(_Desc).Trim
+
+        _Ds = L_Reporte_Factura(numi, numi)
+
+        For I = 0 To _Ds.Tables(0).Rows.Count - 1
+            _Ds.Tables(0).Rows(I).Item("fvaimgqr") = P_fnImageToByteArray(QrFactura.Image)
+        Next
+        If (impFactura) Then
+            For imp = 1 To 2
+
+                _Ds3 = L_ObtenerRutaImpresora("1") ' Datos de Impresion de Facturación
+                If (_Ds3.Tables(0).Rows(0).Item("cbvp")) Then 'Vista Previa de la Ventana de Vizualización 1 = True 0 = False
+                    P_Global.Visualizador = New Visualizador 'Comentar
+                End If
+                Dim objrep As Object = Nothing
+                If (gi_FacturaTipo = 1) Then
+                    'objrep = New R_FacturaG
+                ElseIf (gi_FacturaTipo = 2) Then
+                    objrep = New R_FacturaCarta
+                    If (Not _Ds.Tables(0).Rows.Count = gi_FacturaCantidadItems) Then
+                        For index = _Ds.Tables(0).Rows.Count To gi_FacturaCantidadItems - 1
+                            'Insertamos la primera fila con el saldo Inicial
+                            Dim f As DataRow = _Ds.Tables(0).NewRow
+                            f.ItemArray() = _Ds.Tables(0).Rows(0).ItemArray
+                            f.Item("fvbcant") = -1
+                            _Ds.Tables(0).Rows.Add(f)
+                        Next
+                    End If
+                End If
+
+                objrep.SetDataSource(_Ds.Tables(0))
+                objrep.SetParameterValue("Hora", _Hora)
+                objrep.SetParameterValue("Direccionpr", _Ds2.Tables(0).Rows(0).Item("scdir").ToString)
+                objrep.SetParameterValue("Telefonopr", _Ds2.Tables(0).Rows(0).Item("sctelf").ToString)
+                objrep.SetParameterValue("Literal1", _Literal)
+                objrep.SetParameterValue("Literal2", " ")
+                objrep.SetParameterValue("Literal3", " ")
+                objrep.SetParameterValue("NroFactura", _NumFac)
+                objrep.SetParameterValue("NroAutoriz", _Autorizacion)
+                objrep.SetParameterValue("ENombre", _Ds2.Tables(0).Rows(0).Item("scneg").ToString) '?
+                objrep.SetParameterValue("ECasaMatriz", _Ds2.Tables(0).Rows(0).Item("scsuc").ToString)
+                objrep.SetParameterValue("ECiudadPais", _Ds2.Tables(0).Rows(0).Item("scciu").ToString)
+                objrep.SetParameterValue("ESFC", _Ds1.Tables(0).Rows(0).Item("sbsfc").ToString)
+                objrep.SetParameterValue("ENit", _Ds2.Tables(0).Rows(0).Item("scnit").ToString)
+                objrep.SetParameterValue("EActividad", _Ds2.Tables(0).Rows(0).Item("scact").ToString)
+                objrep.SetParameterValue("ESms", _Ds1.Tables(0).Rows(0).Item("sbnota").ToString)
+                objrep.SetParameterValue("ESms2", "''" + _Ds1.Tables(0).Rows(0).Item("sbnota2").ToString + "''")
+                objrep.SetParameterValue("EDuenho", _Ds2.Tables(0).Rows(0).Item("scnom").ToString) '?
+                objrep.SetParameterValue("URLImageLogo", gs_CarpetaRaiz + "\LogoFactura.jpg")
+                objrep.SetParameterValue("URLImageMarcaAgua", gs_CarpetaRaiz + "\MarcaAguaFactura.jpg")
+                If imp = 1 Then
+                    objrep.SetParameterValue("Tipo", "ORIGINAL")
+                Else
+                    objrep.SetParameterValue("Tipo", "COPIA")
+                End If
+
+
+                If (_Ds3.Tables(0).Rows(0).Item("cbvp")) Then 'Vista Previa de la Ventana de Vizualización 1 = True 0 = False
+                    P_Global.Visualizador.CrGeneral.ReportSource = objrep 'Comentar
+                    P_Global.Visualizador.ShowDialog() 'Comentar
+                    P_Global.Visualizador.BringToFront() 'Comentar
+                End If
+
+                Dim pd As New PrintDocument()
+                pd.PrinterSettings.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
+                If (Not pd.PrinterSettings.IsValid) Then
+                    ToastNotification.Show(Me, "La Impresora ".ToUpper + _Ds3.Tables(0).Rows(0).Item("cbrut").ToString + Chr(13) + "No Existe".ToUpper,
+                                           My.Resources.WARNING, 5 * 1000,
+                                           eToastGlowColor.Blue, eToastPosition.BottomRight)
+                Else
+                    objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString '"EPSON TM-T20II Receipt5 (1)"
+                    objrep.PrintToPrinter(1, False, 1, 1)
+                End If
+            Next
+        End If
     End Sub
 
     Public Function P_fnImageToByteArray(ByVal imageIn As Image) As Byte()
@@ -2702,32 +2836,27 @@ salirIf:
                 CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcantc") = CjReal
                 CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcantc") = CjReal * conv
 
-
-
-
-
                 'grdetalle.SetValue("tbcmin", 1)
                 'grdetalle.SetValue("tbptot", grdetalle.GetValue("tbpbas"))
             Else
                 If (grdetalle.GetValue("tbcantu") > 0) Then
 
-
                     Dim rowIndex As Integer = grdetalle.Row
-                        Dim porcdesc As Double = grdetalle.GetValue("tbporc")
-                        Dim montodesc As Double = ((grdetalle.GetValue("tbpbas") * grdetalle.GetValue("tbcmin")) * (porcdesc / 100))
-                        Dim lin As Integer = grdetalle.GetValue("tbnumi")
-                        Dim pos As Integer = -1
-                        _fnObtenerFilaDetalle(pos, lin)
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = montodesc
-                        grdetalle.SetValue("tbdesc", montodesc)
+                    Dim porcdesc As Double = grdetalle.GetValue("tbporc")
+                    Dim montodesc As Double = ((grdetalle.GetValue("tbpbas") * grdetalle.GetValue("tbcmin")) * (porcdesc / 100))
+                    Dim lin As Integer = grdetalle.GetValue("tbnumi")
+                    Dim pos As Integer = -1
+                    _fnObtenerFilaDetalle(pos, lin)
+                    CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbdesc") = montodesc
+                    grdetalle.SetValue("tbdesc", montodesc)
 
-                        'Saca la conversión de cada producto
+                    'Saca la conversión de cada producto
+                    codprod = grdetalle.GetValue("tbty5prod")
+                    Dim dtconv As New DataTable
+                    dtconv = L_fnConversionProd(codprod)
+                    conv = dtconv.Rows(0).Item("yfvsup")
 
-
-                        codprod = grdetalle.GetValue("tbty5prod")
-                        Dim dtconv As New DataTable
-                        dtconv = L_fnConversionProd(codprod)
-                        conv = dtconv.Rows(0).Item("yfvsup")
+                    If dtconv.Rows(0).Item("yfgr1") = 1 Then
                         CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbccaja") = grdetalle.GetValue("tbcantu") / conv
                         grdetalle.SetValue("tbccaja", grdetalle.GetValue("tbcantu") / conv)
                         Dim CjReal As Integer = Math.Ceiling(grdetalle.GetValue("tbccaja"))
@@ -2735,6 +2864,16 @@ salirIf:
                         grdetalle.SetValue("tbcmin", CjReal * conv)
                         CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcantc") = CjReal
                         CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcantc") = CjReal * conv
+                    Else
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbccaja") = grdetalle.GetValue("tbcantu") / conv
+                        grdetalle.SetValue("tbccaja", grdetalle.GetValue("tbcantu") / conv)
+                        Dim CjReal As Double = (grdetalle.GetValue("tbccaja"))
+                        grdetalle.SetValue("tbcantc", CjReal)
+                        grdetalle.SetValue("tbcmin", CjReal * conv)
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcantc") = CjReal
+                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcantc") = CjReal * conv
+                    End If
+
 
                     Dim stock As Double = grdetalle.GetValue("stock")
                     Dim cantidad As Double = grdetalle.GetValue("tbcmin")
@@ -2751,28 +2890,35 @@ salirIf:
                         grdetalle.SetValue("tbcantu", 0)
 
                         codprod = grdetalle.GetValue("tbty5prod")
-
                         dtconv = L_fnConversionProd(codprod)
                         conv = dtconv.Rows(0).Item("yfvsup")
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbccaja") = grdetalle.GetValue("tbcantu") / conv
-                        grdetalle.SetValue("tbccaja", grdetalle.GetValue("tbcantu") / conv)
-                        CjReal = Math.Ceiling(grdetalle.GetValue("tbccaja"))
-                        grdetalle.SetValue("tbcantc", CjReal)
-                        grdetalle.SetValue("tbcmin", CjReal * conv)
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcantc") = CjReal
-                        CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcantc") = CjReal * conv
 
+                        If dtconv.Rows(0).Item("yfgr1") = 1 Then
+                            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbccaja") = grdetalle.GetValue("tbcantu") / conv
+                            grdetalle.SetValue("tbccaja", grdetalle.GetValue("tbcantu") / conv)
+                            Dim CjReal As Integer = Math.Ceiling(grdetalle.GetValue("tbccaja"))
+                            grdetalle.SetValue("tbcantc", CjReal)
+                            grdetalle.SetValue("tbcmin", CjReal * conv)
+                            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcantc") = CjReal
+                            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcantc") = CjReal * conv
+                        Else
+                            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbccaja") = grdetalle.GetValue("tbcantu") / conv
+                            grdetalle.SetValue("tbccaja", grdetalle.GetValue("tbcantu") / conv)
+                            Dim CjReal As Double = (grdetalle.GetValue("tbccaja"))
+                            grdetalle.SetValue("tbcantc", CjReal)
+                            grdetalle.SetValue("tbcmin", CjReal * conv)
+                            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcantc") = CjReal
+                            CType(grdetalle.DataSource, DataTable).Rows(pos).Item("tbcantc") = CjReal * conv
+                        End If
 
                         _prCalcularPrecioTotal()
                         P_PonerTotal(rowIndex)
 
-
                     End If
 
-
                     P_PonerTotal(rowIndex)
-                    Else
-                        Dim rowIndex As Integer = grdetalle.Row
+                Else
+                    Dim rowIndex As Integer = grdetalle.Row
                     Dim lin As Integer = grdetalle.GetValue("tbnumi")
                     Dim pos As Integer = -1
                     _fnObtenerFilaDetalle(pos, lin)
@@ -3233,7 +3379,7 @@ salirIf:
     Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
         If (Not _fnAccesible()) Then
             'P_GenerarReporte(tbCodigo.Text)
-            P_prImprimirFacturar(tbCodigo.Text, True, True)
+            P_prReImprimirFacturar(tbCodigo.Text, True, True)
         End If
     End Sub
 
